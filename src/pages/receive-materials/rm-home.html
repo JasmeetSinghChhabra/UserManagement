@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Receive Materials
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="switchProgram()">
+        {{app.projectName}}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content">
+  <ion-card *ngFor="let sm of getRMSubModules()">
+    <ion-card-header>
+      {{sm.SMDescription}}
+    </ion-card-header>
+
+    <ion-list>
+      <button ion-item (click)="receiveMaterials(sm.SMSID)" detail-none>
+        All
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+</ion-content>

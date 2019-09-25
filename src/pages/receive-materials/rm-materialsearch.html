@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Nexius Materials [{{app.projectName}}]
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="main-slide">
+    <ion-list>
+      <form #siteSearchForm="ngForm">
+        <ion-grid>
+          <ion-row>
+            <ion-label stacked>PO #</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-col col-sm-10>
+              <ion-item>
+                <ion-input type="text" [(ngModel)]="searchPONumber" name="searchPONumber" clearInput></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-auto><button float-right ion-button type="button" (click)="scanPO()">
+                <i class="fa fa-barcode"></i> <span style="padding-left:5px">Scan </span>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+
+    </ion-list>
+
+    <div style="width: 100%; padding: 10px;">
+      <button id="searchButton" ion-button color="primary" full (click)="poSearch()">Search</button>
+    </div>
+
+  </div>
+</ion-content>

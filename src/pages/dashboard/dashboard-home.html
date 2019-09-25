@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Dashboards {{getPageTitle()}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <button ion-item *ngFor="let item of dashboards" (click)="itemSelected($event, item)">
+      <ion-avatar item-start *ngIf="isGroup(item)">
+        <img (error)="imageError($event);" src={{getGroupImage(item)}}>
+      </ion-avatar>
+      <span class="initials" item-start *ngIf="!isGroup(item)">
+        <span class="initial">{{getInitials(item.text)}}</span>
+      </span>
+      <h2>{{item.text}}</h2>
+    </button>
+
+    <ion-item *ngIf="!dashboards|| dashboards.length==0">
+      No Dashboards
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Assign {{workOrderHeader}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="woi-col">
+        <div class="title">
+            Assign To
+        </div>
+        <select-searchable
+            title="Assignee name"
+            [(ngModel)]="assignedUserSID"
+            [items]="assigneeUsers"
+            itemValueField="UserSid"
+            itemTextField="UserName"
+            [canSearch]="true"
+            placeholder ="Select Assignee"
+            [canInfiniteScroll]="true"
+            [showItemsCount]="true"
+            name="UserSid"
+            item-content>
+        </select-searchable>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-grid>
+        <ion-row class="lot-number-butttons">
+            <ion-col col-12>
+                <ion-buttons start>
+                    <button ion-button color="danger" (click)="cancel()">
+                        <span ion-text>Cancel</span>
+                      </button>
+                     <button ion-button color="primary" (click)="assignWorkOrders()" [disabled]="!assignedUserSID">
+                        <span ion-text>Assign</span>
+                    </button>
+                </ion-buttons>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

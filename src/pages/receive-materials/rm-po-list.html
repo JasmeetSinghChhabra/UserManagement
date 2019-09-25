@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <!-- Menu button  -->
+    <button *ngIf="!toggled" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!-- Title -->
+    <ion-title *ngIf="!toggled" text-center>
+      Purchase Orders
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- shrink-header -->
+  <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content pullingText="Pull to refresh..." refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+
+    <button ion-item class="item" *ngFor="let poHeader of POHeaders" (click)="itemTapped($event, poHeader)">
+
+      <div class="item-row1">
+        {{ poHeader.PONumber }}
+      </div>
+
+      <div class="item-row2">
+        Job #: {{ poHeader.JobNumber }}
+      </div>
+
+      <div class="item-row2">
+        PTN: {{ poHeader.SitePTN }}
+      </div>
+
+      <div class="item-row2">
+        Callout #: {{ poHeader.CalloutNumber }}
+      </div>
+
+      <div class="item-row2">
+        Status: {{ poHeader.Status }}
+      </div>
+
+    </button>
+
+  </ion-list>
+
+  <!--  
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+-->
+
+</ion-content>

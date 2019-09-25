@@ -1,0 +1,353 @@
+/*
+ * PubNub ChatEngine styles
+ */
+ .outer-content{
+  background: #444753;
+
+  .chat-engine-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .main-area-container {
+      flex: 1 1 auto;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1 !important;
+
+      #acc-video-chat {
+        flex: 1 1 auto;
+
+        .App-main {
+          height: calc(100vh - 80px);
+          width: 100vw;
+          border: none;
+          margin: 0;
+          background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.3) 100%);
+        }
+      }
+
+      .App-chat-container-wrapper {
+        height: calc(100vh - 80px);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 5px;
+        opacity: 0;
+        transition: all .5s ease;
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+
+        &.show-chat {
+          display: block;
+          opacity: 1;
+        }
+
+        &.disable-chat {
+          display: none !important;
+        }
+
+        .App-chat-container {
+          height: 100%;
+          
+          section {
+            height: 100%;
+            
+            .ots-text-chat-container {
+              height: 100%;
+              
+              .ots-text-chat {
+                height: 100%;
+                margin-top: 0;
+
+                #otsChatWrap {
+                  height: 100%;
+                  display: flex;
+                  flex-direction: column;
+
+                  .ots-messages-holder {
+                    flex: 1 1 auto;
+                    background: map-get($accuvcolors, accuv-gray);
+
+                    &.has-alert {
+                      padding-top: 0;
+                    }
+                    .ots-message-item {
+                      margin: 20px 15px 10px 10px;
+
+                      .ots-user-name-initial {
+                        color: map-get($accuvcolors, accuv-blue-secondary);
+                        background: map-get($colors, white);
+                        font-weight: 500;
+                      }
+
+                      &.ots-message-sent {
+                        margin: 20px 10px 10px 15px;
+
+                        .ots-user-name-initial {
+                          color: map-get($colors, white);
+                          background: map-get($accuvcolors, accuv-orange);
+                        }
+                      }
+                    }
+                  }
+                  .ots-send-message-box {
+                    input[type=text] {
+                      padding: 18px 9px 36px 18px;
+                    }
+                    .ots-character-count {
+                      padding: 4px 4px 0;
+                      line-height: 14px;
+                      bottom: 0;
+                      left: 0;
+                      right: 0;
+                      background: map-get($accuvcolors, accuv-blue-secondary);
+                      color: map-get($colors, white);
+                      z-index: 29;
+                    }
+                    button {
+                      width: 60px;
+                      height: 60px;
+                      z-index: 30;
+                      background-color: map-get($accuvcolors, accuv-blue);
+                      border: none;
+                      color: map-get($colors, white);
+                      border-radius: 50%;
+                      box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+                      top: 5px;
+                      right: 5px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .chat-call-buttons{
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 80px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.3) 100%);
+      position: relative;
+      z-index: 2 !important;
+
+      .end-call-button {
+        background-color: map-get($accuvcolors, accuv-danger) !important;
+        padding: 10px;
+  
+        .button-inner {
+            .custom-icon{
+              display: block;
+              width: 70%;
+              margin-top: 50%;
+            }
+        }
+      }
+
+      .videochat-button {
+        background-color: map-get($accuvcolors, accuv-blue) !important;
+        padding: 10px;
+  
+        .button-inner {
+            .an-icon {
+                display: block;
+                width: 19px;
+                margin-top: 7px;
+            }
+            .custom-icon{
+              display: block;
+              width: 70%;
+              margin-top: 50%;
+            }
+        }
+      }
+
+      .toggle-chat-button {
+        &.chat-enabled {
+          background-color: map-get($accuvcolors, accuv-success);
+        }
+      }
+
+      .disabled-button {
+        background-color: #aaaaaa;
+        padding: 10px;
+  
+        .button-inner {
+          .an-icon {
+              display: block;
+              width: 19px;
+              margin-top: 7px;
+          }
+          .custom-icon{
+            display: block;
+            width: 70%;
+            margin-top: 50%;
+          }
+        }
+      }
+    }
+  } 
+}
+
+
+/*
+ * OpenTok AccCore styles
+ */
+
+ // cordova-plugin-opentok (see https://github.com/opentok/cordova-plugin-opentok/tree/master/docs)
+ 
+ // We can use class OT_root in our repository, but the main things is that the publisher container gets a black background color from OT, this needs to be removed in your CSS!
+ html, body, .OT_root {
+   background: transparent !important;
+ }
+ 
+ // Each publisher and eachsubscriber video element should have display none
+ .OT_root video {
+   display: none !important;
+ }
+ // cordova-plugin-opentok
+ 
+ /*
+ .App-main {
+     position: relative;
+     width: 75vw;
+     height: calc(75vw * .6);
+     margin: 10px auto;
+     border: 1px solid lightblue;
+ }
+ */
+ 
+ /*
+ .App-video-container {
+     position: relative;
+     width: 100%;
+     height: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+ .App-video-container .video-container {
+     width: 100%;
+     height: 100%;
+     display: flex;
+     z-index: 1;
+     position: relative;
+ }
+ 
+ .App-video-container .video-container.small {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 160px;
+    height: 96px;
+    z-index: 2;
+    width: 96px;
+    height: 160px;
+ }
+ .App-video-container .video-container.small.left {
+     left: 20px;
+     border: 1px solid #00fcc2;
+ }
+ 
+ .App-video-container .video-container.hidden {
+     display: none;
+ }
+ 
+ .App-video-container .video-container.active-2 .OT_subscriber {
+     width: 50%;
+ }
+ 
+ .App-video-container .video-container.active-3 .OT_subscriber {
+     width: calc(100%/3) !important;
+ }
+ 
+ .App-video-container .video-container.active-4 {
+     flex-wrap: wrap;
+ }
+ 
+ .App-video-container .video-container.active-4 .OT_subscriber {
+     width: 50% !important;
+     height: 50% !important;
+ }
+ */
+
+#cameraSubscriberContainer {
+
+  @media screen and (orientation: portrait) {
+    position: absolute;
+    top: calc(180px + 5vw);
+    left: 5vw;
+    width: 90vw !important;
+    height: calc(90vw * 0.563) !important;
+  }
+  
+  @media screen and (orientation: landscape) {
+    margin-right: 106px;
+    margin: calc(((100vh - 80px) - (90vh - 80px))*0.5);
+    width: calc((90vh - 80px) * 1.778) !important;
+    height: calc(90vh - 80px) !important;
+  }
+}
+
+#cameraPublisherContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  @media screen and (orientation: landscape) {
+    width: 160px !important;
+    height: 96px !important;
+  }
+
+  @media screen and (orientation: portrait) {
+    width: 96px !important;
+    height: 160px !important;
+  }
+}
+
+progress-spinner {
+   display: inline-block;
+   width: 1em;
+   height: 1em;
+   border: 1px solid transparent;
+   border-top-color: rgba(0, 0, 0, 0.6);
+   border-radius: 50%;
+   -webkit-animation: rotate 800ms linear infinite;
+           animation: rotate 800ms linear infinite;
+ }
+ progress-spinner[dark] {
+   border-top-color: rgba(255, 255, 255, 0.6);
+ }
+ progress-spinner[dotted] {
+   border-width: 0;
+   border-style: dotted;
+   border-top-width: 2px;
+ }
+ @-webkit-keyframes rotate {
+   0% {
+     -webkit-transform: rotate(0deg);
+             transform: rotate(0deg);
+   }
+   100% {
+     -webkit-transform: rotate(360deg);
+             transform: rotate(360deg);
+   }
+ }
+ @keyframes rotate {
+   0% {
+     -webkit-transform: rotate(0deg);
+             transform: rotate(0deg);
+   }
+   100% {
+     -webkit-transform: rotate(360deg);
+             transform: rotate(360deg);
+   }
+ }
+ 

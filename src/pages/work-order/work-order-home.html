@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Work Orders
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="switchProgram()">
+        {{app.projectName}}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content">
+
+  <ion-card *ngFor="let workOrderType of WorkOrderTypes">
+    <ion-card-header>
+      <ion-icon name="{{workOrderType.TypeIcon}}" item-left></ion-icon>
+      {{workOrderType.TypeDescription}}
+    </ion-card-header>
+
+    <ion-list>
+      <button ion-item (click)="itemTapped(workOrderType)" detail-none>
+        All
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+
+</ion-content>

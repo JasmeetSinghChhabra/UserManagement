@@ -1,0 +1,23 @@
+﻿{
+  "android": {
+    "release": {
+      "keystore": ".\\accuv-mobile.keystore",
+      "storePassword": "accuvmobile",
+      "alias": "accuv",
+      "password": "accuvmobile",
+      "keystoreType": ""
+    }
+  },
+  "ios": {
+    "debug": {
+      "developmentTeam": "AUF3AS74K5"
+    },
+    "release": {
+      "developmentTeam": "AUF3AS74K5",
+      "codeSignIdentity": "iPhone Developer",
+      "packageType": "ad-hoc"
+     
+    }
+    
+  }
+}

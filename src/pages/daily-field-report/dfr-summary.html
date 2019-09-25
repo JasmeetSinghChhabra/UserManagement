@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>DFR Summary [{{model.SiteNumber}}]</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-toolbar>
+        <ion-title class="custom-ion-title">
+          <h6 style="font-weight:bold;white-space: normal">Time Summary submitted by {{model.SubmittedUserDesc}} on {{model.SubmittedDate | date: "MM/dd/yyyy"}} </h6>
+        </ion-title>
+    </ion-toolbar>
+
+    <!-- Summary list -->
+    <ion-list class="summary-list">
+
+        <ion-item *ngFor="let summary of model.ReportEmployeesSummary">
+
+            <div item-content class="summary-item-content">
+
+                <ion-grid>
+                    <ion-row align-items-center (click)="expandSummaryItem(summary)">
+                        <ion-col col-7 style="text-align: left">
+                          <div>
+                            <h2><b>{{summary.EmployeeName}}</b></h2>
+                            <p>Break Time: <span *ngIf="!summary.TotalLunchDuration">N/A</span><span *ngIf="summary.TotalLunchDuration == 60">1hr</span> <span *ngIf="summary.TotalLunchDuration < 60 && summary.TotalLunchDuration > 0">{{summary.TotalLunchDuration}}mins</span></p>
+                            <p>PTO Taken: <span *ngIf="!summary.PTOTaken">N/A</span><span *ngIf="summary.PTOTaken">{{summary.PTOTaken}}</span></p>
+                            <p>PTO Balance: <span *ngIf="!summary.PTOBalance">N/A</span><span *ngIf="summary.PTOBalance">{{summary.PTOBalance}}</span></p>
+                          </div>
+                        </ion-col>
+                        <ion-col col-5 style="text-align: right">
+                            <ion-badge item-end color="secondary">Total Hours: {{summary.TotalHours}}</ion-badge>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+                <expandable [expandHeight]="auto" [expanded]="summary.Expanded">
+                    <button ion-item *ngFor="let site of summary.Sites" align-items-center class="button-site" [class.differentReport]="isDifferentReport(summary)">
+                        <i class="fa fa-exclamation-circle" *ngIf="model.Status == 'Submitted'" item-start></i>
+                        <i class="fa fa-check-circle" *ngIf="model.Status == 'Approved'" item-start></i>
+                        <i class="fa fa-times-circle" *ngIf="model.Status == 'Rejected'" item-start></i>
+                        <p>{{site.SiteName}}</p>
+                        <ion-badge item-end>{{site.Hours}} hrs</ion-badge>
+                    </button>
+                </expandable>
+
+            </div>
+
+        </ion-item>
+
+    </ion-list>
+
+    <ion-fab right bottom>
+        <button ion-fab mini (click)="rejectDfr()" color="danger"><ion-icon name="close"></ion-icon></button>
+        <button ion-fab mini (click)="approveDfr()" color="success"><ion-icon name="checkmark"></ion-icon></button>
+
+        <!--<button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
+        <ion-fab-list side="left">
+            <button ion-fab (click)="approveDfr()"><ion-icon name="checkmark-circle"></ion-icon></button>
+            <button ion-fab (click)="rejectDfr()"><ion-icon name="close-circle"></ion-icon></button>
+        </ion-fab-list>-->
+    </ion-fab>
+
+</ion-content>

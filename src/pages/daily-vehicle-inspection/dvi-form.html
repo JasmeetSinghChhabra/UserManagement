@@ -1,0 +1,190 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>DVI [{{model.DviStatusId}}] [{{app.projectName}}]</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div [ngSwitch]="page">
+    <div *ngSwitchCase="'carrier'" class="carrier-slide">
+
+      <ion-list>
+        <form #dviForm1="ngForm">
+          <ion-item style="display: none">
+            <ion-label stacked>ID</ion-label>
+            <ion-input type="text" [(ngModel)]="model.VehicleInspectionId" name="VehicleInspectionId"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked><span class="required">*</span>Carrier</ion-label>
+            <ion-input type="text" [(ngModel)]="model.InspectionCarrier" name="InspectionCarrier"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked><span class="required">*</span>Address</ion-label>
+            <ion-input type="text" [(ngModel)]="model.InspectionAddress" name="InspectionAddress"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked><span class="required">*</span>Truck #</ion-label>
+            <select-searchable title="Truck #"
+                               [(ngModel)]="model.TruckNo"
+                               [items]="VehicleInspectionTrucks"
+                               itemValueField="TruckNo"
+                               itemTextField="TruckDescription"
+                               [canSearch]="true"
+                               name="TruckNo"
+                               item-content>
+            </select-searchable>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Trailer #</ion-label>
+            <select-searchable title="Trailer #"
+                               [(ngModel)]="model.VehicleInspectionTrailerDetails[0].TrailerNo"
+                               [items]="VehicleInspectionTrailers"
+                               itemValueField="TrailerNo"
+                               itemTextField="TrailerDescription"
+                               [canSearch]="true"
+                               name="TrailerNo"
+                               [disabled]="!model.TruckNo || model.TruckNo == 'No Truck'"
+                               item-content>
+            </select-searchable>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Date</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" disabled="disabled" [(ngModel)]="model.InspectionDate" name="InspectionDate" #ReportDate="ngModel"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked><span class="required">*</span>Time</ion-label>
+            <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" [(ngModel)]="model.InspectionTime" name="InspectionTime" #ReportDate="ngModel"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Odometer Reading</ion-label>
+            <ion-input type="number" [(ngModel)]="model.Odometer" name="Odometer"></ion-input>
+          </ion-item>
+        </form>
+      </ion-list>
+
+    </div>
+
+    <div *ngSwitchCase="'vehicle'" class="vehicle-slide">
+      <ion-list>
+        <form #dviForm2="ngForm">
+          <ion-item>
+            <ion-label stacked>Truck Components</ion-label>
+            <select-searchable title="Truck Components"
+                               [multiple]="true"
+                               [useObject]="true"
+                               [(ngModel)]="truckComponents"
+                               [items]="VehicleInspectionTruckComponents"
+                               itemValueField="ComponentId"
+                               itemTextField="ComponentDescription"
+                               [canSearch]="true"
+                               name="VehicleInspectionTruckComponent"
+                               [disabled]="!model.TruckNo || model.TruckNo == 'No Truck'"
+                               item-content>
+            </select-searchable>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Trailer Components</ion-label>
+            <select-searchable title="Trailer Components"
+                               [multiple]="true"
+                               [useObject]="true"
+                               [(ngModel)]="trailerComponents"
+                               [items]="VehicleInspectionTrailerComponents"
+                               itemValueField="ComponentId"
+                               itemTextField="ComponentDescription"
+                               [canSearch]="true"
+                               name="VehicleInspectionTrailerComponent"
+                               [disabled]="!model.VehicleInspectionTrailerDetails[0].TrailerNo || model.TruckNo == 'No Truck'"
+                               item-content>
+            </select-searchable>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Remarks</ion-label>
+            <ion-input type="text" [(ngModel)]="model.Remarks" name="Remarks"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Condition of the above vehicle is satisfactory?</ion-label>
+            <ion-toggle checked="false" color="success" [(ngModel)]="model.ConditionSatisfactory" name="ConditionSatisfactory"></ion-toggle>
+          </ion-item>
+
+          <ion-item-sliding>
+            <ion-item>
+              <ion-label stacked>Driver Name <span *ngIf="!model.IsDriverSigned">[Not Signed]</span><span *ngIf="model.IsDriverSigned">[Signed]</span></ion-label>
+              <select-searchable title="Driver Name"
+                                 [(ngModel)]="model.DriverId"
+                                 [items]="Employees"
+                                 itemValueField="EmployeeId"
+                                 itemTextField="EmployeeName"
+                                 [canSearch]="true"
+                                 name="EmployeeId"
+                                 item-content>
+              </select-searchable>
+            </ion-item>
+            <ion-item-options>
+              <button ion-button color="light" (click)="sign($event, 'Driver')" [disabled]="!model.DriverId">
+                <ion-icon name="create"></ion-icon>
+                Sign
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+
+          <ion-item *ngIf="!model.ConditionSatisfactory">
+            <ion-label stacked>Are above defects corrected?</ion-label>
+            <ion-checkbox color="success" [(ngModel)]="model.CorrectedDefects" name="CorrectedDefects"></ion-checkbox>
+          </ion-item>
+
+          <ion-item *ngIf="!model.ConditionSatisfactory">
+            <ion-label stacked>Above defects need not be corrected for safe operation of vehicle</ion-label>
+            <ion-checkbox color="success" [(ngModel)]="model.NotToBeCorrectedDefects" name="NotToBeCorrectedDefects"></ion-checkbox>
+          </ion-item>
+
+          <ion-item-sliding *ngIf="!model.ConditionSatisfactory">
+            <ion-item>
+              <ion-label stacked>Mechanic Name <span *ngIf="!model.IsMechanicSigned">[Not Signed]</span><span *ngIf="model.IsMechanicSigned">[Signed]</span></ion-label>
+              <ion-input type="text" [(ngModel)]="model.MechanicName" name="MechanicName"></ion-input>
+            </ion-item>
+            <ion-item-options>
+              <button ion-button color="light" (click)="sign($event, 'Mechanic')" [disabled]="!model.MechanicName">
+                <ion-icon name="create"></ion-icon>
+                Sign
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+
+        </form>
+      </ion-list>
+    </div>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab mini (click)="saveDvi()" *ngIf="model.DviStatusId != 'Submitted'"><fa-icon name="save"></fa-icon></button>
+    <button ion-fab mini (click)="submitDvi()" *ngIf="model.DviStatusId != 'Submitted'"><fa-icon name="send-o"></fa-icon></button>
+  </ion-fab>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar no-border-top no-border-bottom>
+    <ion-segment [(ngModel)]="page">
+      <ion-segment-button value="carrier" checked>
+        Carrier Details
+      </ion-segment-button>
+      <ion-segment-button value="vehicle">
+        Vehicle Safety
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

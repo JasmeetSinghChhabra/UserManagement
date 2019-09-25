@@ -1,0 +1,25 @@
+rm-materialsearch{
+  .receive-materials-body{
+    background-color: map-get($accuvcolors, accuv-new-gray);
+  }
+
+  ion-content {
+    margin-top: 20px;
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+    background-color: map-get($accuvcolors, accuv-new-gray) !important;
+       
+    .scroll-content{
+      ion-list{
+            background-color: white;
+            margin: 10px;
+            border-radius: 3px;
+        }
+    }
+  }
+  ion-label{
+    font-size: 20px !important;
+    padding-left :18px;
+  }
+}

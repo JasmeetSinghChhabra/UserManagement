@@ -1,0 +1,32 @@
+dvi-list-tabs {
+    .tabbar {
+        background: #00398b !important;
+        //background: #404040 !important;
+        .tab-button {
+            color: #fff !important;
+
+            &[aria-selected=true] {
+                //color: #EB6434 !important;
+                font-weight: 600;
+            }
+        }
+
+        .tab-highlight {
+            height: 3px;
+            background: #EB6434 !important;
+        }
+
+        .tab-button[aria-selected=true] {
+            background-color: #EB6434;
+        }
+    }
+
+    ion-fab {
+        bottom: 70px !important;
+
+        .fab {
+            background-color: map-get($accuvcolors, accuv-blue) !important;
+            color: #fff !important;
+        }
+    }
+}

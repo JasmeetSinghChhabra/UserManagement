@@ -1,0 +1,35 @@
+wo-of-form-new {
+    ion-card {
+        padding-bottom: 15px;
+    }
+    ion-item {
+        &.item-md {
+            padding-left: 15px;
+            padding-right: 15px;
+
+            &.item-block {
+                .item-inner {
+                    padding: 0;
+                    border-bottom: 1px solid #dedede !important;
+                }
+            }
+        }
+    }
+    .instructions {
+        padding: 15px;
+    }
+    .no-data {
+        background-color: #FFF;
+        padding: 10px;
+        text-align: center;
+
+        i.fa {
+            color: map-get($accuvcolors, accuv-danger);
+            margin-right: 5px;
+        }
+    }
+    span.required {
+        color: map-get($accuvcolors, accuv-danger);
+        margin-right: 5px;
+    }
+}

@@ -1,0 +1,133 @@
+rm-search {
+
+   .title-icon {
+        img {
+            height: 35px;
+        }
+        position: absolute;
+        right: 0;
+        top: -10px;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    ion-header {
+        ion-title {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 30px;
+            font-weight: bold;
+            height: 50px;
+            color: white;
+            font-family: Lato !important;
+        }
+    }
+        
+    ion-content {
+        margin-top: 20px;
+        font-size: 25px;
+        color: black;
+        font-weight: bold;
+        background-color: map-get($accuvcolors, accuv-new-gray) !important;
+
+        .item {
+            padding-left: 2px;
+            background-color:transparent;
+
+            &.item-md {
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+            
+          &.scan {
+                margin-top: 1.5rem;
+                margin-bottom: 1.5rem;
+                flex: 0 0 100%;
+
+                .button {
+                    width: 100%;
+                    margin: 0;
+                    border-radius: 10px;
+
+                    i {
+                        margin-right: 1rem;
+                    }
+                    &.button-ios {
+                        font-size: 1.4rem;
+                        height: 2em;
+                    }
+                }
+            }
+
+        }
+
+        div {
+            .fixed-content {
+                ion-fab {
+                    .fab {
+                        color: #fff !important;
+
+                        &.fab-md-light {
+                            background-color: map-get($accuvcolors, accuv-blue) !important;
+                        }
+
+                        .fab-close-icon {
+                            background-color: map-get($accuvcolors, accuv-blue) !important;
+                        }
+                    }
+                }
+            }
+            border-bottom-color: #dedede;
+            box-shadow: none;
+    
+            .last-item {
+                border-bottom: none;
+                margin-bottom: 70px;
+            }
+    
+        }
+
+        .list {
+            .item-input:last-child {
+                border: 0;
+            }
+        }
+
+        .scroll-content{
+            .form-list{
+                background-color: white;
+                margin: 10px;
+                border-radius: 3px;
+            }
+        }
+
+        
+        .item-invalid {
+            .label {
+                background-color: map-get($accuvcolors, accuv-orange) !important;
+                color: #FFF;
+            }
+        }
+
+        .required {
+            color: red;
+            margin-right: 5px;
+        }
+
+        #searchButton {
+            font-family: Lato !important;
+            margin-top: 24px;
+        }
+
+        ion-fab {
+            display: inline-block !important;
+
+            .fa {
+                font-size: 1.8rem;
+            }
+        }
+
+    }
+}

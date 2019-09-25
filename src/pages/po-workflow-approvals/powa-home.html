@@ -1,0 +1,173 @@
+<ion-header>
+  <ion-navbar>
+    <button *ngIf="!toggled" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="!toggled">
+     {{type == "PO" ? "PO Approval" : "Closeout Cost Approval" }} [{{app.projectName}}]
+    </ion-title>
+    <!-- Search Bar -->
+    <ion-searchbar #searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch()" (ionInput)="search($event)" [placeholder]="getSearchPlaceholder()"></ion-searchbar>
+    <!-- Search Icon -->
+    <ion-buttons end *ngIf="!toggled">
+      <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-item class="powa-all-vendors-toggle">
+    <ion-label>All Programs</ion-label>
+    <ion-toggle [(ngModel)]="allPrograms" (ionChange)="toggleAllPrograms()" [disabled]="multiSelecting"></ion-toggle>
+  </ion-item>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content pullingText="Pull to refresh..."
+      refreshingText="Refreshing...">
+  </ion-refresher-content>
+</ion-refresher>
+
+<ion-list *ngIf="!allPrograms">
+  <button right *ngIf="multiSelecting&&!allSelected(group)" (tap)="selectAll(null)" ion-item class="powa-item">
+    Select All ({{PowasSelected.length}} of {{PowasOriginalSingleProgram.length}})
+  </button>
+  <button right *ngIf="multiSelecting&&allSelected(group)" (tap)="unselectAll(null)" ion-item class="powa-item">
+    Remove selection
+  </button>
+  <ion-item-sliding #item class="powa-item-wrapper" *ngFor="let powa of Powas">
+    <button ion-item class="powa-item" (tap)="itemTapped($event, powa)" (press)="onLongPress(powa)">
+      <ion-icon item-start class="powa-item-check" *ngIf="multiSelecting"
+        [name]="getIcon(powa)"
+        [color]="isItemSelected(powa) ? 'primary' : 'daek'">
+      </ion-icon>
+      <div class="powa-item-content">
+        <div class="col-left">
+          <div class="powa-item-title">
+            Job #: {{powa.SiteNumber}}
+          </div>
+          <div class="powa-item-subtitle">
+            Site Name: {{powa.SiteName}}
+          </div>
+          <div class="powa-item-subtitle" *ngIf="type == 'PO'">
+            PO #: {{powa.PONumber}}
+          </div>
+          <div class="powa-item-subtitle">
+            Vendor: {{powa.SFVendorName}}
+          </div>
+          <div *ngIf="powa.LastApproverName" class="powa-item-subtitle">
+            Last Approver: {{powa.LastApproverName}}
+          </div>
+          <div class="powa-item-subtitle powa-item-total">
+            <div class="powa-item-total-label">
+              {{type == 'PO' ? 'Total Amount: ' : 'Amount Pending Approval: '}}
+            </div>
+            <div class="powa-item-total-content">
+              {{(type == 'PO' ? powa.POTotal || '0': powa.PendingAccrualAmount || '0') | currency:'USD':'symbol-narrow':'1.2-2'}}
+            </div>
+          </div>
+        </div>
+        <div class="col-right">
+          <div *ngIf="powa.type == 'PO'" class="powa-item-created-date">
+              {{(powa.CreatedDate | fullDateTimeFormat) || 'Created Date'}}
+          </div>
+          <div *ngIf="powa.type == 'CLOSEOUT'" class="powa-item-created-date">
+              {{(powa.LastRevisionDate | fullDateTimeFormat) || 'Last Revision Date'}}
+          </div>
+        </div>
+      </div>
+    </button>
+    <ion-item-options class="multi-select-fab-buttons" side="right" *ngIf="!multiSelecting" style="align-items: center;">
+        <button ion-fab mini color="danger" (click)="processAproval(false, powa)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <button ion-fab mini color="success" (click)="processAproval(true, powa)">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
+
+
+<ion-list *ngIf="allPrograms">
+  <div *ngFor="let group of groups">
+    <ion-item class="powa-av-toggle-group" (tap)="toggleGroup(group)">
+      <ion-label>
+        <ion-icon class="powa-icon" *ngIf="isGroupShown(group)" name="remove"></ion-icon>
+        <ion-icon *ngIf="!isGroupShown(group)" name="add"></ion-icon>
+        {{group.name}} ({{group.items.length}})
+      </ion-label>
+    </ion-item>
+    <div *ngIf="isGroupShown(group)">
+      <button right *ngIf="multiSelecting&&!allSelected(group)" (tap)="selectAll(group)" ion-item class="powa-item">
+        Select All ({{PowasSelected.length}} of {{group.items.length}})
+      </button>
+      <button right *ngIf="multiSelecting&&allSelected(group)" (tap)="unselectAll(group)" ion-item class="powa-item">
+        Remove selection
+      </button>
+      <div class="powa-items-wrapper">
+        <ion-item-sliding #item class="item-accordion" *ngFor="let powa of group.items" >
+          <button ion-item class="powa-item" (tap)="itemTapped($event, powa)" (press)="onLongPress(powa)">
+            <ion-icon item-start class="powa-item-check" *ngIf="multiSelecting"
+            [name]="getIcon(powa)"
+            [color]="isItemSelected(powa) ? 'primary' : 'daek'">
+            </ion-icon>
+            <div class="powa-item-content">
+              <div class="col-left">
+                <div class="powa-item-title">
+                  Job #: {{powa.SiteNumber}}
+                </div>
+                <div class="powa-item-subtitle">
+                  Site Name: {{powa.SiteName}}
+                </div>
+                <div class="powa-item-subtitle" *ngIf="type == 'PO'">
+                  PO #: {{powa.PONumber}}
+                </div>
+                <div class="powa-item-subtitle">
+                  Vendor: {{powa.SFVendorName}}
+                </div>
+                <div *ngIf="powa.LastApproverName" class="powa-item-subtitle">
+                  Last Approver: {{powa.LastApproverName}}
+                </div>
+                <div class="powa-item-subtitle powa-item-total">
+                  <div class="powa-item-total-label">
+                    {{type == 'PO' ? 'Total Amount: ' : 'Amount Pending Approval: '}}
+                  </div>
+                  <div class="powa-item-total-content">
+                    {{(type == 'PO' ? powa.POTotal || '0': powa.PendingAccrualAmount || '0') | currency:'USD':'symbol-narrow':'1.2-2'}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-right">
+                <div *ngIf="powa.type == 'PO'" class="powa-item-created-date">
+                  {{(powa.CreatedDate | fullDateTimeFormat) || 'Created Date'}}
+                </div>
+                <div *ngIf="powa.type == 'CLOSEOUT'" class="powa-item-created-date">
+                  {{(powa.LastRevisionDate | fullDateTimeFormat) || 'Last Revision Date'}}
+                </div>
+              </div>
+            </div>
+          </button>
+          <ion-item-options class="multi-select-fab-buttons" side="right" *ngIf="!multiSelecting" style="align-items: center;">
+              <button ion-fab mini color="danger" (click)="processAproval(false, powa)">
+                <ion-icon name="close"></ion-icon>
+              </button>
+              <button ion-fab mini color="success" (click)="processAproval(true, powa)">
+                <ion-icon name="checkmark"></ion-icon>
+              </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </div>
+    </div>
+  </div>
+</ion-list>
+
+<ion-fab right bottom *ngIf="multiSelecting">
+  <button ion-fab mini (click)="processAproval(false, undefined)" color="danger"><ion-icon name="close"></ion-icon></button>
+  <button ion-fab mini (click)="processAproval(true, undefined)" color="success"><ion-icon name="checkmark"></ion-icon></button>
+</ion-fab>
+
+<div class="powa-no-pending" *ngIf="(!Powas|| Powas.length==0) && approvalsRequested">
+  <h4 class="no-pending-title">Well done!</h4>
+  <p>No {{getApprovalsName(type)}}s pending for your approval.</p>
+</div>
+
+</ion-content>

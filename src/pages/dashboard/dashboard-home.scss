@@ -1,0 +1,21 @@
+dashboard-home {
+    .initials {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin: 8px 16px 8px 0!important;
+        text-align: center;
+        border: 1px solid #1984c8;
+        color: #FFF;
+        background: #1984c8;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding-box;
+        background-clip: padding-box;
+        .initial {
+            line-height: 40px;
+            font-size: 14px;
+        }
+    }
+}

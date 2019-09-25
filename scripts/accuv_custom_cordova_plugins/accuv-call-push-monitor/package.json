@@ -1,0 +1,18 @@
+{
+  "name": "accuv-call-push-monitor",
+  "version": "1.0.0",
+  "description": "Checks permissions of android telecom calls also this class is use in conjunction of the BackgroundWorker.",
+  "cordova": {
+    "id": "accuv-call-push-monitor",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "anyei",
+  "license": "ISC"
+}

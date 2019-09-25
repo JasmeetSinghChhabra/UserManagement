@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        {{this.model.text}}
+        <p class="subtitle">{{this.model.subtitle}}</p>
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="presentPopover($event)" *ngIf="showPopoverButton()">
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <power-bi [powerBiModel]="powerBiModel" (embedded)="onEmbedded($event)" (loaded)="onLoaded($event)"></power-bi> 
+    <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+  </ion-content>

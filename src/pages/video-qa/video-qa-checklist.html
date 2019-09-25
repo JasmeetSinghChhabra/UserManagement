@@ -1,0 +1,52 @@
+<!--
+  Generated template for the VideoQaChecklistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title *ngIf="!toggled">{{title}}</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div class="vqa-bar">
+        <div class="vqa-bar-label">Filter by</div>
+        <div class="bar-item-wrapper">
+            <div class="bar-item pending" (tap)="filterGroups(0)">
+                <span class="bar-item-bar"></span>
+                <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(0)"></fa-icon>Pending</span>
+            </div>
+            <div class="bar-item rejected" (tap)="filterGroups(2)">
+                <span class="bar-item-bar"></span>
+                <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(2)"></fa-icon>Rejected</span>
+            </div>
+            <div class="bar-item uploaded" (tap)="filterGroups(3)">
+                <span class="bar-item-bar"></span>
+                <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(3)"></fa-icon>Uploaded</span>
+            </div>
+            <div class="bar-item approved" (tap)="filterGroups(1)">
+                <span class="bar-item-bar"></span>
+                <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(1)"></fa-icon>Approved</span>
+            </div>
+        </div>
+    </div>
+    <ion-list>
+        <button ion-item class="vqa-item" [ngClass]="getStatusClass(checkitem)" *ngFor="let checkitem of checklistFiltered" 
+          (click)="itemTapped($event, checkitem)">
+          <div class="vqa-item-row1" text-wrap>
+            <span class="vqa-item-row1" >{{checkitem.Name}} - {{checkitem.Description}}</span>
+          </div>
+          <!-- <div class="vqa-item-row2">
+            Sector:
+          </div> -->
+        </button>
+      </ion-list>
+</ion-content>

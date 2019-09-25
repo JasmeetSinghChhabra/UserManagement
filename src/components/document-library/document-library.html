@@ -1,0 +1,59 @@
+﻿<ion-segment [(ngModel)]="documentsView" color="secondary">
+  <ion-segment-button value="list">
+    <ion-icon name="list"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value="grid">
+    <ion-icon name="grid"></ion-icon>
+  </ion-segment-button>
+</ion-segment>
+
+<div [ngSwitch]="documentsView">
+  <ion-list *ngSwitchCase="'list'" class="document-list">
+    <ion-item text-wrap class="document-list-item" *ngFor="let document of documents">
+      <!--<ion-avatar item-end>
+            <button class="wo-document-download-btn" (click)="download(document.Id, document.FileName)" ion-button round>
+              <ion-icon name="cloud-download"></ion-icon>
+            </button>
+          </ion-avatar>-->
+      <button ion-button class="document-download-btn" color="light" (click)="download(document.Id, document.FileName)" item-end
+        icon-only>
+        <ion-icon name="cloud-download" is-active="false"></ion-icon>
+      </button>
+      <h2>{{document.DocumentId}}</h2>
+      <p>{{document.FileName}}</p>
+    </ion-item>
+  </ion-list>
+
+  <!-- Responsive Layout with Ion Grid-->
+  <ion-grid *ngSwitchCase="'grid'" style="height: 100%" class="document-grid">
+    <ion-row>
+      <ion-col col-6 col-md-4 col-xl-3 *ngFor="let document of documents" class="document-grid-item">
+
+        <ion-card>
+
+          <ion-item>
+            <h2>{{document.DocumentId}}</h2>
+            <p>{{document.FileName}}</p>
+          </ion-item>
+
+          <img [src]="document.ImageSrc"  class="document-grid-item-img" title="{{document.DocumentName}}" alt="{{document.FileName}}" (click)="viewOrDownload(document)"> 
+
+          <ion-row no-padding>
+            <ion-col col-6 text-center>
+              <button ion-button clear small color="danger" icon-start (click)="view(document.Id, document.FileName)" *ngIf="document.IsViewable">
+                <ion-icon name='eye'></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col col-6 text-center>
+              <button ion-button clear small color="danger" icon-start (click)="download(document.Id, document.FileName)">
+                <ion-icon name='download'></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

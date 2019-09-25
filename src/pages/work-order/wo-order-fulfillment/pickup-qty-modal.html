@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title style="text-align: center">Edit Quantity</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="pickup-qty-content">
+    <div padding class="input-container">
+        <button ion-fab mini (click)="add()" class="edit-number-button" [ngClass]="getStatusClass(0)">
+            <ion-icon name="arrow-up"></ion-icon>
+        </button>
+        <div class="qty-number">
+            <ion-input #packQty type="number" min="0" [(ngModel)]="newQty" name="newQty" (input)='validate()'>
+            </ion-input>
+        </div>
+        <button ion-fab mini (click)="substract()" class="edit-number-button" [ngClass]="getStatusClass(1)">
+            <ion-icon name="arrow-down"></ion-icon>
+        </button>
+    </div>
+    <div class="material-editpackqty-validation" *ngIf="validationError">
+        <span ion-text><i class="fa fa-exclamation-triangle"></i> {{validationError}}</span>
+    </div>
+    <div class="buttons-content">
+        <button ion-button color="danger" (click)="closeModal()">
+            <ion-icon name="close"></ion-icon>Cancel
+        </button>
+        <button ion-button color="success" [disabled]="validationError" (click)="saveQty()">
+            <ion-icon name="checkmark"></ion-icon>Confirm
+        </button>
+    </div>
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

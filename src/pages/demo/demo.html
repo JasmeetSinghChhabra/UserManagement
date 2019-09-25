@@ -1,0 +1,619 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Demo
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- Audio DEMO 1 -->
+  <ion-list>
+    <audio-track #audio *ngFor="let track of myTracks" [track]="track">
+      <ion-item>
+        <ion-thumbnail item-left>
+          <img src="{{audio.art}}">
+          <audio-track-play dark [audioTrack]="audio">
+            <ion-spinner></ion-spinner>
+          </audio-track-play>
+        </ion-thumbnail>
+        <div item-content style="width: 100%">
+          <p>
+            <strong>{{audio.title}}</strong> &#x26AC; <em>{{audio.artist}}</em>
+          </p>
+          <audio-track-progress-bar duration progress [audioTrack]="audio"></audio-track-progress-bar>
+          <em style="font-size: .5em">Track ID: {{audio.id}}</em>
+        </div>
+      </ion-item>
+    </audio-track>
+  </ion-list>
+  <h3>API Usage</h3>
+  <h4>Using AudioProvider to control playback</h4>
+  <ion-list>
+    <ion-item>
+      <ion-label>Select track to play</ion-label>
+      <ion-select [(ngModel)]="selectedTrack">
+        <ion-option *ngFor="let track of allTracks" value="{{track.id}}">{{track.title}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <button ion-button block outline (click)="playSelectedTrack()">Play</button>
+  <button ion-button block outline color="secondary" (click)="pauseSelectedTrack()">Pause</button>
+
+  <!-- Audio DEMO 2 -->
+  <h2>Ionic Audio for Angular 4 / Ionic 3</h2>
+  <p>
+    This sample project shows you how simple it is to work with the ionic-audio module.
+  </p>
+  <ion-list>
+    <ion-item *ngFor="let track of myTracks">
+      <ion-thumbnail item-left>
+        <img src="{{track.art}}">
+      </ion-thumbnail>
+      <h2>{{track.title}}</h2>
+      <button ion-button (click)="currentTrack = track">Play</button><button ion-button (click)="add(track)">Add</button>
+    </ion-item>
+  </ion-list>
+  <audio-track #audioTrack [track]="currentTrack" [autoplay]="true" (onFinish)="onTrackFinished($event)">
+    <div style="display: flex">
+      <button ion-button icon-only (click)="audioTrack.canPlay ? audioTrack.play() : next()"><ion-icon name="play"></ion-icon></button>
+      <button ion-button icon-only (click)="audioTrack.pause()"><ion-icon name="pause"></ion-icon></button>
+      <button ion-button icon-only (click)="next()"><ion-icon name="skip-forward"></ion-icon></button>
+      <audio-track-progress-bar duration progress [audioTrack]="audioTrack" style="width: 100%; margin: 0 10px"></audio-track-progress-bar>
+    </div>
+    <div style="display: flex; justify-content: center; height: 50px">
+      <div *ngIf="audioTrack && audioTrack.hasLoaded">
+        <em>{{ audioTrack?.title }}</em>
+      </div>
+      <ion-spinner *ngIf="audioTrack && audioTrack.isLoading"></ion-spinner>
+    </div>
+  </audio-track>
+  <ion-list *ngIf="playlist.length > 0">
+    <ion-list-header no-lines inset>
+      PLAYLIST
+      <button ion-button clear item-right (click)="clear()">Clear</button>
+    </ion-list-header>
+    <ion-item *ngFor="let track of playlist; let i = index">
+      <h2>{{ track.title }}</h2>
+      <p>{{ track.artist }}</p>
+      <button ion-button icon-only item-end (click)="play(track, i)">
+        <ion-icon name="play"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Audio DEMO 3 -->
+  <h2>Custom Audio Control</h2>
+  <p>
+    This sample shows the custom audio control with the two track versions supported, full and small.
+  </p>
+  <ion-list>
+    <ion-item>
+      <audio-note item-content #audiocontrolfull
+                  title="Audio label 1"
+                  filePrefix="dfr_work_performed_"
+                  mode="multiple"
+                  trackType="full">
+      </audio-note>
+    </ion-item>
+    <ion-item>
+      <audio-note item-content #audiocontrolsmall
+                  title="Audio label 2"
+                  filePrefix="dfr_work_performed_"
+                  mode="multiple"
+                  trackType="small">
+      </audio-note>
+    </ion-item>
+  </ion-list>
+
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Alerts</ion-title>
+    </ion-navbar>
+    <button ion-button block color="dark" (click)="doAlert()">Show Basic Alert</button>
+
+    <button ion-button color="secondary" block (click)="doPrompt()">Show Prompt Alert</button>
+
+    <button ion-button color="primary" block (click)="doConfirm()">Show Confirm Alert</button>
+
+    <button ion-button block light (click)="showRadio()">Show Radio Alert</button>
+
+    <button ion-button block color="danger" (click)="doCheckbox()">Show Checkbox Alert</button>
+  </div>
+
+  <ion-navbar>
+    <ion-title>Buttons</ion-title>
+  </ion-navbar>
+
+  <div style="display: block">
+    <button ion-button outline>Primary Outline (Basic)</button>
+    <button ion-button color="secondary" outline>Secondary Outline</button>
+    <button ion-button color="danger" outline>Danger Outline</button>
+    <button ion-button color="success" outline>Success Outline</button>
+    <button ion-button color="light" outline>Light Outline</button>
+  </div>
+  <div style="display: block">
+    <button ion-button>Primary Button (Basic)</button>
+    <button ion-button color="secondary">Secondary</button>
+    <button ion-button color="danger">Danger</button>
+    <button ion-button color="success">Success</button>
+    <button ion-button color="light">Light</button>
+  </div>
+  <div style="display: block">
+    <button ion-button round>Primary Round (Basic)</button>
+    <button ion-button color="secondary" round>Secondary Round</button>
+    <button ion-button color="danger" round>Danger Round</button>
+    <button ion-button color="success" round>Success Round</button>
+    <button ion-button color="light" round>Light Round</button>
+  </div>
+  <div style="display: block">
+    <button ion-button block>Primary Block (Basic)</button>
+    <button ion-button color="secondary" block>Secondary Block</button>
+    <button ion-button color="danger" block>Danger Block</button>
+    <button ion-button color="success" block>Success Block</button>
+    <button ion-button color="light" block>Light Block</button>
+  </div>
+  <div style="display: block">
+    <button ion-button small>Primary Small (Basic)</button>
+    <button ion-button color="secondary" small>Secondary Small</button>
+    <button ion-button color="danger">Danger Medium</button>
+    <button ion-button color="success">Success Medium</button>
+    <button ion-button color="light" large>Light Large</button>
+  </div>
+
+  <div style="display: block">
+    <p>
+      <button ion-button color="light" icon-start>
+        <ion-icon name='arrow-back'></ion-icon>
+        Back
+      </button>
+
+      <button ion-button color="light" icon-only>
+        <ion-icon name='arrow-down'></ion-icon>
+      </button>
+
+      <button ion-button color="light" icon-only>
+        <ion-icon name='arrow-up'></ion-icon>
+      </button>
+
+      <button ion-button color="light" icon-end>
+        Next
+        <ion-icon name='arrow-forward'></ion-icon>
+      </button>
+    </p>
+
+    <p>
+      <button ion-button icon-start>
+        <ion-icon name='home'></ion-icon>
+        Home
+      </button>
+      <button ion-button outline icon-start>
+        <ion-icon name='briefcase' is-active="false"></ion-icon>
+        Work
+      </button>
+      <button ion-button clear icon-start>
+        <ion-icon name='beer' is-active="false"></ion-icon>
+        Pub
+      </button>
+    </p>
+
+    <p>
+      <button ion-button color="secondary" icon-start>
+        <ion-icon name='people'></ion-icon>
+        Friends
+      </button>
+      <button ion-button color="secondary" outline icon-start>
+        <ion-icon name='paw' is-active="false"></ion-icon>
+        Best Friend
+      </button>
+    </p>
+
+    <p>
+      <button ion-button color="danger" icon-start>
+        <ion-icon name='close'></ion-icon>
+        Remove
+      </button>
+      <button ion-button color="danger" outline icon-only>
+        <ion-icon name='remove-circle' is-active="false"></ion-icon>
+      </button>
+      <button ion-button color="danger" clear icon-only>
+        <ion-icon name='trash' is-active="false"></ion-icon>
+      </button>
+    </p>
+
+    <p>
+      <button ion-button color="dark" round icon-start>
+        <ion-icon name='construct' is-active="false"></ion-icon>
+        Tools
+      </button>
+      <button ion-button color="dark" clear icon-only>
+        <ion-icon name='hammer' is-active="false"></ion-icon>
+      </button>
+    </p>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>
+        DateTime
+      </ion-title>
+    </ion-navbar>
+    <ion-list>
+      <ion-item>
+        <ion-input placeholder="Title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Location"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.month"></ion-datetime>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label>Start Time</ion-label>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Ends</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.timeEnds"></ion-datetime>
+      </ion-item>
+
+      <button ion-item>
+        <ion-label>Repeat</ion-label>
+        <ion-note item-end>Never</ion-note>
+      </button>
+
+      <button ion-item>
+        <ion-label>Travel Time</ion-label>
+        <ion-note item-end>None</ion-note>
+      </button>
+    </ion-list>
+
+    <ion-list>
+      <button ion-item>
+        <ion-label>Alert</ion-label>
+        <ion-note item-end>None</ion-note>
+      </button>
+    </ion-list>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Fixed Labels</ion-title>
+    </ion-navbar>
+    <ion-list>
+
+      <ion-item>
+        <ion-label fixed>Username</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button ion-button color="primary" block>Sign In</button>
+    </div>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Floating Labels</ion-title>
+    </ion-navbar>
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input type="text" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" value=""></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button ion-button color="primary" block>Sign In</button>
+    </div>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Inline Labels</ion-title>
+    </ion-navbar>
+    <ion-list>
+
+      <ion-item>
+        <ion-label>Username</ion-label>
+        <ion-input type="text" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input type="password" value=""></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button ion-button color="primary" block>Sign In</button>
+    </div>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Inset Labels</ion-title>
+    </ion-navbar>
+    <ion-list inset>
+
+      <ion-item>
+        <ion-label>Username</ion-label>
+        <ion-input type="text" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input type="password" value=""></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button ion-button color="primary" block>Sign In</button>
+    </div>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Placeholders</ion-title>
+    </ion-navbar>
+    <ion-list>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Username"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button ion-button color="primary" block>Sign In</button>
+    </div>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Stacked Labels</ion-title>
+    </ion-navbar>
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>Username</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button ion-button color="primary" block>Sign In</button>
+    </div>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Loading</ion-title>
+    </ion-navbar>
+    <button ion-button block (click)="presentLoading()">Show Loading</button>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Selects</ion-title>
+    </ion-navbar>
+    <ion-list>
+      <ion-item>
+        <ion-label>Gender</ion-label>
+        <ion-select [(ngModel)]="gender">
+          <ion-option value="f">Female</ion-option>
+          <ion-option value="m">Male</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Gaming</ion-label>
+        <ion-select [(ngModel)]="gaming" interface="popover">
+          <ion-option value="nes">NES</ion-option>
+          <ion-option value="n64">Nintendo64</ion-option>
+          <ion-option value="ps">PlayStation</ion-option>
+          <ion-option value="genesis">Sega Genesis</ion-option>
+          <ion-option value="saturn">Sega Saturn</ion-option>
+          <ion-option value="snes">SNES</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Notifications</ion-label>
+        <ion-select [(ngModel)]="notifications" interface="action-sheet">
+          <ion-option value="enable">Enable</ion-option>
+          <ion-option value="mute">Mute</ion-option>
+          <ion-option value="mute_week">Mute for a week</ion-option>
+          <ion-option value="mute_year" (ionSelect)="notificationSelect($event)">Mute for a year</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Operating System</ion-label>
+        <ion-select [(ngModel)]="os" submitText="Okay" cancelText="Nah">
+          <ion-option value="dos">DOS</ion-option>
+          <ion-option value="lunix">Linux</ion-option>
+          <ion-option value="mac7">Mac OS 7</ion-option>
+          <ion-option value="mac8">Mac OS 8</ion-option>
+          <ion-option value="win3.1">Windows 3.1</ion-option>
+          <ion-option value="win95">Windows 95</ion-option>
+          <ion-option value="win98">Windows 98</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Music</ion-label>
+        <ion-select [(ngModel)]="music" [selectOptions]="musicAlertOpts">
+          <ion-option>Alice in Chains</ion-option>
+          <ion-option>Green Day</ion-option>
+          <ion-option>Nirvana</ion-option>
+          <ion-option>Pearl Jam</ion-option>
+          <ion-option>Smashing Pumpkins</ion-option>
+          <ion-option>Soundgarden</ion-option>
+          <ion-option (select)="stpSelect()">Stone Temple Pilots</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-select [(ngModel)]="month">
+          <ion-option value="01">January</ion-option>
+          <ion-option value="02">February</ion-option>
+          <ion-option value="03">March</ion-option>
+          <ion-option value="04">April</ion-option>
+          <ion-option value="05">May</ion-option>
+          <ion-option value="06">June</ion-option>
+          <ion-option value="07">July</ion-option>
+          <ion-option value="08">August</ion-option>
+          <ion-option value="09">September</ion-option>
+          <ion-option value="10">October</ion-option>
+          <ion-option value="11">November</ion-option>
+          <ion-option value="12" checked="true">December</ion-option>
+        </ion-select>
+        <ion-select [(ngModel)]="year">
+          <ion-option>1989</ion-option>
+          <ion-option>1990</ion-option>
+          <ion-option>1991</ion-option>
+          <ion-option>1992</ion-option>
+          <ion-option>1993</ion-option>
+          <ion-option checked="true">1994</ion-option>
+          <ion-option>1995</ion-option>
+          <ion-option>1996</ion-option>
+          <ion-option>1997</ion-option>
+          <ion-option>1998</ion-option>
+          <ion-option>1999</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Tabs</ion-title>
+    </ion-navbar>
+    <ion-content padding>
+    </ion-content>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>Toast</ion-title>
+    </ion-navbar>
+    <button ion-button block (click)="showToastInfo('bottom')">Show Toast bottom - info</button>
+    <button ion-button block (click)="showToastWarning('bottom')">Show Toast bottom - warning</button>
+    <button ion-button block (click)="showToastSuccess('bottom')">Show Toast bottom - success</button>
+    <button ion-button block (click)="showToastError('bottom')">Show Toast bottom - error</button>
+
+    <button ion-button block (click)="showToast('top')">Show Toast Top Position</button>
+    <button ion-button block (click)="showToast('middle')">Show Toast Middle Position</button>
+    <button ion-button block (click)="showToast('bottom')">Show Toast Bottom Position</button>
+    <button ion-button block (click)="showLongToast()">Show Long Toast</button>
+    <button ion-button block (click)="showToastWithCloseButton()">Show Toast W/ Close Button</button>
+  </div>
+
+  <div style="display: block">
+    <ion-navbar>
+      <ion-title>
+        FABs
+      </ion-title>
+    </ion-navbar>
+    <ion-content style="height: 100vh">
+      <ion-fab top right edge>
+        <button ion-fab color="vibrant" mini><ion-icon name="add"></ion-icon></button>
+        <ion-fab-list>
+          <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+
+      <ion-fab right bottom>
+        <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
+        <ion-fab-list side="left">
+          <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+
+      <ion-fab left top>
+        <button ion-fab color="secondary"><ion-icon name="arrow-dropright"></ion-icon></button>
+        <ion-fab-list side="right">
+          <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+
+      <ion-fab left bottom>
+        <button ion-fab color="dark"><ion-icon name="arrow-dropup"></ion-icon></button>
+        <ion-fab-list side="top">
+          <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+
+      <ion-fab center middle>
+        <button ion-fab color="danger"><ion-icon name="md-share"></ion-icon></button>
+        <ion-fab-list side="top">
+          <button ion-fab color="light"><ion-icon name="logo-vimeo"></ion-icon></button>
+        </ion-fab-list>
+        <ion-fab-list side="bottom">
+          <button ion-fab color="primary"><ion-icon name="logo-facebook"></ion-icon></button>
+        </ion-fab-list>
+        <ion-fab-list side="left">
+          <button ion-fab color="danger"><ion-icon name="logo-googleplus"></ion-icon></button>
+        </ion-fab-list>
+        <ion-fab-list side="right">
+          <button ion-fab color="light"><ion-icon name="logo-twitter"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+
+      <ion-fab right middle>
+        <button ion-fab color="danger"><ion-icon name="add"></ion-icon></button>
+      </ion-fab>
+    </ion-content>
+  </div>
+</ion-content>

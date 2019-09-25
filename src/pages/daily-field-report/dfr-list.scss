@@ -1,0 +1,58 @@
+dfr-list {
+  .dfr-item {
+    padding-left: 0 !important;
+
+    &:nth-child(2n+0) {
+      background-color: #eef8f8;
+    }
+
+    .item-inner {
+      padding-left: 15px;
+
+      .input-wrapper {
+        .label {
+          color: #333 !important;
+
+          .dfr-item-row1 {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    .dfr-item-row1 {
+      line-height: 24px;
+    }
+
+    .dfr-item-sitenumber {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .dfr-item-reportdate {
+      float: right;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .dfr-item-row3 {
+      font-size: 13px;
+    }
+
+    .dfr-item-row2 {
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 90%;
+    }
+  }
+
+  .dfr-searchbar .searchbar-ios-cancel {
+    max-width: 50px;
+  }
+
+  .dfr-searchbar .searchbar-input::-webkit-input-placeholder {
+    font-size: 1.4rem;
+  }
+}

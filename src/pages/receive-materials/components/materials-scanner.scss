@@ -1,0 +1,204 @@
+materials-scanner{
+    ion-header {
+        ion-toolbar{
+            .toolbar-background {
+                background-color: map-get($accuvcolors, accuv-blue);
+            }
+            .toolbar-content {
+                ion-title {
+                    .toolbar-title {
+                        color: map-get($colors, white);
+                        font-weight: normal;
+
+                        &.toolbar-title-ios {
+                            text-align: center;
+                        }
+                        &.toolbar-title-md {
+                            padding: 0 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ion-content {
+        ion-grid {
+            &.grid {
+                padding: 15px;
+
+                ion-row {
+                    ion-col {
+                        flex: 1 0.5 auto;
+                        ion-select{
+                            padding: 0px 4px 4px 0px;
+                        }
+                    }
+                }
+            }
+        }
+        ion-item {
+            &.toggle-scan-fields {
+                background-color: map-get($colors, white);
+                margin-bottom: 10px;
+                padding-left: 18px;
+                font-size: 1.4rem;
+            }
+            &.external-scanner {
+                padding-left: 0px;
+            }
+        }
+    }
+    ion-footer {
+        ion-grid {
+            &.grid {
+                padding: 15px;
+            }
+            .scan-serial-field {
+                .col {
+                    .item {
+                        padding: 0;
+                        border-bottom: 1px solid map-get($accuvcolors, accuv-gray);
+
+                        &.item-input-has-focus {
+                            border-bottom: 1px solid map-get($accuvcolors, accuv-blue);
+                            box-shadow: 0;
+                        }
+                        .item-inner {
+                            padding-left: 0;
+                            padding-right: 0;
+
+                            ion-label {
+                                margin-top: 0;
+                            }
+                            button {
+                                margin: 0 0 8px 0;
+                                align-self: flex-end;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .serial-number-quantity,
+    .serial-number-info {
+        span.label {
+            display: block;
+            font-weight: 700;
+            color: map-get($accuvcolors, accuv-blue);
+            border-bottom: 2px solid map-get($accuvcolors, accuv-blue);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+        }
+    }
+    .serial-number-grid {
+        margin-top: 10px;
+
+        & > ion-col {
+            margin: 0;
+            padding: 0;
+        }
+        ion-col {
+            ion-row {
+                ion-col {
+                    flex: 1 1 40% !important;
+                    width: auto;
+                }
+            }
+            span {
+                display: block;
+                border-bottom: solid #EB6434 3px;
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+        }
+    }
+    .serial-number-buttons {
+        margin: 20px 0 0;
+
+        ion-buttons {
+            margin: 0;
+            text-align: right;
+
+            button {
+                margin: 0 5px 0 0;
+              
+                .fa {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+    .serial-number-validation {
+        display: flex;
+                margin-bottom: auto;
+        span {
+                display: flex;
+                margin-bottom: auto;
+
+//                display: block;
+//                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid map-get($accuvcolors, accuv-danger);
+
+                i.fa {
+                    color: map-get($accuvcolors, accuv-danger);
+                }
+            }
+    }
+    .serial-number-picked {
+        ion-col {
+            span {
+                display: block;
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid map-get($accuvcolors, accuv-success);
+
+                i.fa {
+                    color: map-get($accuvcolors, accuv-success);
+                }
+            }
+        }
+    }
+
+    .material-picker-fields {
+        margin: 5px 0 0;
+
+        ion-item {
+            padding-left: 0;
+
+            ion-label {
+                color: black !important;
+                margin: 0 0 4px;
+            }
+        }
+    }
+
+    .external-scanner{
+        ion-label{
+            font-weight: 700;
+        }
+    }
+
+    .material-picker-validation {
+        ion-col {
+            span {
+                display: block;
+                margin-top: 0px;
+                padding-top: 5px;
+                border-top: 1px solid map-get($accuvcolors, accuv-danger);
+
+                i.fa {
+                    color: map-get($accuvcolors, accuv-danger);
+                }
+            }
+        }
+    }
+    
+    .button{
+        padding: 10px !important
+    }
+
+}

@@ -1,0 +1,77 @@
+program-selector {
+    .header-programselector {
+        .toolbar {
+            .toolbar-background {
+                background-color: map-get($accuvcolors, accuv-orange);
+            }
+            .bar-buttons {
+                .bar-button {
+                    .button-inner {
+                        .text {
+                            color: #fff;
+                            padding-right: 7px;
+                        }
+                        .icon {
+                            &:before {
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+            .toolbar-content {
+                .title {
+                    .toolbar-title {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    .content-programselector {
+        .scroll-content {
+            .program-list {
+                padding-top: 12px;
+                background-color: map-get($accuvcolors, accuv-black);
+                margin-bottom: 0;
+                .program-item {
+                    width: 50%;
+                    display: inline-block;
+                    padding-left: 16px;
+                    padding-right: 16px;
+                    vertical-align: top;
+                    background: transparent;
+                    ion-avatar {
+                        margin: 8px 16px 0px 16px;
+                        img {
+                            margin: 0 auto;
+                        }
+                    }
+                    .item-inner {
+                        border-bottom: none;
+                        //height: 45px;
+                        .input-wrapper {
+                            display: block;
+                            .label {
+                                text-align: center;
+                                height: 45px;
+                                margin: 13px 0;
+                                overflow: inherit !important;
+                                -webkit-box-flex: 0;
+                                -webkit-flex: 0;
+                                -ms-flex: 0;
+                                flex: 0;
+                                font-size: inherit;
+                                text-overflow: inherit;
+                                white-space: inherit;
+                                h2 {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

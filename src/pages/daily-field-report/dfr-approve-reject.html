@@ -1,0 +1,42 @@
+﻿<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Close</button>
+    </ion-buttons>
+    <ion-title>{{action}} DFR [{{siteNumber}}]</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="action == 'Reject'">
+    <p>Add rejection comment</p>
+  </div>
+  <div *ngIf="action == 'Approve'">
+    <p>Add approval comment (must be at least 150 characters, used {{commentCompletedLength()}})</p>
+  </div>
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>Comment</ion-label>
+      <ion-textarea class="comment" [(ngModel)]="comment"></ion-textarea>
+    </ion-item>
+
+  </ion-list>
+
+  <speech-to-text waitingText="Start speech to comment" 
+                  recordingText="Stop speech to comment"
+                  (onSpeechMatch)="onSpeechMatch($event)">
+  </speech-to-text>
+  <button ion-button icon-left full (click)="clearText()" color="danger">
+    <ion-icon name="trash"></ion-icon>
+    Clear comment
+  </button>
+  <button ion-button icon-left full (click)="doAction()" [disabled]="isOkButtonDisabled()" color="success">
+    <ion-icon name="checkmark"></ion-icon>
+    Ok
+  </button>
+
+</ion-content>

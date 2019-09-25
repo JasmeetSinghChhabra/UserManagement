@@ -1,0 +1,245 @@
+powa-detail {
+    position: relative;
+
+    ion-header {
+        .toolbar {
+            position: relative;
+            z-index: 2;
+        }
+
+    }
+    .scroll-content {
+        padding: 0 1rem 1.5rem !important;
+    }
+    .powa-po-total-top {
+        padding: 10px;
+        display: block;
+        width: auto;
+        height: auto;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        position: relative;
+        background: rgba(map-get($accuvcolors, accuv-in-progress), .15);
+        border: 1px solid map-get($accuvcolors, accuv-in-progress);
+        line-height: 28px;
+        text-align: center;
+        
+        .title {
+            color: map-get($accuvcolors, accuv-black) !important;
+        }
+        .content {
+            font-weight: bold;
+            color: map-get($accuvcolors, accuv-danger) !important;
+        }
+    }
+    .powa-header {
+        padding: 10px !important;
+        margin: 1rem auto;
+        background: map-get($colors, white);
+
+        .powa-rows{          
+            .powa-row {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 10px -5px 0;
+            
+                &:first-child {
+                    margin: 0 -5px;
+                }
+                .powa-col {
+                    padding: 0 5px;
+                    flex: 1 1 50%;
+                    
+                    .title {
+                        font-weight: 700;
+                        color: map-get($accuvcolors, accuv-blue);
+                        border-bottom: 3px solid map-get($accuvcolors, accuv-blue);
+                        text-transform: uppercase;
+                        font-size: 1.1rem;
+                        padding-bottom: 5px;
+                    }
+                    .content {
+                        font-size: 1.4rem;
+                        padding-top:3px;
+                    }
+                    &.fixed {
+                        flex: 0 0 auto;
+                    }
+                }
+            }
+        }
+    }
+    ion-content {
+        &.content {
+            background: map-get($accuvcolors, accuv-new-gray);
+        }
+        .powa-toggle-group {
+            h2 {
+                background-color: map-get($accuvcolors, accuv-blue);
+                color: map-get($colors, white);
+                padding: 1.2rem;
+                letter-spacing: 1px;
+                font-size: 1.4rem;
+                margin-bottom: 0;
+
+                ion-icon {
+                    float: right;
+                    margin: 0;
+
+                }
+            }
+        }
+        .powa-item {
+            padding-left: 0 !important;
+            &:nth-child(2n+0) {
+                background-color: #eef8f8;
+            }
+            .item-inner {
+                padding-left: 15px;
+                .input-wrapper {
+                    .label {
+                        color: #333 !important;
+                        .powa-item-row1 {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+            .powa-item-title {
+                font-size: 18px;
+                font-weight: bold;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 90%;
+            }
+            .powa-item-subtitle {
+                font-size: 13px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 90%;
+            }
+        }
+        .powa-item-subtitle {
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 90%;
+        }
+        .status-wrapper {
+            padding-left: 10px;
+
+            &:nth-child(2n+0) {
+                background-color: #eef8f8;
+            }
+            .item-inner {
+                padding: 0 !important;
+            }
+            .powa-line {
+                .powa-line-left {
+                    display: flex;
+                    align-items: flex-start;
+                    
+                    .powa-line-number-wrapper {
+                        flex: 0 0 auto;
+                        border: 1px solid map-get($accuvcolors, accuv-blue);
+                        padding: 10px;
+                        
+                        .powa-line-number {
+                            font-size: 1.4rem;
+                            font-weight: bold;
+                        }
+                    }
+                    .powa-line-description-wrapper {
+                        flex: 1 1 auto;
+                        border-top: 1px solid map-get($accuvcolors, accuv-blue);
+                        padding: 10px;
+                        font-size: 1.4rem;
+                        white-space: normal;
+
+                        .powa-item-status {
+                            margin-top: 10px;
+
+                            .powa-item-status-title {
+                                color: map-get($accuvcolors, accuv-blue);
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+                .powa-line-right {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    margin-top: 10px;
+
+                    .powa-line-quantity,
+                    .powa-line-total {
+                        display: flex;
+                        align-items: baseline;
+
+                        .title {
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            font-size: 1.1rem;
+                            padding-bottom: 5px;
+                            margin-right: 10px;
+                        }
+                        .content {
+                            font-size: 1.4rem;
+                            padding: 3px 5px;
+                            border-radius: 5px;
+                        }
+                    }
+                    .powa-line-quantity {                        
+                        .title {
+                            color: map-get($accuvcolors, accuv-blue);
+                        }
+                        .content {
+                            background: rgba(map-get($accuvcolors, accuv-blue), .15);
+                        }
+                    }
+                    .powa-line-total {
+                        .title {
+                            color: map-get($accuvcolors, accuv-black);
+                        }
+                        .content {
+                            background: rgba(map-get($accuvcolors, accuv-black), .15);
+                        }
+                    }
+                }
+                &.powaIsCloseout {
+                    .powa-line-description-wrapper {
+                        border: none;
+                        padding: 10px 0;
+                    }
+                }
+            }
+        }
+        ion-fab {
+            display: -webkit-box;
+        }
+    }
+}
+.alert-button.powa-approve-button {
+    background-color: map-get($accuvcolors, accuv-success);
+    color: map-get($colors, white);
+    
+    &:active,
+    &:focus,
+    &:hover, {
+        background-color: darken(map-get($accuvcolors, accuv-success), 10%);
+    }
+}
+.alert-button.powa-reject-button {
+    background-color:  map-get($accuvcolors, accuv-danger);
+    color: map-get($colors, white);
+
+    &:active,
+    &:focus,
+    &:hover, {
+        background-color: darken(map-get($accuvcolors, accuv-danger), 10%);
+    }
+}

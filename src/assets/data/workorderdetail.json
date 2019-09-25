@@ -1,0 +1,310 @@
+[
+  {
+    "id": "aJW50000000LwdMGAS",
+    "line": "11",
+    "line_status": "Firmed",
+    "QtyReq": 1,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC.301047049",
+    "MaterialName": "aFW500000000ap2GAA",
+    "uom": "Each",
+    "ItemIsSerial": false,
+    "item_islot": false,
+    "Availability": [
+        {
+            "QtyAvaialble": 1,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": null,
+            "serial_number": null
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdLGAS",
+    "line": "10",
+    "line_status": "Firmed",
+    "QtyReq": 1,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC-301047056",
+    "MaterialName": "aFW500000000ZkQGAU",
+    "uom": "Each",
+    "ItemIsSerial": false,
+    "item_islot": false,
+    "Availability": [
+        {
+            "QtyAvaialble": 1,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": null,
+            "serial_number": null
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdKGAS",
+    "line": "9",
+    "line_status": "Firmed",
+    "QtyReq": 3,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC-3HE00062CB",
+    "MaterialName": "aFW500000000ZkLGAU",
+    "uom": "Each",
+    "ItemIsSerial": false,
+    "item_islot": false,
+    "Availability": [
+        {
+            "QtyAvaialble": 3,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": null,
+            "serial_number": null
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdJGAS",
+    "line": "8",
+    "line_status": "Firmed",
+    "QtyReq": 1,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC.849120217",
+    "MaterialName": "aFW50000000LaebGAC",
+    "uom": "Each",
+    "ItemIsSerial": false,
+    "item_islot": false,
+    "Availability": [
+        {
+            "QtyAvaialble": 1,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": null,
+            "serial_number": null
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdIGAS",
+    "line": "7",
+    "line_status": "Firmed",
+    "QtyReq": 3,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC-849122239",
+    "MaterialName": "aFW500000000ZkaGAE",
+    "uom": "Each",
+    "ItemIsSerial": false,
+    "item_islot": false,
+    "Availability": [
+        {
+            "QtyAvaialble": 3,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": null,
+            "serial_number": null
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdHGAS",
+    "line": "6",
+    "line_status": "Firmed",
+    "QtyReq": 4,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC-3HE00028CA",
+    "MaterialName": "aFW500000000ZkVGAU",
+    "uom": "Each",
+    "ItemIsSerial": false,
+    "item_islot": false,
+    "Availability": [
+        {
+            "QtyAvaialble": 4,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": null,
+            "serial_number": null
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdGGAS",
+    "line": "5",
+    "line_status": "Firmed",
+    "QtyReq": 1,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC-3HE06151AC",
+    "MaterialName": "aFW500000000Zk1GAE",
+    "uom": "Each",
+    "ItemIsSerial": true,
+    "item_islot": true,
+    "Availability": [
+        {
+            "QtyAvaialble": 1,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": "1",
+            "serial_number": "ATT09633249"
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdFGAS",
+    "line": "4",
+    "line_status": "Firmed",
+    "QtyReq": 1,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC-3HE06792EA",
+    "MaterialName": "aFW500000008PR4GAM",
+    "uom": "Each",
+    "ItemIsSerial": true,
+    "item_islot": true,
+    "Availability": [
+        {
+            "QtyAvaialble": 1,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": "1",
+            "serial_number": "ATT08725557"
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdEGAS",
+    "line": "3",
+    "line_status": "Firmed",
+    "QtyReq": 1,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC-3HE02774AB",
+    "MaterialName": "aFW500000008PQkGAM",
+    "uom": "Each",
+    "ItemIsSerial": true,
+    "item_islot": true,
+    "Availability": [
+        {
+            "QtyAvaialble": 1,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": "1",
+            "serial_number": "ATT08725352"
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdDGAS",
+    "line": "2",
+    "line_status": "Firmed",
+    "QtyReq": 1,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC-3HE06791AA",
+    "MaterialName": "aFW500000008PQfGAM",
+    "uom": "Each",
+    "ItemIsSerial": true,
+    "item_islot": true,
+    "Availability": [
+        {
+            "QtyAvaialble": 1,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": "1",
+            "serial_number": "ATT08725389"
+        }
+    ]
+},
+{
+    "id": "aJW50000000LwdCGAS",
+    "line": "1",
+    "line_status": "Firmed",
+    "QtyReq": 1,
+    "QtyPick": 0,
+    "qty_pack": 0,
+    "qty_ship": 0,
+    "job": "3801625039-10133226",
+    "due_date": "2017-10-10",
+    "PartNumber": "MIC.3HE05983EB",
+    "MaterialName": "aFW50000000LZRlGAO",
+    "uom": "Each",
+    "ItemIsSerial": false,
+    "item_islot": false,
+    "Availability": [
+        {
+            "QtyAvaialble": 1,
+            "inventory_proj": "3801625039-10133226",
+            "site": "aLU50000000GmbvGAC",
+            "site_number": "WA02",
+            "Location": "6I2A",
+            "location_number": "1",
+            "lot_number": null,
+            "serial_number": null
+        }
+    ]
+}
+]

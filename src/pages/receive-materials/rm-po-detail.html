@@ -1,0 +1,174 @@
+<ion-header>
+    <ion-navbar>
+        <button *ngIf="!toggled" ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title *ngIf="!toggled" text-center>
+            {{ poHeader.PONumber }}
+        </ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+        <ion-refresher-content pullingText="Pull to refresh..." refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+        <ion-item class="work-order-item">
+
+            <div class="work-order-item-row1">
+                <div class="woi-col">
+                    <div class="title">
+                        Job #
+                    </div>
+                    <div class="content">
+                        {{poHeader.JobNumber}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-order-item-row2">
+                <div class="woi-col">
+                    <div class="title">
+                        PTN
+                    </div>
+                    <div class="content">
+                        {{poHeader.SitePTN}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-order-item-row2">
+                <div class="woi-col">
+                    <div class="title">
+                        Callout #
+                    </div>
+                    <div class="content">
+                        {{poHeader.CalloutNumber}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-order-item-row2">
+                <div class="woi-col">
+                    <div class="title">
+                        Packing Slip
+                    </div>
+                    <div class="content">
+                        {{poHeader.CalloutNumber}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-order-item-row2">
+                <div class="woi-col woi-2-col">
+                    <div class="title">
+                        Location
+                    </div>
+                    <ion-item>
+                        <select-searchable title="Location" [(ngModel)]="selectedLocation" [items]="locationList"
+                            [useObject]="true" [canSearch]="true" [canInfiniteScroll]="true" [showItemsCount]="true"
+                            name="Location" itemValueField="LocationID" itemTextField="LocationName" item-content
+                            >
+                        </select-searchable>
+                    </ion-item>
+                </div>
+                <div class="woi-col woi-2-col"><button ion-button float-right style="margin-top:17px; margin-right: 5px;" (click)="scanLocation()">
+                    <span ion-text><i class="fa fa-barcode"></i><span style="padding-left:5px">Scan </span></span>
+                    </button>
+                </div>
+            </div>
+
+        </ion-item>
+
+    </ion-list>
+
+    <ion-list *ngIf="isShowLines && poLines && poLines.length > 0">
+
+        <ion-item *ngFor="let po of poHeaders; let i=index" text-wrap [ngClass]="{active: true}" class="sales-order-item">
+            <div>
+                <h2>
+                    <b>{{poHeader.PONumber}}</b>
+                </h2>
+            </div>
+            <div>
+                <ion-item *ngFor="let poLine of filterHeadersOfType(page)" class="so-line-item">
+                    <div item-content>
+                        <ion-row text-wrap align-items-left class="header">
+                            <ion-col col-2 class="line">
+                                <span>{{poLine.LocNumber}}</span>
+                            </ion-col>
+                            <ion-col col-10 class="title">
+                                <h3>{{poLine.POLineItemDescription}}</h3>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row text-wrap align-items-left>
+                            <div class="bar">
+                                <span class="pending">
+                                    <span class="received" [style.width.%]="!poLine.QtyReceived ? '0' : ( poLine.QtyReceived / poLine.QtyRequired * 100 )">
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="bar-labels">
+                                <div class="required">
+                                    <span>Required: {{poLine.QtyRequired}}</span>
+                                </div>
+                                <ion-row>
+                                    <ion-col col-6 class="received">Received: {{poLine.QtyReceived}}</ion-col>
+                                    <ion-col col-6 class="pending">Pending: {{poLine.QtyRequired - poLine.QtyReceived}}</ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <br/>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col col-6 class="dockDate">Dock Date: {{poLine.DockDate}}</ion-col>
+                                </ion-row>
+                            </div>
+                        </ion-row>
+
+                        <ion-row *ngIf="isShowReceiveButton(poLine)"
+                            align-items-center>
+                            <ion-col col-12 class="scan">
+                                <button ion-button (click)="receiveMaterials(po.CalloutNumber, poLine)">Receive</button>
+                            </ion-col>
+                        </ion-row>
+                   </div>
+                </ion-item>
+            </div>
+        </ion-item>
+
+    </ion-list>
+
+
+    <div class="no-pick-list" *ngIf="noData">
+        <p><i class="fa fa-exclamation-triangle"></i>There are no receivable PO Lines for this PO</p>
+    </div>
+    <div class="extra-padding" *ngIf="!noData">
+    </div>
+
+    <ion-fab *ngIf="this.selectedLocation" right bottom>
+        <button ion-fab mini (click)="showPrintOptions()">
+            <fa-icon name="check"></fa-icon>
+        </button>
+    </ion-fab>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar no-border-top no-border-bottom>
+        <ion-segment [(ngModel)]="page">
+            <ion-segment-button value="pending" checked>
+                Pending
+            </ion-segment-button>
+            <ion-segment-button value="received">
+                Received
+            </ion-segment-button>
+            <ion-segment-button value="all">
+                All
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-footer>

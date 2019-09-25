@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="accuv-call-push-monitor" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>AccuvCallPushMonitor</name>
+  <js-module name="AccuvCallPushMonitor" src="www/AccuvCallPushMonitor.js">
+    <clobbers target="accuv.plugins.AccuvCallPushMonitor" />
+  </js-module>
+  <platform name="android">
+    <preference name="ringingTimeoutSecs" default="30" />
+   <framework src="build-extras.gradle" custom="true" type="gradleReference" />
+   <framework src="com.android.support:appcompat-v7:23.1.0" />
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="AccuvCallPushMonitor">
+        <param name="android-package" value="com.accuv.callpushmonitor.AccuvCallPushMonitor" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml">
+      <uses-permission android:name="android.permission.BIND_TELECOM_CONNECTION_SERVICE"/>
+        <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
+
+      <meta-data
+        android:name="firebase_messaging_auto_init_enabled"
+        android:value="false" />
+    <meta-data
+        android:name="firebase_analytics_collection_enabled"
+        android:value="false" />
+    </config-file>
+    <config-file parent="/manifest/application" target="AndroidManifest.xml">
+        <service android:name="com.accuv.callpushmonitor.AccuvCallConnectionManager"
+                 android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
+                 >
+            <intent-filter>
+                <action android:name="android.telecom.ConnectionService" />
+            </intent-filter>
+        </service>
+         <activity
+            android:name="com.accuv.callpushmonitor.VideoChatActivity"
+            android:label="Accuv Video Chat"
+            android:theme="@style/Theme.AppCompat"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            ></activity>
+    <!-- ONLY ONE FCM PER APK SHOULD BE, THE PHONEGAP PUSH NOTIFICATION PLUGIN ALREADY HAS THIS!! I NEED TO HACK IT -.-
+         <service
+          android:name="com.accuv.callpushmonitor.AccuvCallPushListenerService">
+          <intent-filter>
+              <action android:name="com.google.firebase.MESSAGING_EVENT" />
+          </intent-filter>
+      </service> -->
+
+        
+    </config-file>
+    <source-file src="src/android/AccuvCallConnectionManager.java" target-dir="src/com/accuv/callpushmonitor" />
+    <source-file src="src/android/AccuvCallPushMonitor.java" target-dir="src/com/accuv/callpushmonitor" />
+    <source-file src="src/android/VideoChatActivity.java" target-dir="src/com/accuv/callpushmonitor" />
+    <resource-file src="src/android/res/drawable/camera_on.png" target="res/drawable/camera_on.png" />
+    <resource-file src="src/android/res/drawable/end_call.png" target="res/drawable/end_call.png" />
+    <resource-file src="src/android/res/drawable/front_camera.png" target="res/drawable/front_camera.png" />
+    <resource-file src="src/android/res/drawable/mute_mic.png" target="res/drawable/mute_mic.png" />
+    <resource-file src="src/android/res/drawable/no_camera.png" target="res/drawable/no_camera.png" />
+    <resource-file src="src/android/res/drawable/rear_camera.png" target="res/drawable/rear_camera.png" />
+    <resource-file src="src/android/res/drawable/unmute_mic.png" target="res/drawable/unmute_mic.png" />
+
+  </platform>
+  <platform name="ios">
+      <preference name="ringingTimeoutSecs" default="30" />
+      <framework src="OpenTok" type="podspec" spec=""  />
+      <framework src="SVProgressHUD" type="podspec" spec=""  />
+      <config-file parent="/*" target="config.xml">
+          <feature name="AccuvCallPushMonitor">
+              <param name="ios-package" value="AccuvCallPushMonitor" />
+              <param name="onload" value="true" />
+          </feature>
+      </config-file>
+      <config-file target="*-Info.plist" parent="UIBackgroundModes">
+          <array>
+              <string>voip</string>
+          </array>
+      </config-file>
+      <config-file target="*-Info.plist" parent="NSUserActivityTypes">
+          <array>
+              <string>INStartAudioCallIntent</string>
+              <string>INStartVideoCallIntent</string>
+          </array>
+      </config-file>
+      <header-file src="src/ios/AccuvCallPushMonitor.h" />
+      <header-file src="src/ios/VideoChatController.h" />
+      <header-file src="src/ios/AccuvCallPushMonitorCustomClose.h" />
+      <source-file src="src/ios/VideoChatController.m" />
+      <source-file src="src/ios/AppDelegateAccuvCallPushMonitor.m" />
+      <source-file src="src/ios/AccuvCallPushMonitor.m" />
+      <source-file src="src/ios/AccuvCallPushMonitorCustomClose.m" />
+      <resource-file src="src/ios/images/camera-on.png" />
+      <resource-file src="src/ios/images/end-call.png" />
+      <resource-file src="src/ios/images/front-camera.png" />
+      <resource-file src="src/ios/images/mute-mic.png" />
+      <resource-file src="src/ios/images/no-camera.png" />
+      <resource-file src="src/ios/images/rear-camera.png" />
+      <resource-file src="src/ios/images/unmute-mic.png" />
+  </platform>
+</plugin>

@@ -1,0 +1,17 @@
+<ion-content padding (touchend)="resetTimeout()">
+    <div class="logocontent">
+        <img src="assets/images/accuv-inv.svg" style="width: 60%" alt="AccuV Logo" />
+    </div>
+    <div class="loginmsg">
+        <h2>Welcome!</h2>
+        <h4>Please Check In</h4>
+    </div>
+    <div class="loginform">
+        <button id="loginbutton" ion-button color="primary" large round full (click)="doCheckIn()">
+            <fa-icon class="loginicon" name="map-marker" item-right icon-only></fa-icon>
+            CHECK IN
+            <br>
+            (TAP)
+        </button>
+    </div>
+</ion-content>

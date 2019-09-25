@@ -1,0 +1,14 @@
+accuv{
+  ion-content {
+    //Added these default images from assets folder. They are quite large and should be refactored to svgs
+    @media screen and (orientation:portrait){
+      background-image: url('../assets/images/Default-667h.png');
+      background-size:100% 100%;
+    }
+    @media screen and (orientation:landscape){
+      background-image: url('../assets/images/Default-Landscape-736h.png');
+      background-size:100% 100%;
+    }
+  }
+}
+

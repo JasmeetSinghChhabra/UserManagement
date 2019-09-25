@@ -1,0 +1,116 @@
+[
+	{
+		"program": "TMOBILE",
+		"vqa_picture": true,
+	    "vqa_video": false,
+	    "vqa_gallery": true,
+	    "work_order": [
+	    	{
+	    		"typeSID": 10,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	}, 
+	    	{
+	    		"typeSID": 2000,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2001,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2002,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2003,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	}
+	    ]
+	},
+	{
+		"program": "NDPATT",
+		"vqa_picture": true,
+	    "vqa_video": true,
+	    "vqa_gallery": true,
+	     "work_order": [
+	    	{
+	    		"typeSID": 10,
+	    		"logs": true,
+	    		"general_info": true,
+	    		"sector_work": true
+	    	}, 
+	    	{
+	    		"typeSID": 2000,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2001,
+	    		"logs": true,
+	    		"general_info": true,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2002,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2003,
+	    		"logs": false,
+	    		"general_info": true,
+	    		"sector_work": false
+	    	}
+	    ]
+	},
+	{
+		"program": "DEFAULT",
+		"vqa_picture": true,
+	    "vqa_video": true,
+	    "vqa_gallery": true,
+	    "work_order": [
+	    	{
+	    		"typeSID": 10,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	}, 
+	    	{
+	    		"typeSID": 2000,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2001,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2002,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	},
+	    	{
+	    		"typeSID": 2003,
+	    		"logs": false,
+	    		"general_info": false,
+	    		"sector_work": false
+	    	}
+	    ]
+	}
+]

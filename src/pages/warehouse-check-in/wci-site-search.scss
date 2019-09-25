@@ -1,0 +1,68 @@
+wci-site-search {
+    .required {
+        color: red;
+        margin-right: 5px;
+    }
+    ion-content {
+        background-image: url("../assets/images/background-accuvmobile.jpg");
+        background-size: cover;
+        
+        .scroll-content {
+            background: map-get($accuvnewcolors, accuv-purple);
+            justify-content: center;
+            align-items: center;
+            padding: 0 30px;
+        }
+        .main-slide {
+            padding: 20px;
+            flex: 1 1 auto;
+
+            .list {
+                margin: 0 0 45px;
+            }
+            .item {
+                padding-right: 0;
+                padding-left: 0;
+            }
+            .checkInTitle {
+                h2 {
+                    text-align: center;
+                    color:white;
+                    margin: 0 0 30px;
+                    font-size: 4vh;
+                    font-weight: 300;
+                }
+            }
+
+            .siteSearchIcon {
+                padding-top: 180px;
+                text-align: center;
+
+                fa-icon {
+                    color: map-get($accuvnewcolors, accuv-turquoise);
+                    font-size: 130px;
+                    margin-bottom: 15px;
+                    padding-bottom: 30px;
+                }
+            }
+
+            #searchButton {
+                background-color: map-get($accuvnewcolors, accuv-turquoise) !important;
+                color: map-get($accuvnewcolors, accuv-purple);
+                font-size: 20px;
+                font-weight: bold;
+
+                &:active,
+                &:focus {
+                    background-color: map-get($accuvnewcolors, accuv-turquoise) !important;
+                }
+            }
+
+            ion-input{
+                .text-input{
+                    text-align: center;
+                }   
+            }
+        }
+    }
+}

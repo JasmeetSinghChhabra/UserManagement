@@ -1,0 +1,269 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Work Order #{{workOrder.WorkOrderSID}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+        <ion-refresher-content pullingText="Pull to refresh..." refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
+    <span class="priority-wrapper" [ngClass]="priorityClass">
+        <span class="priority-title">Priority: </span>
+        <span class="status-value">{{workOrder.PriorityDescription || "Priority not set"}}
+        </span>
+    </span>
+
+    <ion-list>
+        <ion-item class="work-order-item">
+            <div class="work-order-item-row1">
+                <div class="woi-col">
+                    <div class="title">
+                        Job #
+                    </div>
+                    <div class="content">
+                        {{workOrder.SiteNumber}}
+                    </div>
+                </div>
+                <div class="woi-col">
+                    <div class="title">
+                        Kit ready date
+                    </div>
+                    <div class="content">
+                        <span *ngIf="!isWOEditable" class="work-order-item-reportdate">
+                            {{workOrder.DockReadyDate | fullDateTimeFormat}}
+                        </span>
+                        <ion-datetime *ngIf="isWOEditable" class="work-order-item-reportdate" displayFormat="MM/DD/YYYY"
+                            pickerFormat="MM DD YYYY" [min]="minDockDate" [max]="maxDockDate" [(ngModel)]="workOrder.DockReadyDate"
+                            name="DockReadyDate" #DockReadyDate="ngModel">
+                        </ion-datetime>
+                    </div>
+                </div>
+            </div>
+            <div class="work-order-item-row2">
+                <div class="woi-col">
+                    <div class="title">
+                        Site Name
+                    </div>
+                    <div class="content">
+                        {{workOrder.SiteName}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-order-item-row2">
+                <div class="woi-col">
+                    <div class="title">
+                        Assigned to
+                    </div>
+                    <div class="content">
+                        <div *ngIf="!isWOAssignable">
+                            {{workOrder.AssignedUserName || "Unassigned"}}
+                        </div>
+                        <select-searchable *ngIf="isWOAssignable" title="Assignee name" [(ngModel)]="workOrder.AssignedUserSID"
+                            [items]="assigneeUsers" itemValueField="UserSid" itemTextField="UserName" [canSearch]="true"
+                            [canInfiniteScroll]="true" [showItemsCount]="true" name="UserSid" item-content>
+                        </select-searchable>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-order-item-row2">
+                <div class="woi-col">
+                    <div class="title">
+                        GC
+                    </div>
+                    <div class="content">
+                        {{workOrder.GCCompanyDescription || ""}}
+                    </div>
+                </div>
+            </div>
+            <div class="work-order-item-row2">
+                <div class="woi-col">
+                    <div class="title">
+                        GC Pickup Date & Time
+                    </div>
+                    <div class="pickup-schedule-container">
+                        <div class="work-order-item-pickup-date">
+                            {{workOrder.PickupDate ? gcPickUpDate : ""}}
+                        </div>
+                        <div right class="work-order-item-pickup-time">
+                            {{workOrder.PickupDate ? gcPickUpTime : ""}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-order-item-row2">
+                <div class="woi-col woi-2-col">
+                    <div class="title">
+                        Kit Location #
+                    </div>
+                    <ion-item>
+                        <select-searchable title="Kit Location#" [(ngModel)]="workOrder.LocationNumber" [items]="kitLocationNumbers"
+                            [useObject]="false" [canSearch]="true" [canInfiniteScroll]="true" [showItemsCount]="true"
+                            name="LocationNumber" itemValueField="LovDescription" itemTextField="LovDescription" item-content>
+                        </select-searchable>
+                    </ion-item>
+                </div>
+                <div class="woi-col woi-2-col" *ngIf="isStagedLocationEnabled">
+                    <div class="title">
+                        Staged Location #
+                    </div>
+                    <ion-item>
+                        <ion-input type="text" [(ngModel)]="workOrder.StagedLocation"></ion-input>
+                    </ion-item>
+                </div>
+            </div>
+
+        </ion-item>
+    </ion-list>
+    <ion-list *ngIf="workOrderDetail && workOrderDetail.length> 0">
+
+        <div class="no-pick-list-for-page" *ngIf="filterHeadersOfType(page).length==0 && page=='pending'">
+            <p><i class="fa fa-exclamation-triangle"></i>All sales orders are fulfilled</p>
+        </div>
+
+        <ion-item *ngIf="isPickEnabled" class="toggle-scan-fields">
+            <ion-label>{{ toggleScanFieldText }}</ion-label>
+            <ion-toggle [(ngModel)]="enableScanTextField" (ngModelChange)="updateScannerCopy()"></ion-toggle>
+        </ion-item>
+
+        <!-- LEaving this here just for testing
+        <ion-item *ngIf="enableScanTextField">
+          <ion-label stacked>Scan Bin</ion-label>
+          <ion-input type="text" name="BinNumberTest">Bin Number</ion-input>
+          <button ion-button item-right color="success"><i class="fa fa-check"></i></button>
+        </ion-item>
+        -->
+
+        <ion-item *ngFor="let so of filterHeadersOfType(page); let i=index" text-wrap [ngClass]="{active: isGroupShown(i)}"
+            class="sales-order-item">
+            <div (click)="toggleGroup(i)">
+                <h2>
+                    <b>SO #</b>{{so.OrderNumber}} ({{so.OrderType}})
+                    <ion-icon item-right [name]="isGroupShown(i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+                </h2>
+            </div>
+            <div *ngIf="isGroupShown(i)">
+                <ion-item *ngFor="let pickListItem of filterLinesOfType(so.SoLines,page) " class="so-line-item">
+                    <div item-content>
+                        <ion-row text-wrap align-items-left class="header">
+                            <ion-col col-2 class="line">
+                                <span>{{pickListItem.Line}}</span>
+                            </ion-col>
+                            <ion-col col-10 class="title">
+                                <h3>{{pickListItem.ItemName}}</h3>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row text-wrap align-items-left>
+                            <div class="bar">
+                                <span class="pending">
+                                    <span class="picked" [style.width.%]="!pickListItem.QtyPick ? '0' : ( pickListItem.QtyPick / pickListItem.QtyOrdered * 100 )">
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="bar-labels">
+                                <div class="required">
+                                    <span>Required: {{pickListItem.QtyOrdered}}</span>
+                                </div>
+                                <ion-row>
+                                    <ion-col col-6 class="picked">Picked: {{pickListItem.QtyPick}}</ion-col>
+                                    <ion-col col-6 class="pending">Pending:
+                                        {{pickListItem.QtyOrdered-pickListItem.QtyPick}}</ion-col>
+                                </ion-row>
+                            </div>
+                        </ion-row>
+                        <ion-row *ngIf="isPickEnabled && filterLocationsOfType(pickListItem, page).length>0" text-wrap
+                            align-items-left>
+                            <ion-col col-12 class="location">
+                                <ion-row text-wrap class="location-head">
+                                    <ion-col col-4><span>Location</span></ion-col>
+                                    <ion-col *ngIf="page!='picked'" col-4><span>Available</span></ion-col>
+                                    <ion-col *ngIf="page=='picked'" col-4><span>Picked</span></ion-col>
+                                    <ion-col col-4><span>Serial/Lot</span></ion-col>
+                                </ion-row>
+                                <div *ngFor="let location of filterLocationsOfType(pickListItem, page)">
+                                    <ion-row text-wrap class="location-content">
+                                        <ion-col col-4 (click)="processLocationClick(location.LocationId, pickListItem)">{{location.LocationId}}</ion-col>
+                                        <ion-col *ngIf="page!='picked'" col-4>{{location.LocationQty}}</ion-col>
+                                        <ion-col *ngIf="page=='picked'" col-4>{{location.QtyPick}}</ion-col>
+                                        <ion-col col-4>{{getSerialLotDescription(pickListItem, location, page)}}</ion-col>
+                                    </ion-row>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="isPickEnabled && canPickThis(pickListItem, page) && !enableScanTextField">
+                            <ion-col col-12 class="scan">
+                                <button ion-button (click)="itemTapped($event, pickListItem)">
+                                    <i class="fa fa-barcode"></i>Scan Bin
+                                </button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="scan-bin-field" *ngIf="isPickEnabled && canPickThis(pickListItem, page) && enableScanTextField">
+                            <ion-col col-12>
+                                <ion-item>
+                                    <ion-label stacked>Scan Bin</ion-label>
+                                    <ion-input type="text" name="BinNumber" [(ngModel)]="pickListItem.binNumber"
+                                        (keyup.enter)="processLocationExternalScan(pickListItem)" placeholder="Bin Number"
+                                        clearInput></ion-input>
+                                    <button ion-button item-right color="success" (click)="processLocationTextEntry(pickListItem)"><i
+                                            class="fa fa-paper-plane"></i></button>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <div class="no-pick-list" *ngIf="isPickEnabled && page!='picked' && filterLocationsOfType(pickListItem, page).length == 0">
+                            <p><i class="fa fa-exclamation-triangle"></i>Item is currently unavailable in the inventory</p>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <div class="no-pick-list" *ngIf="noData">
+        <p><i class="fa fa-exclamation-triangle"></i>There are no sales orders on the selected Work Order</p>
+    </div>
+    <div class="extra-padding" *ngIf="!noData">
+    </div>
+
+    <ion-fab right bottom>
+        <button *ngIf="isPackEnabled" ion-fab mini (click)="gcPick()">
+            <fa-icon name="send-o"></fa-icon>
+        </button>
+        <button *ngIf="isPickEnabled && !isPackTab && !isQCTab" ion-fab mini (click)="pickComplete()">
+            <fa-icon name="check"></fa-icon>
+        </button>
+        <button *ngIf="isPickEnabled && isPackTab || isQCTab" ion-fab mini (click)="saveWorkOrder()">
+            <fa-icon name="save"></fa-icon>
+        </button>
+        <button *ngIf="isQCTab" ion-fab mini (click)="qcComplete()">
+            <fa-icon name="check-square-o"></fa-icon> 
+        </button>
+        <button *ngIf="!isWOEditable && isWOAssignable" ion-fab mini (click)="assignWorkOrder()">
+            <fa-icon name="save"></fa-icon>
+        </button>
+    </ion-fab>
+
+</ion-content>
+<ion-footer>
+    <ion-toolbar no-border-top no-border-bottom>
+        <ion-segment [(ngModel)]="page">
+            <ion-segment-button value="pending" checked>
+                Pending
+            </ion-segment-button>
+            <ion-segment-button value="picked">
+                Picked
+            </ion-segment-button>
+            <ion-segment-button value="all">
+                All
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-footer>

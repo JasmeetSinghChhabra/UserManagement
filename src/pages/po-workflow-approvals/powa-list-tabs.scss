@@ -1,0 +1,21 @@
+powa-list-tabs {
+    .tabbar {
+        background: #00398b !important;
+        .tab-button {
+            color: #fff !important;
+
+            &[aria-selected=true] {
+                font-weight: 600;
+            }
+        }
+
+        .tab-highlight {
+            height: 3px;
+            background: #EB6434 !important;
+        }
+
+        .tab-button[aria-selected=true] {
+            background-color: #EB6434;
+        }
+    }
+}

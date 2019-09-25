@@ -1,0 +1,103 @@
+﻿pickup-qty-modal {
+    .header {
+        display: block;
+
+        .title-wrapper {
+            background-color: #f3f3f3;
+            padding: 23px 20px;
+
+            .icon {
+                color: map-get($accuvcolors, accuv-danger);
+
+                &:before {
+                    font-size: 22px;
+                }
+            }
+
+            h2 {
+                font-size: 15px;
+                display: inline;
+            }
+        }
+
+        .title-warning {
+            color: map-get($accuvcolors, accuv-danger);
+        }
+
+        .title-pickup-qty {
+            text-align: center;
+            h2 {
+              font-size: 20px;
+            }
+        }
+    }
+
+    .material-editpackqty-validation {
+        span {
+            display: block;
+            margin-top: 10px;
+            padding-top: 10px;
+            padding-left: 20px;
+           
+            i.fa {
+                color: map-get($accuvcolors, accuv-danger);
+            }
+        }
+    }
+
+    .pickup-qty-content {
+        background-color: map-get($accuvcolors, accuv-new-gray);
+    
+        .input-container{
+            background-color: #FFF;
+            margin: 20px;
+            padding-right: 20px;
+            .edit-number-button {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+
+                &.enabled {
+                    background: rgba(map-get($accuvcolors, accuv-blue), 1);
+                }
+
+                &.disabled {
+                    background: rgba(map-get($accuvcolors, accuv-black), .5);
+                }
+            }
+            .qty-number {
+                font-size: 25px;
+                text-align: center;
+                ion-input {
+                    input {
+                      text-align: center;
+                    }
+                    padding-left: 10px;
+                }
+            }
+        }
+
+        .pickup-qty-label{
+            padding-top: 15px;
+            padding-left: 20px;
+        }
+        .scroll-content {
+
+            .buttons-content {
+                padding: 0 20px;
+                text-align: center;
+                .button {
+                    margin-bottom: 12px;
+
+                    .button-inner {
+                        .icon {
+                            padding-right: 7px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,347 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title *ngIf="!toggled">
+            WO [{{model.WorkOrderSID}}]<span *ngIf="page == 'logs'"> – Log detail</span></ion-title>
+        <ion-searchbar #searchbar *ngIf="toggled && page == 'documents'" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch()"
+            (ionInput)="search($event)" placeholder="Search by File Name or Id"></ion-searchbar>
+        <!-- Search Icon -->
+        <ion-buttons end>
+            <button ion-button icon-only (click)="getInfoForCall()" padding-horizontal> 
+                <ion-icon name="videocam"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="toggleSearch()" *ngIf="!toggled && page == 'documents'"> 
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content style="overflow: none" >
+    <div [ngSwitch]="page">
+        
+            <div [style.display]="page == 'form' ? 'block' : 'none'" class="form-slide"><!--  This is done in this way to avoid map div get removed -->
+            <ion-list>
+                <ion-item class="status-wrapper" [ngClass]="getStatusClass()">
+                    <ion-label class="status-value">
+                        <span class="status-label">Status: </span>{{getStatus()}}</ion-label>
+                </ion-item>
+
+                <ion-row class="work-order-header-wrapper">
+                    <ion-col class="header-col">
+                        <ion-item class="no-border">
+                            <ion-label stacked>Job Number</ion-label>
+                            <ion-textarea type="text" [(ngModel)]="model.SiteNumber" [disabled]="true" name="SiteName"></ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col class="header-col"> 
+                        <ion-item class="no-border item item-text-wrap">
+                            <ion-label stacked>Site Name</ion-label>
+                            <ion-textarea type="text" [(ngModel)]="model.SiteName" [disabled]="true" name="SiteName"></ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+
+                <ion-item class="no-border work-order-buttons-wrapper" *ngIf="showCheckinLayout()">
+                    <button (click)="checkIn()" *ngIf="model.StatusSID == 7 && auth.userInfo.IsUserGC && !model.IsCheckedIn" class="check-in-btn"
+                        ion-button round item-end icon-left>
+                        <ion-icon name="ios-arrow-down" class="check-icon"></ion-icon>
+                        Check In
+                    </button>
+                    <button (click)="checkOut()" *ngIf="model.StatusSID == 7 && auth.userInfo.IsUserGC && model.IsCheckedIn && LastCheckIn" color="danger"
+                        class="check-out-btn" ion-button round item-end icon-left>
+                        <ion-icon name="ios-arrow-up" class="check-icon"></ion-icon>
+                        Check Out
+                    </button>
+                    <button (click)="changeStatus()" *ngIf="model.StatusSID != 6 && auth.userInfo.IsUserGC" [ngClass]="getChangeStatusButtonStyle()"
+                        ion-button round item-end icon-left>
+                        <ion-icon name="{{getChangeStatusIcon()}}"></ion-icon>
+                        {{changeStatusButton}}
+                    </button>
+                </ion-item>
+
+                <div *ngIf="isSectorWorkAvailable()" >
+                    <ion-row class="no-border work-order-udfs-wrapper" *ngFor="let item of fieldServiceManagementUDFLovs">
+                        <ion-col class="start-stop-left-col">
+                            <ion-item class="start-stop-label no-border start-stop-label">
+                                {{item.UDFName}}
+                            </ion-item>
+                        </ion-col>
+                        <ion-col class="start-stop-right-col">
+                            <button (click)="startStopWork(item)" class="start-stop-button" ion-button icon-left small [ngClass]="getStartStopButtonClass(item)">
+                                <ion-icon name="{{getIconName(item)}}" class="start-stop-icon"></ion-icon>
+                                {{getStartStopButtonText(item)}}
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </div>
+                
+                <div #map id="map"></div>
+
+                <div class="directions-wrapper">
+                    <ion-item stacked class="no-border directions-button">
+                        <button [disabled]="!isAddressReady()" (click)="geo.getDirections(model.latitude, model.longitude)">
+                            <img alt="directions" src="assets/images/work-order/direction.svg">
+                        </button>
+                        <span>Directions</span>
+                    </ion-item>
+                    <ion-item class="no-border address-wrapper">
+                        <ion-label stacked>
+                            <span class="required">*</span>Address</ion-label>
+                        <ion-input type="text" [(ngModel)]="model.SiteAddress" [disabled]="true" name="SiteAddress"></ion-input>
+                    </ion-item>
+                    <div class="address-for-demo">{{model.SiteAddress || "Loading..."}}</div>
+                </div>
+                <div class="schedule-wrapper">
+                    <ion-item class="no-border">
+                        <ion-label>Scheduled Start Date</ion-label>
+                        <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD" [(ngModel)]="model.ScheduledStartDate" name="ScheduledStartDate"
+                            #ScheduledStartDate="ngModel" [disabled]="true"></ion-datetime>
+                    </ion-item>
+                    <ion-item class="no-border">
+                        <ion-label>Scheduled End Date</ion-label>
+                        <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD" [(ngModel)]="model.ScheduledEndDate" name="ScheduledEndDate"
+                            #ScheduledEndDate="ngModel" [disabled]="true"></ion-datetime>
+                    </ion-item>
+                </div>
+            </ion-list>
+        </div>
+
+        <div *ngSwitchCase="'vqa'">
+            <div class="vqa-bar">
+                <div class="vqa-bar-label">Filter by</div>
+                <div class="bar-item-wrapper">
+                    <div class="bar-item pending" (tap)="filterGroups(0)">
+                        <span class="bar-item-bar"></span>
+                        <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(0)"></fa-icon>Pending</span>
+                    </div>
+                    <div class="bar-item rejected" (tap)="filterGroups(2)">
+                        <span class="bar-item-bar"></span>
+                        <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(2)"></fa-icon>Rejected</span>
+                    </div>
+                    <div class="bar-item uploaded" (tap)="filterGroups(3)">
+                        <span class="bar-item-bar"></span>
+                        <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(3)"></fa-icon>Uploaded</span>
+                    </div>
+                    <div class="bar-item approved" (tap)="filterGroups(1)">
+                        <span class="bar-item-bar"></span>
+                        <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(1)"></fa-icon>Approved</span>
+                    </div>
+                </div>
+            </div>
+            <ion-card>
+                <ion-card-header>
+                    Equipment Types
+                </ion-card-header>
+                <div *ngFor="let equipmentType of VQAEquipmentTypesFiltered" class="vqa-equipment-type-wrapper">
+                    <div class="vqa-group-progress-bar" *ngIf="filteringVQA == -1">
+                        <div class="vqa-progress-bar" [style.width.%]="getEquipmentTypeProgress(equipmentType)"></div>
+                    </div>
+                    <button ion-item (click)="openChecklist(equipmentType)" detail-none class="vqa-equipment-type">
+                    {{equipmentType.Name}} ({{getItemsAmountByStatus(equipmentType)}})
+                    <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+                    </button>
+                </div>
+            </ion-card>
+        </div>
+
+        <div *ngSwitchCase="'documents'" class="documents-slide">
+            <document-library [documents]="Documents"></document-library>
+        </div>
+
+        <div *ngSwitchCase="'logs'" class="checkins-slide history-wrapper">
+            <!-- TODO: Add some styles to make it look better -->
+            <ion-card class="history-empty" *ngIf="!CheckInHistory || CheckInHistory.length === 0">
+                <ion-card-content>
+                    <p>There are no check-ins for this work order.</p>
+                </ion-card-content>
+            </ion-card>
+            <div *ngIf="CheckInHistory && CheckInHistory.length > 0" class="history-list">
+                <ion-card *ngFor="let history of CheckInHistory; let i=index" class="history-item">
+                    <ion-card-header (click)="toggleGroup(i)">
+                        <ion-icon item-right [name]="isGroupShown(i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+                        {{getDate(history.CheckedInDate)}} - {{history.CheckedInUserName}}
+                    </ion-card-header>
+                    <div class="history-item-inner" *ngIf="isGroupShown(i)">
+                        <!-- start checkin area -->
+                        <div class="checkin-wrapper">
+                            <div class="history-header" (click)="editCheckIn(history)">
+                                <ion-row>
+                                    <ion-col col-6>
+                                        <span>Checked In
+                                            <ion-icon name="arrow-down"></ion-icon>
+                                        </span>
+                                    </ion-col>
+                                    <ion-col col-6 text-right>
+                                        <span class="history-time">{{getTime(history.CheckedInDate)}}</span>
+                                        <button *ngIf="isUIComponentProgramAccepted()" ion-button outline item-end color="success"><i class="fa fa-pencil"></i> Edit</button>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                            <div class="history-body">
+                                <!--
+                                <ion-row>
+                                    <ion-col col-6>
+                                        <h3>User</h3>
+                                    </ion-col>
+                                    <ion-col col-6 text-right>
+                                        {{history.CheckedInUserName}}
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col col-3>
+                                        <h3>Date</h3>
+                                    </ion-col>
+                                    <ion-col col-6 text-right>
+                                        <span class="history-date">{{getDate(history.CheckedInDate)}}</span>
+                                    </ion-col>
+                                </ion-row>
+                                -->
+                                <ion-row *ngIf="isUIComponentProgramAccepted()" >
+                                    <ion-col col-3>
+                                        <h3>EIM</h3>
+                                    </ion-col>
+                                    <ion-col col-9 text-right>
+                                        <span class="history-eim">{{history.UDFsTransposed.EIM ? history.UDFsTransposed.EIM : "-"}}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row *ngIf="isUIComponentProgramAccepted()" >
+                                    <ion-col col-6>
+                                        <h3>NFSD login ticket #</h3>
+                                    </ion-col>
+                                    <ion-col col-6 text-right>
+                                        <span class="history-ticket-number">{{history.UDFsTransposed.NFSDLoginTicket ? history.UDFsTransposed.NFSDLoginTicket : "-"}}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <!--
+                                TODO: Add enlarge image on tap, maybe use Native Photo Viewer?
+                                https://ionicframework.com/docs/native/photo-viewer/
+                            -->
+                                <ion-row *ngIf="isUIComponentProgramAccepted() && history.UDFsTransposed.NFSDLoginScreenshotFileName">
+                                    <ion-col col-12>
+                                        <h3>NFSD login screenshot</h3>
+                                    </ion-col>
+                                    <ion-col col-12>
+                                        <span class="history-image">
+                                            <img src="{{getImagePath(history.UDFsTransposed.NFSDLoginScreenshotFileName)}}" alt="Image Not Found">
+                                        </span>
+                                    </ion-col>
+                                </ion-row>
+                                <div *ngIf="logsEnabled()" >
+                                    <ion-row *ngFor="let log of getCheckinLogs(history.WorkOrderCheckinSID)">
+                                        <ion-col>
+                                            <span (click)="downloadCheckinLog(log)" class="log-link">{{getFileName(log)}}</span>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col col-3>
+                                            <h3>Notes</h3>
+                                        </ion-col>
+                                        <ion-col col-9 text-right>
+                                            <span class="notes-text">{{getCheckinNote(history.WorkOrderCheckinSID)}}</span>
+                                        </ion-col>
+                                    </ion-row>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End checkin area -->
+                        <!-- start checkout area -->
+                        <!-- TODO: we should check if the history has a checkout for this item-->
+                        <div *ngIf="!history.IsCheckedIn" class="checkout-wrapper">
+                            <div class="history-header" (click)="editCheckOut(history)">
+                                <ion-row>
+                                    <ion-col col-6>
+                                        <span>Checked Out
+                                            <ion-icon name="arrow-up"></ion-icon>
+                                        </span>
+                                    </ion-col>
+                                    <ion-col col-6 text-right>
+                                        <span class="history-time">{{getTime(history.CheckedOutDate)}}</span>
+                                        <button *ngIf="isUIComponentProgramAccepted()" ion-button outline item-end color="danger"><i class="fa fa-pencil"></i> Edit</button>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                            <div class="history-body">
+                                <ion-row *ngIf="history.CheckedOutUserName !== history.CheckedOutUserName">
+                                    <ion-col col-6>
+                                        <h3>User</h3>
+                                    </ion-col>
+                                    <ion-col col-6 text-right>
+                                        {{history.CheckedOutUserName}}
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row *ngIf="getDate(history.CheckedOutDate) !== getDate(history.CheckedInDate)">
+                                    <ion-col col-6>
+                                        <h3>Date</h3>
+                                    </ion-col>
+                                    <ion-col col-6 text-right>
+                                        <span class="history-date">{{getDate(history.CheckedOutDate)}}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row *ngIf="isUIComponentProgramAccepted()" >
+                                    <ion-col col-6>
+                                        <h3>NFSD logout ticket #</h3>
+                                    </ion-col>
+                                    <ion-col col-6 text-right>
+                                        <span class="history-ticket-number">{{history.UDFsTransposed.NFSDLogoutTicket ? history.UDFsTransposed.NFSDLogoutTicket : "-"}}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <!--
+                                TODO: Add enlarge image on tap, maybe use Native Photo Viewer?
+                                https://ionicframework.com/docs/native/photo-viewer/
+                            -->
+                                <ion-row *ngIf="isUIComponentProgramAccepted()" >
+                                    <ion-col col-12>
+                                        <h3>NFSD logout screenshot</h3>
+                                    </ion-col>
+                                    <ion-col col-12>
+                                        <span class="history-image">
+                                            <img src="{{getImagePath(history.UDFsTransposed.NFSDLogoutScreenshotFileName)}}" alt="Image Not Found">
+                                        </span>
+                                    </ion-col>
+                                </ion-row>
+                                <div *ngIf="logsEnabled()" >
+                                    <ion-row *ngFor="let log of getCheckoutLogs(history.WorkOrderCheckinSID)">
+                                        <ion-col>
+                                            <span (click)="downloadCheckoutLog(log)" class="log-link">{{getFileName(log)}}</span>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col col-3>
+                                            <h3>Notes</h3>
+                                        </ion-col>
+                                        <ion-col col-9 text-right>
+                                            <span class="history-ticket-number">{{getCheckoutNote(history.WorkOrderCheckinSID)}}</span>
+                                        </ion-col>
+                                    </ion-row>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End checkout area -->
+                    </div>
+                </ion-card>
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar no-border-top no-border-bottom>
+        <ion-segment [(ngModel)]="page">
+            <ion-segment-button value="form">
+                Details
+            </ion-segment-button>
+            <ion-segment-button value="vqa" checked>
+                Quality
+            </ion-segment-button>
+            <ion-segment-button value="documents">
+                Documents
+            </ion-segment-button>
+            <ion-segment-button value="logs">
+                Logs
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-footer>

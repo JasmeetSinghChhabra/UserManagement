@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <!-- Menu button  -->
+    <button *ngIf="!toggled" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!-- Title -->
+    <ion-title *ngIf="!toggled">
+      Daily Vehicle Inspection [{{app.projectName}}]
+    </ion-title>
+    <!-- Search Bar -->
+    <ion-searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch()" (ionInput)="search($event)" placeholder="Search by Date using format mmddyyyy"></ion-searchbar>
+    <!-- Search Icon -->
+    <ion-buttons end *ngIf="!toggled">
+      <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content pullingText="Pull to refresh..."
+                           refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item class="dvi-item" *ngFor="let dvi of dvis" (click)="itemTapped($event, dvi)">
+      <div class="dvi-item-row1">
+        <span class="dvi-item-sitenumber">Truck #: {{dvi.TruckNo}}</span>
+        <span class="dvi-item-reportdate">
+          {{dvi.InspectionDate | listDateTimeFormat}}
+        </span>
+      </div>
+      <div class="dvi-item-row2">
+          ID: {{dvi.VehicleInspectionId}}
+      </div>
+    </button>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!--<ion-fab right bottom>
+    <button ion-fab color="primary" (click)="newDvi()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>-->
+
+</ion-content>

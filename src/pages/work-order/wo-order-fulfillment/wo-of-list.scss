@@ -1,0 +1,91 @@
+wo-of-list {
+    .work-order-item {
+        padding-left: 0 !important;
+        &:nth-child(2n+0) {
+            background-color: #eef8f8;
+        }
+        &.row-selected {
+            background-color: rgba(map-get($accuvcolors, accuv-gray-bg), 1);
+        }
+        .item-inner {
+            padding-left: 15px;
+            .input-wrapper {
+                .label {
+                    color: #333 !important;
+                    .work-order-item-row1 {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+        .work-order-item-row1 {
+            line-height: 24px;
+        }
+        .work-order-item-sitenumber {
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .work-order-item-reportdate {
+            float: right;
+            font-size: 12px;
+            color: #777;
+        }
+        .work-order-item-row3 {
+            font-size: 13px;
+        }
+        .work-order-item-row2 {
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 90%;
+            span{
+                &.status-cancelled {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-red), 1);
+                }
+                &.status-completed {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-green), 1);
+                }
+                &.status-kit-in-progress {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-purple), 1);
+                }
+                &.status-q-c-in-progress {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-purple), 1);
+                }
+                &.status-g-c-review {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-purple), 1);
+                }
+                &.status-fully-picked {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-light-green), 1);
+                }
+                &.status-partially-picked {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-gold), 1);
+                }
+                &.status-partially-shipped {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-orange), 1);
+                }
+                &.status-q-c-approved {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-sky-blue), 1);
+                }
+                &.status-shipped {
+                    font-weight: bold;
+                    color: rgba(map-get($accuvcolors, accuv-green), 1);
+                }
+            }
+        }
+    }
+    ion-content {
+        ion-fab {
+            position: fixed;
+        }
+    }
+}

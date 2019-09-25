@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title style="text-align: center">Confirm Pickup</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="signature-content">
+    <div [formGroup]="signatureForm" class="input-container">
+        <ion-item>
+            <ion-input class="signature-input" type="text" formControlName="name" placeholder= "Name" [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <div>
+            <ion-item>
+                <ion-input class="signature-input" formControlName="email" type="email" placeholder= "E-Mail" [(ngModel)]="email"></ion-input>
+            </ion-item>
+        </div>
+    </div>
+    <ion-label class="signature-label" stacked>Enter Signature</ion-label>
+    <div class="signaturecontent">
+        <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+    </div>
+
+    <div class="buttons-content">
+        <button ion-button color="danger" (click)="closeModal()"><ion-icon name="close"></ion-icon>Cancel</button>
+        <button ion-button (click)="clearSignature()"><ion-icon name="refresh"></ion-icon>Clear</button>
+        <button ion-button color="success" (click)="completePackAndShip()"><ion-icon name="checkmark"></ion-icon>Confirm</button>
+    </div>
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>
+

@@ -1,0 +1,188 @@
+powa-home {
+    .powa-all-vendors-toggle {
+        background: map-get($accuvcolors, accuv-light-gray);
+        color: map-get($accuvcolors, accuv-blue);
+    }
+    .initials {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin: 8px 16px 8px 0!important;
+        text-align: center;
+        border: 1px solid #1984c8;
+        color: #FFF;
+        background: #1984c8;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding-box;
+        background-clip: padding-box;
+        margin-left: 0;
+
+        .initial {
+            line-height: 40px;
+            font-size: 14px;
+        }
+    }
+    .powa-item-wrapper {
+        &:nth-child(2n+0) {
+            .powa-item {
+                background-color: #eef8f8;
+            }
+        }
+    }
+    .powa-items-wrapper {
+        .item-wrapper {
+            &:nth-child(2n+0) {
+                .powa-item {
+                    background-color: #eef8f8;
+                }
+            }
+        }       
+    }
+    .powa-item {
+        padding-left: 0 !important;
+
+        .item-inner {
+            padding-left: 15px;
+
+            .input-wrapper {
+                .label {
+                    color: #333 !important;
+                    .powa-item-row1 {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+        .powa-item-check{
+            display: inline-block;
+            margin-left: 20px;
+        }
+        .powa-item-content{
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+
+            .powa-item-title {
+                font-size: 18px;
+                font-weight: bold;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 90%;
+            }
+            .powa-item-subtitle {
+                font-size: 13px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+            }
+            .col-left {
+                flex: 1 1 auto;
+                max-width: 80%;
+            }
+            .col-right {
+                text-align: right;
+                flex: 1 0 auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-end;
+
+                .powa-item-created-date {
+                    font-size: 12px;
+                    color: #777;
+                }
+                .powa-item-total-wrapper {
+                    text-align: center;
+
+                    .powa-item-total-label {
+                        font-size: 12px;
+                        color: #777;
+                    }
+                }
+            }
+            .powa-item-total {
+                display: flex;
+                align-items: center;
+
+                .powa-item-total-label {
+                    font-weight: 700;
+                    margin-right: 5px;
+                }
+                .powa-item-total-content {
+                    font-size: 1.4rem;
+                    padding: 3px 5px;
+                    border-radius: 5px;
+                    background: rgba(map-get($accuvcolors, accuv-success), .15);
+                }
+            }
+        }
+        .content {
+            font-size: 1.4rem;
+            padding: 5px;
+            background: rgba(map-get($accuvcolors, accuv-success), .15);
+        }
+    }
+    ion-fab {
+        display: -webkit-box;
+    }
+    .powa-av-toggle-group {
+        padding-left: 0;
+
+        .item-inner {
+            padding-left: 16px;
+            border-bottom: 1px solid map-get($accuvcolors, accuv-blue) !important;
+        }
+        ion-label {
+            font-weight: 700;
+        }
+        ion-icon {
+            color: map-get($accuvcolors, accuv-blue);
+            margin-right: 8px;
+        }
+    }
+}
+.powa-item-check + .item-inner, 
+.powa-item-check + .item-input, 
+.powa-item-check + .item-inner, 
+.powa-item-check + .item-input {
+    margin-left: 0 !important;
+    padding-left: 10px !important;
+}
+.powa-no-pending {
+    margin: 20px;
+    background-color: #FFF;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid map-get($accuvcolors, accuv-success);
+
+    .no-pending-title {
+        color: map-get($accuvcolors, accuv-success);
+    }
+}
+.multi-select-fab-buttons {
+    background: map-get($accuvcolors, accuv-new-gray);
+}
+.alert-button.powa-approve-button {
+    background-color: map-get($accuvcolors, accuv-success);
+    color: map-get($colors, white);
+    
+    &:active,
+    &:focus,
+    &:hover, {
+        background-color: darken(map-get($accuvcolors, accuv-success), 10%);
+    }
+}
+.alert-button.powa-reject-button {
+    background-color:  map-get($accuvcolors, accuv-danger);
+    color: map-get($colors, white);
+
+    &:active,
+    &:focus,
+    &:hover, {
+        background-color: darken(map-get($accuvcolors, accuv-danger), 10%);
+    }
+}

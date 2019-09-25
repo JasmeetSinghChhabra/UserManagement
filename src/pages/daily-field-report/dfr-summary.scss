@@ -1,0 +1,79 @@
+dfr-summary {
+  ion-content {
+    .toolbar-background {
+      background: #fff;
+      border-color: transparent;
+    }
+
+    .summary-list {
+      .item {
+        &.item-block {
+          padding-left: 0;
+        }
+
+        .item-inner {
+          .input-wrapper {
+            .summary-item-content {
+              width: 100%;
+
+              expandable {
+                .button-site {
+                  padding-left: 10px;
+                  background-color: #eef8f8;
+
+                  &.differentReport {
+                    background-color: map-get($accuvcolors, accuv-gray-disabled) !important;
+                    pointer-events: none !important;
+                  }
+
+                  .item-inner {
+                    .input-wrapper {
+                      .label {
+                        white-space: normal;
+                      }
+                    }
+                  }
+                }
+
+                .expand-wrapper {
+                  .item-inner {
+                    border: 0;
+                  }
+
+                  .fa-exclamation-circle {
+                    &:before {
+                      font-size: 18px;
+                      color: map-get($accuvcolors, accuv-orange);
+                    }
+                  }
+
+                  .fa-check-circle {
+                    &:before {
+                      font-size: 18px;
+                      color: map-get($accuvcolors, accuv-success);
+                    }
+                  }
+
+                  .fa-times-circle {
+                    &:before {
+                      font-size: 18px;
+                      color: map-get($accuvcolors, accuv-danger);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .toolbar-ios .custom-ion-title {
+      padding: 0 18px 1px!important;
+    }
+
+    ion-fab {
+      display: -webkit-box;
+    }
+  }
+}

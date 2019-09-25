@@ -1,0 +1,99 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{pickerTitle}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row class="serial-number-info">
+            <ion-col col-auto>
+                <span class="label">Material</span>{{pickedItem.ItemNumber}}
+            </ion-col>
+            <ion-col col-auto>
+                <span class="label">Location</span>
+                <ion-select [disabled]="lotsAndSerialNumbers.length>0" interface="popover" [(ngModel)]="pickedLocationId"
+                    name="pickedLocationId">
+                    <ion-option *ngFor="let locationId of getUniqueLocationIds()">{{locationId}}</ion-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row class="serial-number-quantity">
+            <ion-col col-auto>
+                <span class="label">Pending Quantity</span>{{getQuantityPending()}}
+            </ion-col>
+            <ion-col col-auto>
+                <span class="label">Available Quantity</span>{{getQuantityAvailable()}}
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="lotsAndSerialNumbers.length>0" text-wrap align-items-left class="serial-number-grid">
+            <ion-col col-12>
+                <ion-row text-wrap>
+                    <ion-col col-4><span>Serial Number</span></ion-col>
+                    <ion-col col-4><span>Lot Number</span></ion-col>
+                </ion-row>
+                <div *ngFor="let tuple of lotsAndSerialNumbers">
+                    <ion-row text-wrap>
+                        <ion-col col-4>{{tuple[1]}}</ion-col>
+                        <ion-col col-4>{{tuple[0]}}</ion-col>
+                    </ion-row>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row class="serial-number-validation" *ngIf="validationError">
+            <ion-col col-auto>
+                <span ion-text><i class="fa fa-exclamation-triangle"></i> {{validationError}}</span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="serial-number-picked" *ngIf="getQuantityPending() == 0">
+            <ion-col col-auto>
+                <span ion-text><i class="fa fa-check"></i> All required items have been picked</span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="serial-number-validation" *ngIf="validationMessage">
+            <ion-col col-12>
+                <span ion-text><i class="fa fa-exclamation-triangle"></i> {{validationMessage}}</span>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-item class="toggle-scan-fields">
+        <ion-label>{{ toggleScanFieldText }}</ion-label>
+        <ion-toggle [(ngModel)]="enableScanTextField" (ngModelChange)="updateScannerCopy()"></ion-toggle>
+    </ion-item>
+</ion-content>
+<ion-footer>
+    <ion-grid>
+        <ion-row class="scan-serial-field" *ngIf="getQuantityPending() > 0 && enableScanTextField">
+            <ion-col col-12>
+                <ion-item>
+                    <ion-label stacked>
+                        <span *ngIf="lotsAndSerialNumbers.length>0">Scan Next</span>
+                        <span *ngIf="lotsAndSerialNumbers.length==0">Scan Serial Number</span>
+                    </ion-label>
+                    <ion-input type="text" name="SerialNumber" autofocus [(ngModel)]="serialNumber" (keyup.enter)="readSerialNumberExternalScanEntry()"
+                        placeholder="Serial Number" clearInput></ion-input>
+                    <button ion-button item-right color="success" (click)="readSerialNumberText()"><i class="fa fa-paper-plane"></i></button>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="serial-number-buttons">
+            <ion-col col-12>
+                <ion-buttons start>
+                    <button ion-button color="danger" (click)="cancel()">
+                        <span ion-text>Cancel</span>
+                    </button>
+                    <button *ngIf="getQuantityPending() > 0 && !enableScanTextField" ion-button (click)="scan()">
+                        <span *ngIf="lotsAndSerialNumbers.length>0" ion-text><i class="fa fa-barcode"></i> Scan Next</span>
+                        <span *ngIf="lotsAndSerialNumbers.length==0" ion-text><i class="fa fa-barcode"></i> Scan Serial
+                            Number</span>
+                    </button>
+                    <button *ngIf="lotsAndSerialNumbers.length>0" ion-button color="success" (click)="done()">
+                        <span ion-text>Done</span>
+                    </button>
+                </ion-buttons>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

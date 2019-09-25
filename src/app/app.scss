@@ -1,0 +1,582 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+
+body {
+    font-family: 'Lato', sans-serif !important;
+    /*ion-label {
+        color: map-get($accuvcolors, accuv-black2);
+    }*/
+    /*.text-input, .input-wrapper {
+        color: map-get($accuvcolors, accuv-black2) !important;
+    }*/
+}
+
+ion-app {
+    &.app-root {
+        font-family: 'Lato', sans-serif !important;
+        color: map-get($accuvcolors, accuv-black);
+
+        ion-header {
+            ion-navbar {
+                .back-button {
+                    color: #fff;
+                }
+
+                .toolbar-background {
+                    background: map-get($accuvcolors, accuv-orange) !important;
+                }
+
+                .toolbar-content {
+                    .title {
+                        .toolbar-title {
+                            color: #fff !important;
+                        }
+                    }
+                }
+
+                .bar-button-menutoggle { /* Meu - Sandwitch Button */
+                    color: #fff !important;
+                }
+
+                .bar-buttons {
+                    .bar-button {
+                        color: #fff !important;
+
+                        .button-inner {
+                        }
+                    }
+                }
+
+                .searchbar-input {
+                    padding: 6px 6px 6px 55px;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+
+        .picker-md {
+            .picker-wrapper {
+                height: 330px;
+
+                .picker-toolbar {
+                    height: 44px;
+                    margin: 20px 0;
+
+                    .picker-toolbar-button {
+                        &.picker-toolbar-cancel {
+                            .picker-button {
+                                border: 1px solid map-get($accuvcolors, accuv-danger) !important;
+                                color: map-get($accuvcolors, accuv-danger) !important;
+                            }
+                        }
+
+                        .picker-button {
+                            border: 1px solid map-get($accuvcolors, accuv-blue);
+                            color: map-get($accuvcolors, accuv-blue);
+                            border-radius: 4px;
+                            margin-right: 15px;
+                        }
+                    }
+                }
+
+                .picker-columns {
+                    .picker-col {
+                        max-width: 85px !important;
+
+                        .picker-opts {
+                            max-width: 50px !important;
+
+                            .picker-opt {
+                                &.picker-opt-selected {
+                                    color: map-get($accuvcolors, accuv-blue) !important;
+                                    font-size: 28px;
+                                    font-weight: 700;
+                                }
+                            }
+                        }
+
+                        &.picker-opts-right, &.picker-opts-left {
+                            max-width: 100% !important;
+
+                            .picker-opts {
+                                max-width: 68px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        ion-action-sheet {
+            .action-sheet-wrapper {
+                .action-sheet-container {
+                    padding-top: 0;
+
+                    .action-sheet-group {
+                        .action-sheet-title {
+                            background-color: map-get($accuvcolors, accuv-blue);
+                            color: #fff;
+                        }
+
+                        button {
+                            &.action-sheet-cancel {
+                                border: 1px solid #ba1424 !important;
+                                color: #ba1424 !important;
+                                border-radius: 4px;
+                                margin-left: 15px;
+                                box-sizing: border-box;
+                                width: auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+ion-popover {
+    .popover-wrapper {
+        .popover-content {
+            border-radius: 0;
+            width: 250px !important;
+        }
+    }
+    ion-list {
+        &.list-ios {
+            margin-bottom: 16px;
+        }
+    }
+}
+ion-list {
+    .list-header {
+        background: #00398b;
+        color: #fff !important;
+        border-bottom: 1px solid rgba(64, 64, 64, 0.5);
+    }
+    .list-header-ios {
+        font-size: 1.3rem;
+        padding-left: 0 !important;
+        text-align: center;
+        letter-spacing: normal;
+    }
+    .list-header-md {
+        font-size: 1.6rem;
+    }
+}
+ion-card {
+    .card-content {
+        padding-left: 47px;
+        position: relative;
+
+        ion-icon {
+            position: absolute;
+            left: 17px;
+
+            &:before {
+                font-size: 23px;
+            }
+        }
+    }
+    &.card {
+        border: 1px solid rgba(64, 64, 64, 0.5);
+
+        .card-header {
+            background: #00398b;
+            color: #fff !important;
+            border-bottom: 1px solid rgba(64, 64, 64, 0.5);
+            opacity: .9;
+            .icon-md {
+                padding-right: 8px;
+            }
+        }
+        .list {
+            .item {
+                .item-inner {
+                    .label {
+                        color: map-get($accuvcolors, accuv-black2);
+                    }
+                    .badge {
+                        background-color: map-get($accuvcolors, accuv-blue-secondary) !important;
+                    }
+                    .action-icon {
+                      color: #18873b
+                    }
+                }
+            }
+        }
+    }
+}
+
+ion-menu {
+    &#menu-accuv-app {
+        .menu-inner {
+            ion-header { /*start header menu*/
+                &.header {
+                    .toolbar {
+                        .toolbar-background {
+                            background: map-get($accuvcolors, accuv-black);
+                        }
+
+                        .toolbar-content {
+                            .title {
+                                .toolbar-title {
+                                    color: #fff !important;
+                                }
+                            }
+
+                            .ion-searchbar {
+                                .searchbar-input-container {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            /*finish header menu*/
+            ion-content {
+                &.content {
+                    background: map-get($accuvcolors, accuv-black);
+
+                    .scroll-content {
+                        //margin-right: 12px;
+                        color: #fff !important;
+
+                        .item {
+                            background-color: map-get($accuvcolors, accuv-black);
+                            color: #fff !important;
+
+                            ion-icon {
+                                padding-right: 8px;
+                            }
+
+                            .menu-userName {
+                                font-weight: 600;
+                            }
+                        }
+
+                        ion-list {
+                            ion-label {
+                                color: #fff !important;
+                            }
+
+                            &.list {
+                                ion-item-group {
+                                    &.user-project-block {
+                                        //background-color: map-get($accuvcolors, accuv-blue);
+                                        background-color: map-get($accuvcolors, accuv-opacity9-blue);
+                                        background-image: url("../assets/images/background-accuvmobile-menu.jpg");
+                                        border-bottom: 1px solid #dedede;
+
+                                        ion-item-divider {
+                                            &.useraccuv {
+                                                background-color: inherit;
+                                                border-bottom: none;
+                                                display: block;
+                                                padding-left: 15px;
+                                                padding-right: 15px;
+                                                width: auto;
+
+                                                .usericonaccuv {
+                                                    background: none !important;
+                                                    margin-bottom: 0 !important;
+                                                    padding-left: 0;
+
+                                                    &:before {
+                                                        width: 38.5px;
+                                                        height: 38.5px;
+                                                        font-size: 45px;
+                                                        line-height: 38.5px;
+                                                    }
+                                                }
+
+                                                .item-inner {
+                                                    margin-left: 0 !important;
+
+                                                    .basic-button-accuv {
+                                                        margin-right: 0;
+                                                        height: 28px;
+
+                                                        .button-inner {
+                                                            font-size: 13px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            &.projectaccuv {
+                                                //background-color: map-get($accuvcolors, accuv-blue);
+                                                background-color: inherit;
+                                                padding-left: 15px;
+                                                padding-right: 15px;
+                                                width: auto;
+                                                border-top: 1px solid #dedede;
+                                                border-bottom: none;
+
+                                                .item-inner {
+                                                    margin-left: 0 !important;
+
+                                                    .basic-button-accuv {
+                                                        margin-right: 0;
+                                                        height: 28px;
+
+                                                        .button-inner {
+                                                            font-size: 13px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    &.item-project-block {
+                                        .item {
+                                            .item-inner {
+                                                margin-left: 0 !important;
+                                                border-bottom: none !important;
+                                            }
+                                        }
+
+                                        fa-icon {
+                                            font-size: 1.3em;
+                                            line-height: .67;
+                                            width: 25px;
+                                            text-align: center;
+                                            margin-right: 8px !important;
+                                        }
+                                       
+                                    }
+
+                                    ion-item-divider {
+                                        .icon {
+                                            background: map-get($accuvcolors, accuv-orange);
+                                            border-radius: 50%;
+                                            padding: 6px 6px;
+                                            margin-right: 10px;
+
+                                            &:before {
+                                                color: #fff;
+                                                width: 18px;
+                                                height: 18px;
+                                                font-size: 23px;
+                                                line-height: 18px;
+                                                display: block;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .item {
+                                    background-color: map-get($accuvcolors, accuv-black);
+                                    color: #fff !important;
+
+                                    .item-inner {
+                                        margin-left: 12px !important;
+
+                                        .input-wrapper {
+                                            .label {
+                                                ion-icon {
+                                                    padding-right: 8px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* alerts style ! */
+ion-alert {
+    .alert-wrapper {
+        .alert-head {
+            background-color: map-get($accuvcolors, accuv-blue);
+
+            .alert-title, .alert-sub-title {
+                color: #fff;
+            }
+        }
+
+        .alert-message {
+            padding: 15px;
+            color: map-get($accuvcolors, accuv-black2);
+        }
+
+        .alert-input-group {
+            .alert-input-wrapper {
+                .alert-input {
+                    color: map-get($accuvcolors, accuv-black2);
+                }
+            }
+        }
+
+        .alert-radio-group {
+            .alert-radio {
+                .button-inner {
+                    .alert-radio-icon {
+                        left: 20px;
+                    }
+
+                    .ios & .alert-radio-icon {
+                        left: 0;
+                    }
+
+                    .alert-radio-label {
+                        padding-left: 36px;
+                        color: map-get($accuvcolors, accuv-black2);
+                    }
+
+                    .ios & .alert-radio-label {
+                        padding-left: 13px;
+                    }
+                }
+            }
+        }
+
+        .alert-checkbox-group {
+            .alert-checkbox {
+                .button-inner {
+                    .alert-checkbox-icon {
+                        left: 20px;
+                    }
+
+                    .alert-checkbox-label {
+                        padding-left: 36px;
+                        color: map-get($accuvcolors, accuv-black2);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Toast Styles */
+ion-toast {
+    &.toast-info {
+        .toast-wrapper {
+            background-color: map-get($accuvcolors, accuv-blue-secondary);
+        }
+    }
+
+    &.toast-warning {
+        .toast-wrapper {
+            background-color: map-get($accuvcolors, accuv-warning);
+        }
+    }
+
+    &.toast-success {
+        .toast-wrapper {
+            background-color: map-get($accuvcolors, accuv-success);
+        }
+    }
+
+    &.toast-error {
+        .toast-wrapper {
+            background-color: map-get($accuvcolors, accuv-danger);
+        }
+    }
+}
+
+select-searchable-page {
+    .header {
+        ion-toolbar {
+            .toolbar-content {
+                .searchbar {
+                    .searchbar-input-container {
+                        .searchbar-search-icon {
+                            color: map-get($accuvcolors, accuv-blue);
+                        }
+
+                        .searchbar-input {
+                            box-shadow: none !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .content {
+        .scroll-content {
+            .list {
+                .item {
+                    .icon {
+                        color: map-get($accuvcolors, accuv-blue);
+                    }
+                }
+            }
+
+            .notfound-text {
+                color: #404040;
+                text-align: center;
+                font-weight: 600;
+                font-size: 2.4rem;
+            }
+        }
+    }
+}
+
+#menu-accuv-app{
+    ion-avatar {
+        min-width: 25px;
+        display: inline;
+        img{
+            border-radius: 0% !important;
+            display: inline;
+            width:24px !important;
+            height:19px !important;
+            margin-right: 6px;
+        }
+    }
+}
+
+ion-select {
+    &.select-md,
+    &.select-ios {
+        .select-icon {
+            .select-icon-inner {
+                color: map-get($accuvcolors, accuv-blue);
+            }
+        }
+    }
+}
+
+/* Date Time Styles */
+ion-datetime {
+    color: map-get($accuvcolors, accuv-blue) !important;
+}
+
+/* Buttons Style */
+.button {
+    border-radius: 4px;
+    text-transform: none;
+    padding: 0 20px !important;
+}
+
+.stacked-button-label {
+    display: block;
+    font-size: 1.2rem;
+}
+
+.md .stacked-button-label {
+    color: #999;
+}

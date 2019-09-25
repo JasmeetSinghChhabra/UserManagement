@@ -1,0 +1,16 @@
+<ion-content padding>
+    <div class="main-slide">
+        <div class="logocontent">
+            <img src="assets/images/accuv-inv.svg" style="width: 60%" alt="AccuV Logo" />
+        </div>
+        <div class="thankyoumsg">
+            <h1>Thank you!</h1>
+            <h2>You are now checked in.</h2>
+            <h2 *ngIf="stagedLocation">Please go to lane {{ getStagedLocation() }}</h2>
+            <h2>Someone will be with you shortly.</h2>
+        </div>
+        <div class="confirmButtonWrapper">
+            <button id="confirmButton" ion-button color="secondary"  (click)="confirmThankYou()">OK</button>
+        </div>       
+    </div>
+</ion-content>

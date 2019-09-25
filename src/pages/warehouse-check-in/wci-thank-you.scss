@@ -1,0 +1,75 @@
+wci-thank-you {
+    .content{
+        background-image: url("../assets/images/background-accuvmobile.jpg");
+        background-size: cover;
+        
+        .scroll-content {
+            background: map-get($accuvnewcolors, accuv-purple);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .main-slide{
+            padding: 20px;
+            flex: 1 1 auto;
+        }
+
+        .thankyoumsg {
+            padding: 1vw 0;
+
+            h1, h2, h4 {
+                text-align: center;
+                margin: 0;
+                color: white;
+                font-size: 4vh;
+            }
+            h2 {
+                font-weight: 300;
+            }
+            h4 {
+                font-weight: 300;
+                font-size: 3vh;
+            }
+        }
+
+        .logocontent {
+            width: 100%;
+            padding: 15vh 0 10vh;
+
+            img {
+                max-width: 28.4vh;
+                height: auto;
+                padding-left: 12.5px;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+
+        .confirmButtonWrapper {
+            flex: 1 1 auto;
+            display: flex;
+            padding: 24px 0;
+            margin-top: 60px;
+            justify-content: center;
+            
+            button{
+                width: 30%;
+                border-radius: 4px;
+                background-color: map-get($accuvnewcolors, accuv-turquoise) !important;
+                color: map-get($accuvnewcolors, accuv-purple);
+                font-weight: bold;
+
+                &:active,
+                &:focus {
+                    background-color: map-get($accuvnewcolors, accuv-turquoise) !important;
+                }
+
+                .button-inner{
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}

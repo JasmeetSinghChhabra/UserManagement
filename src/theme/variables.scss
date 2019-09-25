@@ -1,0 +1,240 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+$font-path: "../assets/fonts";
+@import "ionic.globals";
+// Font Awesome
+$fa-font-path: $font-path;
+@import "font-awesome";
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #00398b,
+  secondary:  #EB6434,
+  danger:     #ba1424,
+  success:    #18873b,
+  light:      #1984c8,
+  white:      #fff,
+  dark:       #00398b
+);
+$accuvnewcolors: (
+  accuv-purple: #250E62,
+  accuv-light-purple: #44499C,
+  accuv-turquoise: #12F9E3
+);
+$accuvcolors: (
+    accuv-gray: #a0a0a0,
+    accuv-gray-tab: #ececec,
+    accuv-gray-bg: #9f9f9f,
+    accuv-light-gray: #d4d4d4,
+    accuv-gray-disabled: #f5f5f5,
+    accuv-new-gray: #e0e0e0,
+    accuv-black: #404040,
+    accuv-black2: #333,
+    accuv-dark-blue: #23373A,
+    accuv-blue: #00398b,
+    accuv-red: rgb(255, 0, 0),
+    accuv-purple: rgb(153, 102, 255),
+    accuv-green: rgb(0, 176, 80),
+    accuv-light-green: rgb(169, 208, 142),
+    accuv-gold: rgb(255, 217, 102),
+    accuv-blue-secondary: #1984c8,
+    accuv-sky-blue: #6593F5,
+    accuv-orange: #EB6434,
+    accuv-light-blue: #70C3C3,
+    accuv-opacity9-blue: rgba(0, 57, 139, 0.9),
+    accuv-lighter-blue: lighten(#70C3C3, 30%),
+    accuv-light-orange: #f39d77,
+    accuv-lighter-orange: lighten(#fad8c9, 4%),
+    accuv-lighter-orange-2: #fef0e7,
+    accuv-success: #18873b,
+    accuv-danger: #ba1424,
+    accuv-neutral: #5f6469,
+    accuv-warning: #ffbe14,
+    accuv-new-bg: #ece7e7,
+    accuv-in-progress:rgba(57, 160, 250,1),
+    accuv-issued: rgba(252, 202, 78,1),
+    accuv-completed:rgba(102, 102, 102,1)
+);
+
+// General Variables
+// --------------------------------------------------
+// For iOS and MD
+
+$alert-head-padding: 15px;
+$alert-head-padding2: 24px;
+$alertitle-fontsize: 17px;
+$alertsubtitle-fontsize: 15px;
+$alertborderadius: 0px;
+$alertbackground: #fff;
+$alertitle-fontweight: 500;
+$alertsubtitle-color: #fff;
+$alert-colormessage: map-get($accuvcolors, accuv-bkack2);
+$alert-inputextcolor: map-get($accuvcolors, accuv-bkack2);
+$alert-inputbordercolor: rgba(64, 64, 64, 0.5);
+$alert-inputborder-width-focused: 2px;
+$alert-inputborderadius: 0;
+
+$alertbutton-fontweight: 500;
+$alertbutton-padding: 10px;
+$alertbutton-margin: 10px;
+$alertbutton-textransform: none;
+$alertbutton-borderadius: 4px;
+$alertradius-check-color-on: map-get($accuvcolors, accuv-orange);
+
+$button-round-borderadius: 64px !important; 
+
+$fab-list-button-background-color: map-get($accuvcolors, accuv-blue);
+
+$borderradius: 4px;
+$textransform: none;
+$textcolor: map-get($accuvcolors, accuv-bkack2);
+$loading-backgroundcolor: #fff;
+$loading-spinnercolor: map-get($accuvcolors, accuv-orange);
+$orange-color-active: map-get($accuvcolors, accuv-orange);
+
+$color-accuv-blue: map-get($accuvcolors, accuv-blue);
+$color-accuv-orange: map-get($accuvcolors, accuv-orange);
+$color-accuv-black2: map-get($accuvcolors, accuv-black2);
+$color-accuv-danger: map-get($accuvcolors, accuv-danger);
+$color-accuv-light: map-get($accuvcolors, accuv-blue-secondary);
+$color-accuv-success: map-get($accuvcolors, accuv-success);
+
+$title-left: left;
+$menu-width: 312px;
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+$alert-ios-head-padding-topp: $alert-head-padding;
+$alert-ios-head-padding-bottom: $alert-head-padding;
+$alert-ios-head-padding-end: $alert-head-padding2;
+$alert-ios-head-padding-start: $alert-ios-head-padding-end;
+
+$alert-ios-title-font-size: $alertitle-fontsize;
+$alert-ios-sub-title-font-size: $alertsubtitle-fontsize;
+$alert-ios-border-radius: $alertborderadius;
+$alert-ios-background: $alertbackground;
+$alert-ios-title-font-weight: $alertitle-fontweight;
+$alert-ios-sub-title-text-color: $alertsubtitle-color;
+$alert-ios-message-text-color: $alert-colormessage;
+$alert-ios-input-border-color: $alert-inputbordercolor;
+$alert-ios-input-border-radius: $alert-inputborderadius;
+$alert-ios-button-main-font-weight: $alertbutton-fontweight;
+$alert-ios-radio-icon-border-color: $alertradius-check-color-on;
+$alert-ios-checkbox-border-color-on: $alertradius-check-color-on !important;
+$alert-ios-checkbox-background-color-on: $alertradius-check-color-on;
+$alert-ios-radio-label-text-color-checked: $alertradius-check-color-on !important;
+$alert-ios-radio-label-padding-top: 13px;
+$alert-ios-radio-label-padding-start: $alert-ios-radio-label-padding-top !important;
+
+$button-ios-round-border-radius: $button-round-borderadius;
+
+$datetime-ios-placeholder-color: $color-accuv-black2;
+
+$toast-ios-background: $color-accuv-black2;
+$toast-ios-border-radius: $alertborderadius;
+
+$list-ios-header-text-transform: $textransform;
+$loading-ios-text-color: $textcolor;
+$loading-ios-border-radius: $borderradius;
+$loading-ios-background: $loading-backgroundcolor;
+$loading-ios-spinner-color: $loading-spinnercolor;
+
+$toolbar-ios-title-text-align: $title-left;
+$searchbar-ios-toolbar-input-background: $loading-backgroundcolor;
+
+$segment-button-ios-background-color-activated: $orange-color-active;
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+/* Alert Controller Variables*/
+$alert-md-head-padding-top: $alert-head-padding;
+$alert-md-head-padding-bottom: $alert-head-padding;
+$alert-md-head-padding-end: $alert-head-padding2;
+$alert-md-head-padding-start: $alert-md-head-padding-end;
+
+$alert-md-title-font-size: $alertitle-fontsize;
+$alert-md-sub-title-font-size: $alertsubtitle-fontsize;
+$alert-md-border-radius: $alertborderadius;
+$alert-md-background-color: $alertbackground;
+$alert-md-message-text-color: $alert-colormessage;
+$alert-md-input-text-color: $alert-inputextcolor;
+$alert-md-input-border-width-focused: $alert-inputborder-width-focused;
+$alert-md-button-padding-top: $alertbutton-padding;
+$alert-md-button-padding-end: $alert-md-button-padding-top;
+$alert-md-button-padding-bottom: $alert-md-button-padding-top;
+$alert-md-button-margin-end: $alertbutton-margin;
+$alert-md-button-text-transform: $alertbutton-textransform;
+$alert-md-button-border-radius: $alertbutton-borderadius;
+
+$button-md-round-border-radius: $button-round-borderadius;
+
+$datetime-md-placeholder-color: $color-accuv-black2;
+
+$toast-md-background: $color-accuv-black2;
+
+$alert-md-radio-border-color-on: $alertradius-check-color-on;
+$alert-md-radio-label-text-color-checked: $alertradius-check-color-on !important;
+$alert-md-checkbox-border-color-on: $alertradius-check-color-on;
+
+$loading-md-text-color: $textcolor;
+$loading-md-border-radius: $borderradius;
+$loading-md-background: $loading-backgroundcolor;
+$loading-md-spinner-color: $loading-spinnercolor;
+
+$segment-button-md-border-color-activated: $orange-color-active;
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden//
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');

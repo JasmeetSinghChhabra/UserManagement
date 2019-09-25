@@ -1,0 +1,124 @@
+video-qa-checklist {
+    ion-content{
+        .vqa-bar {
+            width: 100%;
+            padding: 12px 12px 20px;
+
+            .vqa-bar-label{
+                margin-bottom: 10px;
+                padding-bottom: 5px;
+                border-bottom: 3px solid map-get($accuvcolors, accuv-blue);
+                color: map-get($accuvcolors, accuv-blue);
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 10px;
+            }
+            .bar-item-wrapper {
+                display: flex;
+                
+                .bar-item {
+                    flex: 0 0 25%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    
+                    .bar-item-label {
+                        text-transform: uppercase;
+                        font-weight: bold;
+                        font-size: 10px;
+                        
+                        .bar-item-icon {
+                            font-size: 11px;
+                            margin-right: 3px;
+                        }
+                    }
+                    .bar-item-bar {
+                        margin-bottom: 5px;
+                        display: block;
+                        height: 15px;
+                        min-width: 100%;
+                    }
+                    &.pending {
+                        .bar-item-bar {
+                            background-color: map-get($accuvcolors, accuv-gray);
+                        }
+                    }
+                    &.uploaded {
+                        .bar-item-bar {
+                            background-color: map-get($accuvcolors, accuv-blue);
+                        }
+                    }
+                    &.approved {
+                        .bar-item-bar {
+                            background-color: map-get($colors, success);
+                        }
+                    }
+                    &.rejected {
+                        .bar-item-bar {
+                            background-color: map-get($accuvcolors, accuv-danger);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .vqa-item {
+        position: relative;
+
+        &::before {
+            content: "";
+            display: block;
+            width: 5px;
+            background: map-get($accuvcolors, accuv-gray);
+            position: absolute;
+            height: 100%;
+            top: 0;
+            left: 12px;
+        }
+
+        &.approved{
+            &::before {
+                background-color: map-get($accuvcolors, accuv-success);
+            }
+            .item-inner {
+                background-color: rgba(map-get($accuvcolors, accuv-success), 0.15);
+            }
+        }
+        &.rejected{
+            &::before {
+                background-color: map-get($accuvcolors, accuv-danger);
+            }
+            .item-inner {
+                background-color: rgba(map-get($accuvcolors, accuv-danger), 0.15);
+            }
+        }
+        &.pending{
+            &::before {
+                background-color: map-get($accuvcolors, accuv-gray);
+            }
+            .item-inner {
+                background-color: rgba(map-get($accuvcolors, accuv-gray), 0.15);
+            }
+        }
+        &.uploaded{
+            &::before {
+                background-color: map-get($accuvcolors, accuv-bcd lue);
+            }
+            .item-inner {
+                background-color: rgba(map-get($accuvcolors, accuv-blue), 0.15);
+            }
+        }
+        .item-inner {
+            padding-left: 15px;
+
+            .input-wrapper {
+                .label {
+                    color: #333 !important;
+                    .vqa-item-row1 {
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
+}

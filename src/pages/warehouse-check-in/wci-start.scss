@@ -1,0 +1,86 @@
+wci-start {
+    .header-md {
+        display: none;
+    }
+    
+    .content {
+        background-image: url("../assets/images/background-accuvmobile.jpg");
+        background-size: cover;
+
+        .fixed-content {
+            margin-top: 0 !important;
+        }
+        .scroll-content {
+            background: map-get($accuvnewcolors, accuv-purple);
+            padding-left: 45px !important;
+            padding-right: 45px !important;
+            margin-top: 0 !important;
+            display: flex;
+            flex-direction: column;
+
+            .logocontent {
+                width: 100%;
+                padding: 15vh 0 10vh;
+
+                img {
+                    max-width: 28.4vh;
+                    height: auto;
+                    padding-left: 12.5px;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+            .loginmsg {
+                padding: 1vw 0;
+
+                h2, h4 {
+                    text-align: center;
+                    margin: 0;
+                    color: white;
+                    font-size: 4vh;
+                }
+                h4 {
+                    font-weight: 300;
+                    font-size: 3vh;
+                }
+            }
+            .loginform {
+                flex: 1 1 auto;
+                display: flex;
+                padding: 24px 0;
+
+                #loginbutton {
+                    margin: auto;
+                    background-color: map-get($accuvnewcolors, accuv-turquoise) !important;
+                    font-family: Lato !important;
+                    font-size: 20px;
+                    height: 230px;
+                    width: 230px;
+                    font-weight: bold;
+                    border-radius: 50% !important;
+                    box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.75);
+                    color: map-get($accuvnewcolors, accuv-purple);
+
+                    .button-inner {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        padding-bottom: 10px;
+                    }
+                    .loginicon {
+                        display: block;
+                        margin-bottom: 8px;
+                        font-size: 120px;
+                    }
+                    
+                    &:active,
+                    &:focus {
+                        background-color: map-get($accuvnewcolors, accuv-turquoise) !important;
+                        box-shadow: none;
+                        transform: translate(0, 2px);
+                    }
+                }
+            }
+        }
+    }
+}

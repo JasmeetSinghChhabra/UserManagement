@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title *ngIf="isCheckIn">
+            Work Order #{{model.WorkOrderSID}} - Check In
+        </ion-title>
+        <ion-title *ngIf="!isCheckIn">
+            Work Order #{{model.WorkOrderSID}} - Check Out
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngIf="isCheckIn" class="form-list">
+        <ion-item>
+            <ion-label stacked>
+                <span class="required">*</span>NFSD login ticket #</ion-label>
+            <ion-input type="text" [(ngModel)]="model.UDFsTransposed.NFSDLoginTicket"></ion-input>
+        </ion-item>
+        <ion-item no-lines class="image-uploader">
+            <span class="stacked-button-label">
+                <span class="required">*</span>NFSD login screenshot</span>
+            <button ion-button block round color="secondary" (click)="getImage()">
+                <ion-icon name="image"></ion-icon> Add File</button>
+            <div *ngIf="imageFilePath">
+                <h4 class="screenshot-title">Screenshot Preview</h4>
+                <div class="screenshot-image">
+                    <img src="{{imageFilePath}}" width="300" />
+                </div>
+            </div>
+            <button *ngIf="imageURI && !imageFilePath" ion-button block round (click)="uploadCheckInFile()">
+                <ion-icon name="arrow-dropup-circle"></ion-icon> Upload</button>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>
+                <span class="required">*</span>EIM</ion-label>
+            <ion-input type="text" [(ngModel)]="model.UDFsTransposed.EIM"></ion-input>
+        </ion-item>
+        <ion-item no-lines>
+            <ion-label>
+                <span class="required required-message">*Required fields</span>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-list *ngIf="!isCheckIn" class="form-list">
+        <ion-item>
+            <ion-label stacked>
+                <span class="required">*</span>NFSD logout ticket #</ion-label>
+            <ion-input type="text" [(ngModel)]="model.UDFsTransposed.NFSDLogoutTicket"></ion-input>
+        </ion-item>
+        <ion-item no-lines class="image-uploader">
+            <span class="stacked-button-label">
+                <span class="required">*</span>NFSD logout screenshot</span>
+            <button ion-button block round color="secondary" (click)="getImage()">
+                <ion-icon name="image"></ion-icon> Add File</button>
+            <div *ngIf="imageFilePath">
+                <h4 class="screenshot-title">Screenshot Preview</h4>
+                <div class="screenshot-image">
+                    <img src="{{imageFilePath}}" width="300" alt="Image Not Found" />
+                </div>
+            </div>
+            <button *ngIf="imageURI && !imageFilePath" ion-button round block (click)="uploadCheckOutFile()">
+                <ion-icon name="arrow-dropup-circle"></ion-icon> Upload</button>
+        </ion-item>
+        <ion-item>
+            <ion-label no-lines>
+                <span class="required required-message">*Required fields</span>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <ion-buttons start>
+                    <button ion-button color="danger" (click)="cancel()">
+                        <span ion-text>Cancel</span>
+                    </button>
+                    <button *ngIf="isCheckIn && !isEdit" [disabled]="isCheckInDisabled()" ion-button (click)="checkIn()">
+                        <span ion-text>
+                            <i class="fa"></i>Complete Check In</span>
+                    </button>
+                    <button *ngIf="!isCheckIn && !isEdit" [disabled]="isCheckOutDisabled()" ion-button (click)="checkOut()">
+                        <span ion-text>
+                            <i class="fa"></i>Complete Check Out</span>
+                    </button>
+                    <button *ngIf="isEdit" ion-button (click)="update()">
+                        <span ion-text>
+                            <i class="fa"></i>Update</span>
+                    </button>
+                </ion-buttons>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

@@ -1,0 +1,93 @@
+<!--
+  Generated template for the VideoQaLandingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title *ngIf="!toggled">
+          {{equipmentType.Name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="vqa-bar">
+      <div class="vqa-bar-label">Filter by</div>
+      <div class="bar-item-wrapper">
+          <div class="bar-item pending" (tap)="filterGroups(0)">
+              <span class="bar-item-bar"></span>
+              <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(0)"></fa-icon>Pending</span>
+          </div>
+          <div class="bar-item rejected" (tap)="filterGroups(2)">
+              <span class="bar-item-bar"></span>
+              <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(2)"></fa-icon>Rejected</span>
+          </div>
+          <div class="bar-item uploaded" (tap)="filterGroups(3)">
+              <span class="bar-item-bar"></span>
+              <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(3)"></fa-icon>Uploaded</span>
+          </div>
+          <div class="bar-item approved" (tap)="filterGroups(1)">
+              <span class="bar-item-bar"></span>
+              <span class="bar-item-label"><fa-icon class="bar-item-icon" [name]="getFilterIconName(1)"></fa-icon>Approved</span>
+          </div>
+      </div>
+  </div>
+  <div *ngIf="showExpandableSectors" class="vqa-view-all-btn-wrapper">
+    <button ion-button full (tap)="toggleAllGroups()" class="vqa-view-all-btn">
+      <span *ngIf="!allGroupsShown()" class="vqa-view-all-btn-label"><fa-icon class="vqa-icon" name="plus"></fa-icon> Expand All</span>
+      <span *ngIf="allGroupsShown()" class="vqa-view-all-btn-label"><fa-icon class="vqa-icon" name="minus"></fa-icon> Collapse All</span>
+    </button>
+  </div>
+  <ion-list *ngIf="showExpandableSectors">
+    <div *ngFor="let group of groupsFiltered">
+      <ion-item class="vqa-toggle-group" (tap)="toggleGroup(group)" lines="none">
+        <ion-label>
+          <fa-icon name="minus-square-o" *ngIf="isGroupShown(group)"></fa-icon>
+          <fa-icon name="plus-square-o" *ngIf="!isGroupShown(group)"></fa-icon>
+          {{group.Name}} ({{getItemsAmountByStatus(group)}})
+          <div *ngIf="filteringVQA == -1" class="vqa-group-progress-bar">
+              <div class="vqa-progress-bar" [style.width.%]="getSectorProgress(group)"></div>
+          </div>
+        </ion-label>
+      </ion-item>
+      <div *ngIf="isGroupShown(group)">
+        <div class="vqa-items-wrapper">
+          <div class="item-accordion" *ngFor="let position of group.Childs" >
+            <button ion-item lines="none" class="vqa-item" (tap)="itemTapped($event, group, position, false)">
+              <div class="vqa-item-content">
+                  <div class="vqa-item-subtitle">
+                      {{position.Name}}
+                  </div>
+                  <ion-icon item-end class="vqa-item-check"
+                    [name]="getIconName(position)"
+                    [ngClass]="getStatus(position)">
+                  </ion-icon>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </ion-list>
+    <ion-card *ngIf="!showExpandableSectors">
+        <ion-card-header>
+            Sectors
+        </ion-card-header>
+        <div *ngFor="let item of groupsFiltered" class="vqa-equipment-type-wrapper">
+            <div *ngIf="filteringVQA == -1" class="vqa-group-progress-bar">
+                <div class="vqa-progress-bar" [style.width.%]="getSectorProgress(item)"></div>
+            </div>
+            <button ion-item (click)="itemTapped($event, groupsFiltered, item, true)" detail-none class="vqa-equipment-type">
+            {{item.Name}} ({{getItemsAmountByStatus(item)}})
+            <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+            </button>
+        </div>
+    </ion-card>
+</ion-content>

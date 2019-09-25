@@ -1,0 +1,63 @@
+wo-of-assign {
+    ion-header {
+        ion-toolbar{
+            .toolbar-background {
+                background-color: map-get($accuvcolors, accuv-blue);
+            }
+            .toolbar-content {
+                ion-title {
+                    .toolbar-title {
+                        color: map-get($colors, white);
+                        font-weight: normal;
+
+                        &.toolbar-title-ios {
+                            text-align: center;
+                        }
+                        &.toolbar-title-md {
+                            padding: 0 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ion-content{
+        .woi-col {
+            padding: 0 15px;
+        }
+        .title {
+            font-weight: 700;
+            color: map-get($accuvcolors, accuv-blue);
+            border-bottom: 3px solid map-get($accuvcolors, accuv-blue);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            padding: 15px 0 15px 0;
+        }
+        select-searchable {
+            .item-cover{    
+                width: auto;
+                height: auto;
+            }
+
+            .select-searchable-icon-inner {
+                border:none;
+                left:0;
+                top:0;
+                margin-top: 1px;
+                margin-left: 0px;
+
+                &:before {
+                    display: inline-block;
+                    font: normal normal normal 14px/1 FontAwesome;
+                    font-size: inherit;
+                    text-rendering: auto;
+                    padding-top:5px;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    content:'\f044';
+                    color: map-get($accuvcolors, accuv-blue);
+                }
+            }
+        }
+    }
+}

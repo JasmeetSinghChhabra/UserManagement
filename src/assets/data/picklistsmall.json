@@ -1,0 +1,71 @@
+[ 
+    { 
+        "OrderNumber": "6600446", 
+        "order_type": "3PL", 
+        "SoLines": [ 
+            { 
+                "Line": "11", 
+                "QtyOrdered": 1, 
+                "QtyPick": 0, 
+                "qty_pack": 0, 
+                "qty_ship": 0, 
+                "ItemNumber": "MIC.301047049", 
+                "ItemName": "MIC.301047049 (Lucent,301047049,,,,SL-KIT 1 ETHRIPBACKH COPPER ID,MACR9391,,,)", 
+                "ItemIsSerial": false, 
+                "ItemIsLot": false, 
+                "InventoryItemLocations": [ 
+                    { 
+                        "LocationQty": 1, 
+                        "LocationId": "6F1A", 
+                        "lot_number": null, 
+                        "serial_number": null 
+                    } 
+                ] 
+            }, 
+            { 
+                "Line": "10", 
+                "QtyOrdered": 1, 
+                "QtyPick": 0, 
+                "qty_pack": 0, 
+                "qty_ship": 0, 
+                "ItemNumber": "MIC-301047056", 
+                "ItemName": "MIC-301047056 (\"Lucent,301047056,,,,SL-KIT 1 ETHRIPBACKH COPPER OD,MACR9391,,)", 
+                "ItemIsSerial": false, 
+                "ItemIsLot": false, 
+                "InventoryItemLocations": [ 
+                    { 
+                        "LocationQty": 1, 
+                        "LocationId": "6F1A", 
+                        "lot_number": null, 
+                        "serial_number": null 
+                    } 
+                ] 
+            } 
+        ] 
+    }, 
+    { 
+        "OrderNumber": "6600404", 
+        "order_type": "3PL", 
+        "SoLines": [ 
+            { 
+                "Line": "20", 
+                "QtyOrdered": 3, 
+                "QtyPick": 2, 
+                "qty_pack": 0, 
+                "qty_ship": 0, 
+                "ItemNumber": "NEQ.00705", 
+                "ItemName": "NEQ.00705 (Emerson Energy,102275,,,,CB; HYD MAG; 1P; 10A; 80VDC;,SPDT (E-TRIP)", 
+                "ItemIsSerial": false, 
+                "ItemIsLot": false, 
+                "InventoryItemLocations": [ 
+                    { 
+                        "LocationQty": 1, 
+                        "LocationId": "6F1A", 
+                        "lot_number": null, 
+                        "serial_number": null 
+                    } 
+                ] 
+            } 
+        ] 
+    } 
+] 

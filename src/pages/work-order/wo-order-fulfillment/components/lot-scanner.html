@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{pickerTitle}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row class="lot-number-info">
+            <ion-col col-auto>
+                <span class="label">Material</span>{{pickedItem.ItemNumber}}
+            </ion-col>
+            <ion-col col-auto>
+                <span class="label">Location</span>
+                <ion-select interface="popover" [(ngModel)]="pickedLocationId" name="pickedLocationId">
+                    <ion-option *ngFor="let locationId of getUniqueLocationIds()" >{{locationId}}</ion-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row class="lot-number-quantity">
+            <ion-col col-auto>
+                <span class="label">Pending Quantity</span>{{getQuantityPending()}}
+            </ion-col>
+            <ion-col col-auto>
+                <span class="label">Available Quantity</span>{{getPickedLocationQty()}}
+            </ion-col>
+        </ion-row>
+        <ion-row class="lot-number-validation" *ngIf="validationMessage">
+            <ion-col col-12>
+                <span ion-text><i class="fa fa-exclamation-triangle"></i> {{validationMessage}}</span>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-item class="toggle-scan-fields">
+        <ion-label>{{ toggleScanFieldText }}</ion-label>
+        <ion-toggle [(ngModel)]="enableScanTextField" (ngModelChange)="updateScannerCopy()"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+        <ion-row class="scan-lot-field" *ngIf="enableScanTextField">
+            <ion-col col-12>
+                <ion-item class="external-scanner">
+                    <ion-label stacked>Scan Lot Number</ion-label>
+                    <ion-input type="text" name="LotNumber" autofocus placeholder="Lot Number" [(ngModel)]="lotNumber"
+                        (keyup.enter)="readLotNumberExternalScanEntry()" clearInput></ion-input>
+                    <button ion-button item-right color="success" (click)="readLotNumberText()"><i class="fa fa-paper-plane"></i></button>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="lot-number-butttons">
+            <ion-col col-12>
+                <ion-buttons start>
+                    <button ion-button color="danger" (click)="cancel()">
+                        <span ion-text>Cancel</span>
+                    </button>
+                    <button ion-button (click)="scan()" *ngIf="!enableScanTextField">
+                        <span ion-text><i class="fa fa-barcode"></i> Scan Lot</span>
+                    </button>
+                </ion-buttons>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+</ion-footer>

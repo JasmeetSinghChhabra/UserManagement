@@ -1,0 +1,129 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{title}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-grid>
+
+        <ion-row class="serial-number-info">
+            <ion-col col-auto>
+                <span class="label">MATERIAL</span>{{pickedLine.POLineItemDescription}}
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="serial-number-info">
+            <ion-col col-6>
+                <span class="label">PENDING QUANTITY</span>{{ pickedLine.QtyRequired - pickedLine.QtyReceived }}
+            </ion-col>
+            <ion-col col-6>
+                <span class="label">
+                    Location
+                </span>
+                <ion-item>
+                    <select-searchable id= "ivlocs" title="Location" [(ngModel)]="selectedLocation" [items]="locationList"
+                        [useObject]="true" [canSearch]="true" [canInfiniteScroll]="true" [showItemsCount]="true"
+                        name="Location" (onChange)="setValidationMessage()" itemValueField="LocationID" itemTextField="LocationName" item-content
+                        searchPlaceholder="Enter characters here to filter locations"
+                        placeholder="">
+                    </select-searchable>
+                </ion-item>
+            </ion-col>
+            <ion-col col-auto>
+                <span class="label">RECEIVED QUANTITY</span>{{ pickedLine.QtyReceived }}
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="!isShowTrackedField(pickedLine.SerialTracked)"
+            class="material-picker-fields">
+            <ion-col col-12>
+                <ion-item>
+                    <ion-label stacked>Quantity</ion-label>
+                    <ion-input #pickQty type="number" min="0" [(ngModel)]="pickInProgressQty" name="pickQty" (input)='validateQuantity($event.target.value)'>
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="material-picker-fields" *ngIf="showSerialNumberField()">
+            <ion-col col-6>
+                <ion-item class="external-scanner">
+                    <ion-label stacked>Serial #</ion-label>
+                    <ion-input type="text" name="SerialNumber" autofocus placeholder="" [(ngModel)]="serialNumber"
+                        (ionChange)="setValidationMessage()" (keyup.enter)="readSerialNumberExternalScanEntry()"
+                        clearInput>
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col col-6>
+                <button ion-button [hidden]="!serialNumber||serialNumber.trim()==''" item-left color="success" (click)="readSerialNumberText()"><i class="fa fa-paper-plane"></i></button>
+                <button ion-button float-right (click)="scanSerialNumber()">
+                    <span ion-text><i class="fa fa-barcode"></i><span style="padding-left:5px">Scan </span></span>
+                </button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="material-picker-fields" *ngIf="showAssetTagField()">
+            <ion-col col-6>
+                <ion-item class="external-scanner">
+                    <ion-label stacked>Lot Tracked</ion-label>
+                    <ion-input type="text" name="AssetTag" autofocus placeholder="" [(ngModel)]="assetTag" (ionChange)="setValidationMessage()"
+                        (keyup.enter)="readAssetTagExternalScanEntry()" clearInput></ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col col-6>
+                <button ion-button [hidden]="!assetTag||assetTag.trim()==''" item-left color="success" (click)="readAssetTagText()"><i class="fa fa-paper-plane"></i></button>
+                <button ion-button float-right (click)="scanAssetTag()">
+                    <span ion-text><i class="fa fa-barcode"></i><span style="padding-left:5px">Scan </span></span>
+                </button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="this.poLinePost.ItemSerial || this.poLinePost.ItemLot" text-wrap align-items-left class="serial-number-grid">
+            <ion-col col-12>
+                <ion-row text-wrap>
+                    <ion-col *ngIf="isShowTrackedField(pickedLine.LotTracked)"><span>Asset Tag</span></ion-col>
+                    <ion-col *ngIf="isShowTrackedField(pickedLine.SerialTracked)"><span>Serial #</span></ion-col>
+                    <ion-col col-2><span>Cancel</span></ion-col>
+                </ion-row>
+                <div *ngFor="let serialNumber of getLotsAndSerialNumberKeys()">
+                    <ion-row text-wrap>
+                        <ion-col *ngIf="isShowTrackedField(pickedLine.LotTracked)">{{lotsAndSerialNumbers.get(serialNumber)}}</ion-col>
+                        <ion-col *ngIf="isShowTrackedField(pickedLine.SerialTracked)">{{serialNumber}}</ion-col>
+                        <ion-col col-2 (click)="removeReceivedItem(serialNumber)">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </ion-col>
+                    </ion-row>
+                </div>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row class="material-picker-validation" *ngIf="validateFormMessage">
+            <ion-col col-12>
+                <span ion-text><i class="fa fa-exclamation-triangle"></i> {{validateFormMessage}}</span>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="serial-number-buttons">
+            <ion-col col-12>
+                <ion-buttons start>
+                    <button ion-button color="danger" (click)="cancel()">
+                        <span ion-text>Cancel</span>
+                    </button>
+
+                    <button ion-button color="success" (click)="confirm()" [disabled]="validateFormMessage">
+                        <span ion-text>Confirm</span>
+                    </button>
+                </ion-buttons>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
+<ion-footer>
+</ion-footer>

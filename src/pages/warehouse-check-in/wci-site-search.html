@@ -1,0 +1,25 @@
+<ion-content (touchend)="refreshTimeout()">
+  <div class="main-slide">
+    <div class="siteSearchIcon">
+      <fa-icon name="wifi"></fa-icon>
+    </div>
+    <div class="checkInTitle">
+      <h2>Enter Site ID</h2>
+    </div>
+    <ion-list>
+      <form #siteSearchForm="ngForm">
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="searchText" name="SearchText" placeholder="Site ID (e.g: DXL05894)" (input)="refreshTimeout()"></ion-input>
+        </ion-item>
+      </form>
+    </ion-list>
+    <div>
+      <button id="searchButton" ion-button color="secondary" full (click)="siteSearch()">Search</button>
+    </div>
+  </div>
+  <ion-fab left bottom>
+    <button ion-fab color="danger" (click)="cancelSearch()">
+      <fa-icon name="arrow-left"></fa-icon>
+    </button>
+  </ion-fab>
+</ion-content>

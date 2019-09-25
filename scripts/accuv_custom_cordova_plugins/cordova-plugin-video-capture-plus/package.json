@@ -1,0 +1,61 @@
+{
+  "_from": "cordova-plugin-video-capture-plus",
+  "_id": "cordova-plugin-video-capture-plus@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-Ldxm2sn54Ghy0y35Lspt3y6Vckm9LKD0ImA/uPP1uYTk+QI1MZkRV3xrt1NzGCUIxlaw2c1VfQAXSNAug/+pog==",
+  "_location": "/cordova-plugin-video-capture-plus",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-video-capture-plus",
+    "name": "cordova-plugin-video-capture-plus",
+    "escapedName": "cordova-plugin-video-capture-plus",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-video-capture-plus/-/cordova-plugin-video-capture-plus-1.0.0.tgz",
+  "_shasum": "6a47aa611403c128f7f753eb534074b218f8050d",
+  "_spec": "cordova-plugin-video-capture-plus",
+  "_where": "C:\\Users\\maxim\\Documents\\AccuV\\Source\\UI\\AccuVFoundation\\AccuV.UI.Mobile",
+  "author": {
+    "name": "Daniel Sogl"
+  },
+  "bugs": {
+    "url": "https://github.com/danielsogl/cordova-plugin-video-capture-plus/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "nl.x-services.plugins.videocaptureplus",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "\n        If you want HD video recording, starting with the front camera by default, or\n        use an (transparent PNG) overlay during recording (iOS only feature)? Look no further!\n        All options of the default plugin are available as well, so you can still set a\n        duration limit etc.\n    ",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/danielsogl/cordova-plugin-video-capture-plus#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-video-capture-plus",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielsogl/cordova-plugin-video-capture-plus.git"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <!-- Menu button  -->
+    <button *ngIf="!toggled" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!-- Title -->
+    <ion-title *ngIf="!toggled">
+      Work Orders [{{app.projectName}}]
+    </ion-title>
+    <!-- Search Bar -->
+    <ion-searchbar #searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch()" (ionInput)="search($event)"
+      placeholder="Search"></ion-searchbar>
+    <!-- Search Icon -->
+    <ion-buttons end *ngIf="!toggled">
+      <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- shrink-header -->
+  <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content pullingText="Pull to refresh..."
+                           refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item class="work-order-item" *ngFor="let WorkOrder of WorkOrders" 
+      (click)="itemTapped($event, WorkOrder)">
+      <div class="work-order-item-row1">
+        <span class="work-order-item-sitenumber">Job #: {{WorkOrder.SiteNumber}}</span>
+        <span class="work-order-item-reportdate">
+          {{WorkOrder.ScheduledStartDate | listDateTimeFormat}}
+        </span>
+      </div>
+      <div class="work-order-item-row2">
+        Site Name: {{WorkOrder.SiteName}}
+      </div>
+      <div class="work-order-item-row2" >
+          Site ID: {{WorkOrder.SiteId}}
+      </div>
+      <div class="work-order-item-row2">
+        WO #: {{WorkOrder.WorkOrderSID}}
+      </div>
+      <div class="work-order-item-row2">
+        Priority: <span [ngClass]="getPriorityClass(WorkOrder)"> {{WorkOrder.PriorityDescription}}</span>
+      </div>
+    </button>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!--<ion-fab right bottom edge>
+    <button ion-fab color="primary" (click)="newDfr()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>-->
+
+</ion-content>

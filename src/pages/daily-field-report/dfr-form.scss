@@ -1,0 +1,382 @@
+dfr-form {
+  ion-content {
+    .required {
+      color: red;
+      margin-right: 5px;
+    }
+    .item {
+      &.item-md {
+          padding-right: 15px;
+          padding-left: 15px;
+      }
+    }
+    .fixed-content {
+      ion-fab {
+        .fab {
+          color: #fff !important;
+
+          &.fab-md-light {
+            background-color: map-get($accuvcolors, accuv-blue) !important;
+          }
+
+          .fab-close-icon {
+            background-color: map-get($accuvcolors, accuv-blue) !important;
+          }
+        }
+      }
+    }
+
+    .form-slide {
+      .select-searchable {
+        .select-text {
+          white-space: normal !important;
+        }
+      }
+
+      .work-performed-audio-item {
+        .label {
+          color: #999;
+        }
+
+        audio-note {
+          .recorder {
+            .recorder-title-col {
+              display: none;
+            }
+
+            .recorder-button {
+              color: #999;
+              background-color: white !important;
+              position: absolute;
+              top: 0;
+              right: 45px;
+
+              &.recording {
+                color: map-get($accuvcolors, accuv-danger);
+              }
+            }
+
+            .recorder-timer-container {
+              position: absolute;
+              top: 0;
+              right: 90px;
+              line-height: 40px;
+            }
+          }
+        }
+      }
+
+      .work-performed-text-item {
+        .work-performed {
+          .text-input {
+            height: 150px;
+          }
+
+          .input-cover {
+            height: 150px !important;
+            bottom: 0 !important;
+            top: unset;
+          }
+        }
+
+        .work-performed-text-lenght {
+          text-align: right;
+          color: #999;
+          font-size: 1.2rem;
+        }
+      }
+
+      .form-list {
+        .item.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+          border-bottom-color: #dedede;
+          box-shadow: none;
+        }
+
+        .last-item {
+          border-bottom: none;
+          margin-bottom: 70px;
+        }
+      }
+    }
+
+    .item-invalid {
+      .label {
+        background-color: map-get($accuvcolors, accuv-orange) !important;
+        color: #FFF;
+      }
+    }
+
+    .crew-slide {
+      text-align: center;
+
+      .toolbar {
+        .bar-button {
+          color: map-get($accuvcolors, accuv-blue) !important;
+          border-color: map-get($accuvcolors, accuv-blue) !important;
+          border-radius: 4px;
+          padding: 0 15px;
+
+          &.bar-button-outline {
+            &:hover {
+              &:not(.disable-hover) {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+
+      .toolbar-background {
+        background: #fff;
+        border-color: transparent;
+      }
+
+      .slide-zoom {
+        height: 100%;
+      }
+
+      .add-crew-message {
+        top: 50%;
+        transform: translate(0,-50%);
+        position: absolute;
+        display: block;
+
+        .slide-title {
+          margin-top: 2.8rem;
+        }
+
+        .slide-image {
+          max-height: 50%;
+          max-width: 80%;
+          margin: 18px 0;
+        }
+
+        b {
+          font-weight: 500;
+        }
+
+        p {
+          padding: 0 40px;
+          font-size: 14px;
+          line-height: 1.5;
+          color: #60646B;
+
+          b {
+            color: #000000;
+          }
+        }
+      }
+
+      .crew-list {
+        .item-wrapper {
+          border-bottom: 1px solid #dedede;
+        }
+
+        .item {
+          .item-inner {
+            border-bottom: none;
+
+            .input-wrapper {
+              .crew-item-content {
+                width: 100%;
+              }
+            }
+          }
+
+          .select {
+            max-width: 100%;
+            width: 100%;
+          }
+
+          ion-icon {
+            color: map-get($accuvcolors, accuv-blue) !important;
+
+            &.icon-disabled {
+              opacity: .3;
+            }
+
+            &.icon-enabled {
+              opacity: 1;
+            }
+            /* Classes Employee Type start here */
+            &.icon-foreman {
+              &:before {
+                content: url('../assets/images/role-icons/foreman-icon.svg');
+                top: 3px;
+                position: relative;
+                height: 23px;
+                width: 24px;
+              }
+            }
+
+            &.icon-civiltechnician {
+              &:before {
+                content: url('../assets/images/role-icons/civiltechnician-icon.svg');
+                top: 3px;
+                position: relative;
+                height: 23px;
+                width: 24px;
+              }
+            }
+
+            &.icon-constructionsupervisor {
+              &:before {
+                content: url('../assets/images/role-icons/constructionsupervisor-icon.svg');
+                top: 3px;
+                position: relative;
+                height: 23px;
+                width: 24px;
+              }
+            }
+
+            &.icon-tt1 {
+              &:before {
+                content: url('../assets/images/role-icons/tt1-icon.svg');
+                top: 3px;
+                position: relative;
+                height: 23px;
+                width: 24px;
+              }
+            }
+
+            &.icon-tt2 {
+              &:before {
+                content: url('../assets/images/role-icons/tt2-icon.svg');
+                top: 3px;
+                position: relative;
+                height: 23px;
+                width: 24px;
+              }
+            }
+
+            &.icon-tt3 {
+              &:before {
+                content: url('../assets/images/role-icons/tt3-icon.svg');
+                top: 3px;
+                position: relative;
+                height: 23px;
+                width: 24px;
+              }
+            }
+            /* Classes Employee Type END here */
+            &.icon {
+              &.ion-logo-usd, &.ion-md-car, &.ion-ios-car {
+                color: map-get($accuvcolors, accuv-blue);
+              }
+
+              &.ion-md-checkmark-circle, &.ion-ios-checkmark-circle {
+                color: map-get($accuvcolors, accuv-orange) !important;
+              }
+
+              &:before {
+                font-size: 22px;
+                margin-right: 2px;
+              }
+            }
+          }
+
+          .can-drive, .per-diem, .employee-type, .signed {
+            opacity: 1 !important;
+          }
+
+          expandable {
+            .expand-wrapper {
+              .row {
+                .col {
+                  padding: 0px 5px 0px 5px;
+
+                  .item {
+                    &.item-input-has-focus {
+                      .item-inner {
+                        .input-wrapper {
+                          .label {
+                            .ion-md-arrow-forward, .ion-ios-arrow-forward-outline, .ion-ios-arrow-forward {
+                              color: #00398b !important;
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                    .item-inner {
+                      .input-wrapper {
+                        .label {
+                          .ion-md-arrow-forward, .ion-ios-arrow-forward-outline, .ion-ios-arrow-forward {
+                            color: #999 !important;
+                            padding-left: 4px;
+
+                            &:before {
+                              position: relative;
+                              bottom: -1px;
+                              font-size: 19px !important;
+                            }
+                          }
+                        }
+
+                        .datetime {
+                          .datetime-text {
+                            font-size: 19px !important;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+
+                .item {
+                  padding-left: 0;
+
+                  .item-inner {
+                    padding-right: 0;
+
+                    .input-wrapper {
+                      .label {
+                        margin: 0;
+                      }
+
+                      .select {
+                        padding-left: 0;
+                      }
+
+                      ion-select {
+                        .select-icon {
+                          .select-icon-inner {
+                            color: map-get($accuvcolors, accuv-blue) !important;
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  &.item-checkbox {
+                    .label {
+                      color: #999;
+                    }
+
+                    &.item-checkbox-checked {
+                      .label {
+                        color: #000 !important;
+                      }
+                    }
+                  }
+                }
+
+                .work-time-label {
+                  margin-top: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    ion-fab {
+      display: -webkit-box;
+
+      .fa {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}

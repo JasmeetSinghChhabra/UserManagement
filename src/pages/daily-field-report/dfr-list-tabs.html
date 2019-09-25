@@ -1,0 +1,12 @@
+
+<ion-tabs id="nav-tabs-dfr" tabsPlacement="bottom" tabsHighlight="false" selectedIndex={{tab}}>
+  <ion-tab tabTitle="New" [root]="newDfrs" [rootParams]="newDfrsParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="Saved" [root]="savedDfrs" [rootParams]="savedDfrsParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="Pending Approval" [root]="paDfrs" [rootParams]="paDfrsParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="Approved" [root]="approvedDfrs" [rootParams]="approvedDfrsParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="Rejected" [root]="rejectedDfrs" [rootParams]="rejectedDfrsParams" tabsHideOnSubPages="true"></ion-tab>
+</ion-tabs>
+
+<ion-fab right bottom>
+  <button ion-fab color="primary" (click)="newDfr()"><ion-icon name="add"></ion-icon></button>
+</ion-fab>

@@ -1,0 +1,160 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Home
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="switchProgram()">
+        {{app.projectName}}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content" [class.emptyHome]="isHomeEmpty()" >
+
+  <ion-card class="eh-card" *ngIf="isHomeEmpty()">
+      <ion-list>
+          <div class="eh-logo">
+              <img alt="AccuV Logo" src="assets/images/home/accuv-logo-home.svg">
+          </div>
+          <div class="eh-copy">
+              To start please select a module using the menu on the top-left side of the screen.
+          </div>
+      </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="app.hasSubModulePermission(subModulePO)">
+    <ion-card-header>
+      <ion-icon name="analytics" item-left></ion-icon>
+      Vendor PO Management
+    </ion-card-header>
+
+    <ion-list>
+      <button ion-item (click)="pendingApprovals(0)" detail-none>
+        PO Pending Approval (Mine)
+        <!--<ion-badge item-right>23</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="app.hasSubModulePermission(subModuleCloseout)">
+    <ion-card-header>
+      <ion-icon name="analytics" item-left></ion-icon>
+      Vendor Cost Management 
+    </ion-card-header>
+
+    <ion-list>
+      <button ion-item (click)="pendingApprovals(1)" detail-none>
+        Closeout Cost Pending Approval (Mine)
+        <!--<ion-badge item-right>23</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="getWorkOrderTypes().length > 0">
+    <ion-card-header>
+      <ion-icon name="build" item-left></ion-icon>
+        Work Orders
+    </ion-card-header>
+    <ion-list *ngFor="let workOrderType of getWorkOrderTypes()">
+      <button ion-item (click)="workOrderTapped(workOrderType)" detail-none>
+        {{workOrderType.TypeDescription}}
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="getRMSubModules().length > 0">
+    <ion-card-header>
+      <ion-avatar item-start>
+        <img src="assets/images/module-icons/Receiving.svg">
+      </ion-avatar>
+        Receive Materials
+    </ion-card-header>
+    <ion-list *ngFor="let subModule of getRMSubModules()">
+      <button ion-item (click)="receiveMaterials(subModule.SMSID)" detail-none>
+        {{subModule.SMDescription}}
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+  
+  <ion-card *ngIf="app.checkModulePermission(4)">
+    <ion-card-header>
+      <ion-icon name="analytics" item-left></ion-icon>
+      Daily Field Report
+    </ion-card-header>
+
+    <ion-list>
+      <button ion-item (click)="dfrTapped(0)" detail-none>
+        New
+        <!--<ion-badge item-right>15</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+      <button ion-item (click)="dfrTapped(1)" detail-none>
+        Saved
+        <!--<ion-badge item-right>15</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+
+      <button ion-item (click)="dfrTapped(2)" detail-none>
+        Pending Approval
+        <!--<ion-badge item-right>7</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+
+      <button ion-item (click)="dfrTapped(3)" detail-none>
+        Approved
+        <!--<ion-badge item-right>56</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+
+      <button ion-item (click)="dfrTapped(4)" detail-none>
+        Rejected
+        <!--<ion-badge item-right>12</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="app.checkModulePermission(15)">
+    <ion-card-header>
+      <ion-icon name="analytics" item-left></ion-icon>
+      Daily Vehicle Inspection
+    </ion-card-header>
+
+    <ion-list>
+      <button ion-item (click)="dviTapped(0)" detail-none>
+        New
+        <!--<ion-badge item-right>23</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+
+      <button ion-item (click)="dviTapped(1)" detail-none>
+        Saved
+        <!--<ion-badge item-right>89</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+
+      <button ion-item (click)="dviTapped(2)" detail-none>
+        Submitted
+        <!--<ion-badge item-right>4</ion-badge>-->
+        <fa-icon class="action-icon" name="chevron-right" item-right icon-only></fa-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="app.checkModulePermission(37)" (click)="warehouseCheckIn()">
+      <ion-card-header>
+        <fa-icon name="clipboard" item-left></fa-icon>
+          Warehouse Check In
+      </ion-card-header>
+    </ion-card>
+  
+</ion-content>

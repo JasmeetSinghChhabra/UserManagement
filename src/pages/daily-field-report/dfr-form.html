@@ -1,0 +1,250 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>DFR [{{model.Status}}] [{{app.projectName}}]</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <div [hidden]="page == 'crew'" class="form-slide">
+
+      <ion-card *ngIf="model.Status == 'Rejected'">
+        <ion-card-content>
+          <p><b>Reason:</b> {{model.RejectReason}}</p>
+          <p><b>Reject User:</b> {{model.RejectedUser}}</p>
+          <p><b>Reject Date:</b> {{model.RejectedDate | date: "MM/dd/yyyy"}}</p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-list class="form-list">
+        <form #dfrForm="ngForm">
+          <ion-item style="display: none">
+            <ion-label stacked>ID</ion-label>
+            <ion-input type="text" readonly [(ngModel)]="model.ReportId" [ngModelOptions]="{standalone: true}"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked><span class="required">*</span>Site Name</ion-label>
+            <select-searchable title="Site Name"
+                               [(ngModel)]="model.SiteNumber"
+                               [items]="Sites"
+                               itemValueField="SiteNumber"
+                               itemTextField="SiteName"
+                               [canSearch]="true"
+                               [canInfiniteScroll]="true"
+                               [showItemsCount]="true"
+                               (onChange)="siteChange($event)"
+                               name="SiteNumber"
+                               [disabled]="isSiteDateDisabled()"
+                               item-content>
+            </select-searchable>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Date</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD" [(ngModel)]="model.ReportDate" name="ReportDate" #ReportDate="ngModel" [disabled]="isSiteDateDisabled()"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked><span class="required">*</span>Work Type</ion-label>
+            <select-searchable title="Work Type"
+                               [(ngModel)]="model.WorkTypeId"
+                               [items]="WorkTypes"
+                               itemValueField="WorkTypeId"
+                               itemTextField="WorkTypeDescription"
+                               [canSearch]="true"
+                               name="WorkTypeId"
+                               [disabled]="isEditDisabled()"
+                               item-content>
+            </select-searchable>
+          </ion-item>
+
+          <ion-item class="work-performed-text-item work-performed-audio-item">            
+            <ion-label stacked><span class="required">*</span>Work Performed & Completed</ion-label>            
+              <audio-note item-content #workPerformedAudioNote
+                          title="Audio"
+                          [tracks]="WorkPerformedAudioNotes"
+                          filePrefix="dfr_work_performed_"
+                          mode="single"
+                          trackType="small"
+                          (onAudioUploaded)="onWorkPerformedAudioUploaded($event)"
+                          (onAudioRemoved)="onWorkPerformedAudioRemoved($event)">
+              </audio-note>
+              <ion-textarea #workperformed [(ngModel)]="model.WorkPerformedCompleted" [ngModelOptions]="{standalone: true}" class="work-performed" [disabled]="isEditDisabled()"></ion-textarea>
+              <speech-to-text item-content buttonType="input" [input]="workperformed"></speech-to-text>
+              <span class="work-performed-text-lenght" item-content>[min 250 chars, used {{workPerformedCompletedLength()}}]</span>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Consumables</ion-label>
+            <ion-textarea #consumables [(ngModel)]="model.ConsumablesComment" [ngModelOptions]="{standalone: true}" [disabled]="isEditDisabled()"></ion-textarea>
+            <speech-to-text item-content buttonType="input" [input]="consumables"></speech-to-text>
+          </ion-item>
+
+          <ion-item class="last-item">
+            <ion-label stacked>Additional Site Details</ion-label>
+            <ion-textarea #additionaldetails [(ngModel)]="model.CascadeId" [ngModelOptions]="{standalone: true}" [disabled]="isEditDisabled()"></ion-textarea>
+            <speech-to-text item-content buttonType="input" [input]="additionaldetails"></speech-to-text>
+          </ion-item>
+        </form>
+      </ion-list>
+    </div>
+
+    <div [hidden]="page == 'form'" class="crew-slide">
+      <ion-toolbar>
+        <ion-buttons end>
+          <button ion-button (click)="addCrew()" outline icon-left [disabled]="isEditDisabled()">
+            <ion-icon name='add'></ion-icon>
+            Add Crew Member
+          </button>
+        </ion-buttons>
+      </ion-toolbar>
+
+      <!-- No crew message -->
+      <div class="add-crew-message" *ngIf="!showCrewList()">
+        <img src="assets/images/daily-field-report/background-crew-members.png" class="slide-image" />
+        <h2 class="slide-title">Crew Members!</h2>
+        <p>Add Crew members clicking <b>Add Crew Member</b> button on top right.</p>
+      </div>
+
+      <!-- Crew list -->
+      <ion-list *ngIf="showCrewList()" class="crew-list">
+        <ion-item-sliding *ngFor="let crewMember of model.ReportEmployees; let i = index">
+
+          <ion-item (click)="editCrew($event, crewMember)">
+
+            <div item-content class="crew-item-content">
+
+              <ion-grid>
+                <ion-row align-items-center>
+                  <ion-col col-3>
+                    <ion-icon [className]="getEmployeeTypeClass(crewMember)"></ion-icon>
+                    <ion-icon class="icon-disabled" [ngClass]="{'icon-enabled':crewMember.CanDrive}" name="car"></ion-icon>
+                    <ion-icon class="icon-disabled" [ngClass]="{'icon-enabled':crewMember.PerDiem}" name="logo-usd"></ion-icon>
+                  </ion-col>
+                  <ion-col col-8>
+                    <div>
+                      <h2><b>{{crewMember.Name}}</b></h2>
+                      <p>{{crewMember.WorkedHours}}</p>
+                    </div>
+                  </ion-col>
+                  <ion-col col-1 style="text-align: right">
+                    <ion-icon class="icon-disabled" [ngClass]="{'signed':crewMember.IsSigned}" name="checkmark-circle"></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+              <expandable [expandHeight]="260" [expanded]="crewMember.Expanded">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>Employee Name</ion-label>
+                        <select-searchable title="Employee"
+                                           placeholder="Select Name"
+                                           [(ngModel)]="crewMember.Id"
+                                           [items]="Employees"
+                                           [itemTemplate]="employeeTemplate"
+                                           itemValueField="EmployeeId"
+                                           itemTextField="EmployeeName"
+                                           [canSearch]="true"
+                                           name="EmployeeId"
+                                           [disabled]="isCrewDisabled(crewMember)"
+                                           (onChange)="setEmployee($event, crewMember)"
+                                           item-content>
+                        </select-searchable>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>Employee Type</ion-label>
+                        <ion-select [(ngModel)]="crewMember.EmployeeTypeId" name="EmployeeType" interface="action-sheet" placeholder="Select Type" [disabled]="isCrewDisabled(crewMember)">
+                          <ion-option *ngFor="let employeeType of EmployeeTypes" [value]="employeeType.EmployeeTypeId">{{employeeType.EmployeeTypeDescription}}</ion-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>Per Diem</ion-label>
+                        <ion-checkbox color="secondary" checked="false" [(ngModel)]="crewMember.PerDiem" (ionChange)="setPerDiem(crewMember)" [disabled]="isCrewDisabled(crewMember)"></ion-checkbox>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col col-6>
+                      <ion-item>
+                        <ion-label floating>Work Start <ion-icon name="arrow-forward"></ion-icon></ion-label>
+                        <ion-datetime displayFormat="hh:mm A" minuteValues="0,15,30,45" [(ngModel)]="crewMember.WorkStart" (ionChange)="setDateRange(crewMember)" [disabled]="isCrewDisabled(crewMember)"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                      <ion-item>
+                        <ion-label floating>Work End <ion-icon name="arrow-forward"></ion-icon></ion-label>
+                        <ion-datetime displayFormat="hh:mm A" minuteValues="0,15,30,45" [(ngModel)]="crewMember.WorkStop" (ionChange)="setDateRange(crewMember)" [disabled]="isCrewDisabled(crewMember)"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>Break Time</ion-label>
+                        <ion-select [(ngModel)]="crewMember.LunchDuration" name="lunchDuration" interface="action-sheet" placeholder="Select Break Time" (ionChange)="setDateRange(crewMember)" [disabled]="isCrewDisabled(crewMember)">
+                          <ion-option *ngFor="let LunchDuration of LunchDurationArr" [value]="LunchDuration.Id">{{LunchDuration.Value}}</ion-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </expandable>
+
+            </div>
+
+          </ion-item>
+
+          <ion-item-options>
+            <button ion-button color="danger" expandable (click)="removeCrew($event, crewMember)" [disabled]="crewMember.IsSigned">
+              <ion-icon name="trash"></ion-icon>
+              Remove
+            </button>
+            <button ion-button color="light" (click)="signCrew($event, crewMember)" [disabled]="isSignDisabled(crewMember)">
+              <ion-icon name="create"></ion-icon>
+              Sign
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+
+    </div>
+
+  <ion-fab right bottom>
+    <button ion-fab mini (click)="saveDfr()" *ngIf="model.Status == 'New' || model.Status == 'Saved' || model.Status == 'Rejected'"><fa-icon name="save"></fa-icon></button>
+    <button ion-fab mini (click)="submitDfr()" *ngIf="model.Status == 'New' || model.Status == 'Saved' || model.Status == 'Rejected'"><fa-icon name="send-o"></fa-icon></button>
+    <button ion-fab mini (click)="rejectDfr()" *ngIf="model.Status == 'Submitted' || model.Status == 'Approved'" color="danger"><ion-icon name="close"></ion-icon></button>
+    <button ion-fab mini (click)="approveDfr()" *ngIf="model.Status == 'Submitted'" color="success"><ion-icon name="checkmark"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar no-border-top no-border-bottom>
+    <ion-segment  mode="md" [(ngModel)]="page">
+      <ion-segment-button value="form" checked>
+        General Info
+      </ion-segment-button>
+      <ion-segment-button value="crew">
+        Crew
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

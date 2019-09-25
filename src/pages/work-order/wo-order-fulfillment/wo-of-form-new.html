@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Create Work Order</ion-title>
+    </ion-navbar>
+</ion-header>`
+
+<ion-content>
+        <ion-list>
+            <div class="instructions">Select a Job Number</div>
+            <ion-item>
+                <ion-label stacked>Job #</ion-label>
+                <select-searchable title="Job #"
+                                   [(ngModel)]="model.SiteNumber"
+                                   [items]="jobs"
+                                   [useObject]="true"
+                                   [canSearch]="true"
+                                   [canInfiniteScroll]="true"
+                                   [showItemsCount]="true"
+                                   name="SiteNumber"
+                                   (onChange)="onJobNumberChange($event)"
+                                   item-content>
+                </select-searchable>
+            </ion-item>
+            <div *ngIf="model.SiteNumber">
+                <div *ngIf="salesOrders && salesOrders.length>0">
+                    <div class="instructions">Select Sales Orders</div>
+                    <ion-item>
+                        <ion-label stacked>Sales Orders</ion-label>
+                        <ion-select multiple="true"
+                        [(ngModel)]="model.SalesOrders" name="SalesOrders" >
+                            <ion-option *ngFor="let so of salesOrders" [value]="so">{{so.OrderNumber}} ({{so.OrderType}})</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+                <div class="no-data" *ngIf="salesOrdersRefreshed && (!salesOrders || salesOrders.length==0)">
+                    <p><i class="fa fa-exclamation-triangle"></i>Selected Job # does not have any Sales Order to fulfill. Please check Job # and try again!</p>
+                </div>
+            </div>
+            <div *ngIf="salesOrders && salesOrders.length>0">
+                <div class="instructions">Select the priority</div>
+                <ion-item>
+                    <ion-label stacked>Priority</ion-label>
+                    <ion-select interface="action-sheet"
+                    [(ngModel)]="model.PrioritySID" name="Priority">
+                        <ion-option value=1>Critical</ion-option>
+                        <ion-option value=2>High</ion-option>
+                        <ion-option value=3>Medium</ion-option>
+                        <ion-option value=4>Low</ion-option>
+                    </ion-select>
+                </ion-item>
+                <div class="instructions">Select the Dock Ready Date</div>
+                <ion-item>
+                    <ion-label stacked>Dock Ready Date</ion-label>
+                    <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" [min]="minDockDate" [max]="maxDockDate"
+                    [(ngModel)]="model.DockReadyDate" name="DockReadyDate" #DockReadyDate="ngModel">
+                    </ion-datetime>
+                </ion-item>
+                <div class="instructions"><span class="required">**</span>All fields are mandatory</div>
+            </div>
+        </ion-list>
+
+    <ion-fab right bottom>
+        <button ion-fab mini (click)="createWorkOrder()" [disabled]="isSaveDisabled()"><fa-icon name="save"></fa-icon></button>
+    </ion-fab>
+</ion-content>

@@ -1,0 +1,14 @@
+
+<button ion-button icon-left full class="speech-button" (click)="recordSpeech()" [color]="recordingColor()" *ngIf="buttonType == 'full'">
+  <ion-icon name="microphone"></ion-icon>
+  {{buttonText}}
+</button>
+
+<button ion-fab mini class="speech-button" (click)="recordSpeech()" [color]="recordingColor()" *ngIf="buttonType == 'fab-mini'">
+  <ion-icon name="microphone"></ion-icon>
+</button>
+
+<button ion-button icon-only clear class="speech-button" (click)="recordSpeech()" *ngIf="buttonType == 'input'">
+  <span class="spt-icon" *ngIf="recording"><img src="assets/images/components/audio-note-red.svg"></span>
+  <span class="spt-icon" *ngIf="!recording"><img src="assets/images/components/audio-note.svg"></span>
+</button>

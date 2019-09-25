@@ -1,0 +1,85 @@
+<ion-grid class="recorder">
+  <ion-row align-items-center>
+    <div class="recorder-title-col">
+      <span class="recorder-title"><span class="required" *ngIf="required">*</span>{{title}}</span>
+    </div>
+    <div class="recorder-timer-col">
+      <div class="recorder-timer-container" *ngIf="recording">        
+        <span><ion-icon name="mic" class="recorder-icon blink"></ion-icon></span>
+        <span class="recorder-timer">{{timer}}</span>
+      </div>
+    </div>
+    <div class="recorder-button-col">
+      <button ion-fab mini class="recorder-button" (click)="record()" [color]="recordingColor()" [class.recording]="recording">
+        <span class="an-icon"><img class="icon-grey" src="assets/images/components/voice-mail.svg"></span>
+      </button>
+    </div>
+  </ion-row>
+</ion-grid>
+
+<ion-list class="audio-list" [class.full-track]="trackType == 'full'" *ngIf="trackType == 'full'">
+  <audio-track #audio *ngFor="let track of myTracks; index as i;" [track]="track">
+    <ion-item>
+      <ion-thumbnail item-left>
+        <img src="{{audio.art}}">
+        <audio-track-play dark [audioTrack]="audio">
+          <ion-spinner></ion-spinner>
+        </audio-track-play>
+      </ion-thumbnail>
+      <div item-content style="width:100%">
+          <div class="audio-labels">
+            <strong>{{audio.title}} {{i+1}}</strong>
+            <em style="font-size:.5em">User: {{audio.artist}}</em>
+          </div>
+          <div class="audio-buttons">
+            <button ion-button class="audio-item-upload" color="light" item-end clear icon-only (click)="uploadAudio(audio, i)" *ngIf="!audio.track.isUploaded">
+              <ion-icon name='cloud-upload' is-active="false"></ion-icon>
+            </button>
+            <button ion-button class="audio-item-check" color="success" item-end clear icon-only *ngIf="audio.track.isUploaded">
+              <ion-icon name='checkmark' is-active="false"></ion-icon>
+            </button>
+            <button ion-button class="audio-item-remove" color="danger" item-end clear icon-only (click)="removeAudio(audio, i)">
+              <ion-icon name='trash' is-active="false"></ion-icon>
+            </button>
+          </div>
+          <audio-track-progress-bar duration progress [audioTrack]="audio"></audio-track-progress-bar>
+      </div>
+    </ion-item>
+  </audio-track>
+</ion-list>
+
+<ion-list class="audio-list" [class.small-track]="trackType == 'small'" *ngIf="trackType == 'small'">
+  <audio-track #audio *ngFor="let track of myTracks; index as i;" [track]="track">
+    <ion-item>
+      <ion-thumbnail item-left>
+        <audio-track-play dark [audioTrack]="audio">
+          <ion-spinner></ion-spinner>
+        </audio-track-play>
+      </ion-thumbnail>
+      <div class="item-content" item-content style="width:100%">
+        <!--<div class="audio-buttons">
+          <button ion-button class="audio-item-remove" color="danger" item-end clear icon-only (click)="removeAudio(audio, i)">
+            <ion-icon name='close' is-active="false"></ion-icon>
+          </button>
+        </div>-->
+        <button ion-button class="audio-item-remove" color="danger" item-end clear icon-only (click)="removeAudio(audio, i)">
+          <ion-icon name='close' is-active="false"></ion-icon>
+        </button>
+        <audio-track-progress-bar duration progress [audioTrack]="audio"></audio-track-progress-bar>
+      </div>
+    </ion-item>
+  </audio-track>
+</ion-list>
+
+<!--<button ion-button color="light" (click)="onUploadAllPendingAudios()">
+  <ion-icon name="cloud-upload"> Upload All Pending Audios</ion-icon>
+</button><br />-->
+<!--<button ion-button color="light" (click)="uploadAudioFile()">
+  <ion-icon name="cloud-upload"> Upload Audio</ion-icon>
+</button><br />-->
+<!--<button ion-button color="light" (click)="playTest()">
+  <ion-icon name="play"> Play Test</ion-icon>
+</button>-->
+<!--<button ion-fab mini color="light" ion-long-press class="recorder-button" (onPressStart)="startRecord()" (onPressEnd)="stopRecord()">
+<ion-icon name="mic"></ion-icon>
+</button>-->

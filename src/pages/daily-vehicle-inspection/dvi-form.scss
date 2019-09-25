@@ -1,0 +1,51 @@
+dvi-form {
+    ion-content {
+        .item {
+            &.item-md {
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+        }
+        .fixed-content {
+            ion-fab {
+                .fab {
+                    color: #fff !important;
+
+                    &.fab-md-light {
+                        background-color: map-get($accuvcolors, accuv-blue) !important;
+                    }
+
+                    .fab-close-icon {
+                        background-color: map-get($accuvcolors, accuv-blue) !important;
+                    }
+                }
+            }
+        }
+
+        .list {
+            .item-input:last-child {
+                border: 0;
+            }
+        }
+
+        .item-invalid {
+            .label {
+                background-color: map-get($accuvcolors, accuv-orange) !important;
+                color: #FFF;
+            }
+        }
+
+        .required {
+            color: red;
+            margin-right: 5px;
+        }
+
+        ion-fab {
+            display: -webkit-box;
+
+            .fa {
+                font-size: 1.8rem;
+            }
+        }
+    }
+}

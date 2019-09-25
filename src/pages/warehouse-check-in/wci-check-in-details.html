@@ -1,0 +1,32 @@
+
+<ion-content (touchend)="refreshTimeout()">        
+  <div class="main-slide">
+    <div class="checkInIcon">
+      <ion-icon name="contact"></ion-icon>
+    </div>
+    <div class="checkInTitle">
+      <h2>Check In For Site ID: {{ getCheckInSiteName() }}</h2>
+    </div>
+    <ion-list>
+      <form #detailsForm="ngForm">
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="checkIn.CheckInName" name="checkInName" placeholder="Name" (input)="refreshTimeout()"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="tel" [(ngModel)]="checkIn.CheckInPhone" maxLength="10" name="checkInPhone" placeholder="Phone" (input)="refreshTimeout()"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="email" [(ngModel)]="checkIn.CheckInEmail" name="checkInEmail" placeholder="Email" (input)="refreshTimeout()"></ion-input>
+        </ion-item>
+        <div class="checkMeInButtonWrapper">
+          <button id="checkMeInButton" ion-button color="secondary" full (click)="checkMeIn()">Check Me In</button>
+        </div>
+      </form>
+    </ion-list>
+  </div>
+  <ion-fab left bottom>
+    <button ion-fab color="danger" (click)="cancelDetails()">
+      <fa-icon name="arrow-left"></fa-icon>
+    </button>
+  </ion-fab>
+</ion-content>

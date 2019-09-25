@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{getTitle()}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="powa-po-total-top">
+      <span class="title">
+          {{powa.type == 'PO' ? 'Total Amount: ' : 'Amount Pending Approval: '}}
+      </span>
+      <span class="content">
+        {{(powa.type == 'PO' ? powa.POTotal || '0': powa.PendingAccrualAmount || '0') | currency:'USD':'symbol-narrow':'1.2-2'}}
+      </span>
+  </div>
+  <div class="powa-header">
+    <div class="powa-rows">
+      <div class="powa-row">
+        <div class="powa-col">
+          <div class="title">
+            Job #
+          </div>
+          <div class="content">
+            {{powa.SiteNumber || 'No Job # defined for this PO'}}
+          </div>
+        </div>
+        <div class="powa-col fixed">
+          <div class="title">
+            Date
+          </div>
+          <div *ngIf="powa.type == 'PO'" class="content">
+            {{(powa.CreatedDate | fullDateTimeFormat) || '---'}}
+          </div>
+          <div *ngIf="powa.type == 'CLOSEOUT'" class="content">
+            {{(powa.LastRevisionDate | fullDateTimeFormat) || '---'}}
+          </div>
+        </div>
+      </div>
+
+      <div class="powa-row">
+        <div class="powa-col">
+          <div class="title">
+            Site Name
+          </div>
+          <div class="content">
+            {{powa.SiteName || 'No site name defined for this PO'}}
+          </div>
+        </div>
+      </div>
+
+      <div class="powa-row">
+        <div class="powa-col">
+          <div class="title">
+            Vendor
+          </div>
+          <div class="content">
+            {{powa.SFVendorName || 'No vendor defined for this PO'}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="powa-toggle-group" (click)="toggleGroup()">
+    <h2>
+        {{getTitle()}} Details
+        <ion-icon item-right [name]="isGroupShown() ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+    </h2>
+  </div>
+  <div *ngIf="isGroupShown()">
+    <ion-list>
+      <ion-item class="status-wrapper" [ngClass]="getStatusClass(powaLine)" *ngFor="let powaLine of powaLines">
+          <div class="powa-line" [class.powaIsCloseout]="powa.type != 'PO'">
+            <div class="powa-line-left">
+              <div class="powa-line-number-wrapper" *ngIf="powa.type == 'PO'">
+                <div class="powa-line-number">
+                  {{powaLine.POLineNumber}}
+                </div>
+              </div>
+              <div class="powa-line-description-wrapper">
+                {{powaLine.POItem}} ({{powaLine.POLineDescription || 'No Description'}})
+              </div>
+            </div>
+            <div class="powa-line-right">
+              <div class="powa-line-quantity">
+                <div class="title">
+                  Quantity
+                </div>
+                <div class="content">
+                    {{powaLine.RSTKPOLineQty || '0'}}
+                </div>
+              </div>
+              <div class="powa-line-total">
+                <div class="title">
+                  Line Amount
+                </div>
+                <div class="content">
+                    {{(powaLine.POTotal || 0) | currency:'USD':'symbol-narrow':'1.2-2'}}
+                </div>
+              </div>
+            </div>
+          </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+    <ion-fab right bottom>
+        <button ion-fab mini (click)="processAproval(false)" color="danger"><ion-icon name="close"></ion-icon></button>
+        <button ion-fab mini (click)="processAproval(true)" color="success"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab>
+</ion-content>

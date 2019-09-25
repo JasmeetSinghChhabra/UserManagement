@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <!-- Menu button  -->
+    <button *ngIf="!toggled" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!-- Title -->
+    <ion-title *ngIf="!toggled">
+      Work Orders [{{app.projectName}}]
+    </ion-title>
+    <!-- Search Bar -->
+    <ion-searchbar #searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch()" (ionInput)="search($event)" 
+      placeholder="Search"></ion-searchbar>
+    <!-- Search Icon -->
+    <ion-buttons end *ngIf="!toggled">
+      <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- shrink-header -->
+  <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content pullingText="Pull to refresh..."
+                           refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item class="work-order-item"  *ngFor="let WorkOrder of WorkOrders" (press)="itemPressed($event, WorkOrder)"
+      (tap)="itemTapped($event, WorkOrder)" [ngClass]="getSelectedClass(WorkOrder)">
+      <div class="work-order-item-row1" >
+        <span class="work-order-item-sitenumber">Job #: {{WorkOrder.SiteNumber}}</span>
+        <span class="work-order-item-reportdate">
+          {{WorkOrder.DockReadyDate | fullDateTimeFormat}}
+        </span>
+      </div>
+      <div class="work-order-item-row2">
+        Site Name: {{WorkOrder.SiteName}}
+      </div>
+      <div class="work-order-item-row2" >
+        Site ID: {{WorkOrder.SiteId}}
+      </div>
+      <div class="work-order-item-row2">
+        WO #: {{WorkOrder.WorkOrderSID}}
+      </div>
+      <div class="work-order-item-row2">
+        Status: <span [ngClass]="getStatusClass(WorkOrder)"> {{getStatusDescription(WorkOrder.StatusSID)}}</span>
+      </div>
+      <div class="work-order-item-row2">
+        GC: {{WorkOrder.GCCompanyDescription || ""}}
+      </div>
+      <div class="work-order-item-row2">
+        GC Pickup Date: {{WorkOrder.PickupDate ? formatDate(WorkOrder.PickupDate) : ""}}
+      </div>
+    </button>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab *ngIf="assignEnabled && selectedWorkOrders.length > 0" right bottom>
+    <button ion-fab color="primary" (click)=showWorkOrderAssignPage()><ion-icon name="person"></ion-icon></button>
+  </ion-fab>
+
+  <!--<ion-fab right bottom edge>
+    <button ion-fab color="primary" (click)="newDfr()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>-->
+
+</ion-content>

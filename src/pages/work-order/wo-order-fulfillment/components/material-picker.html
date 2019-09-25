@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{pickerTitle}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-row class="material-picker-info">
+            <ion-col col-auto>
+                <span class="label">Material</span>{{pickedItem.ItemNumber}}
+            </ion-col>
+            <ion-col col-auto *ngIf="lotNumber">
+                <span class="label">Location</span>{{pickedLocation.LocationId}}
+            </ion-col>
+            <ion-col col-auto *ngIf="lotNumber">
+                <span class="label">Lot Number</span>{{lotNumber}}
+            </ion-col>
+            <ion-col col-auto *ngIf="!lotNumber">
+                <span class="label">Location</span>
+                <ion-select interface="popover" [(ngModel)]="pickedLocation" (ngModelChange)="locationChangeValidation()" name="pickedLocation">
+                    <ion-option *ngFor="let location of pickedItem.InventoryItemLocations" [value]="location">{{location.LocationId}}</ion-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row class="material-picker-quantity">
+            <ion-col col-auto class="picked-quantity">
+                <span class="label">Picked Quantity</span>{{getQuantityPicked()}}
+            </ion-col>
+            <ion-col col-6 class="available-quantity">
+                <span class="label">Available Quantity</span>{{getQuantityAvailable()}}
+            </ion-col>
+        </ion-row>
+        <ion-row class="material-picker-quantity">
+            <ion-col col-auto class="pending-quantity">
+                <span class="label">Pending Quantity</span>{{getQuantityPending()}}
+            </ion-col>
+            <ion-col col-6 class="uom">
+                <span class="label">UOM</span>{{pickedItem.Uom}}
+            </ion-col>
+        </ion-row>
+        <ion-row class="material-picker-fields">
+            <ion-col col-auto>
+                <ion-item>
+                    <ion-label stacked>Quantity</ion-label>
+                    <ion-input #pickQty type="number" min="0" [(ngModel)]="pickInProgressQty" name="pickQty" (input)='validate($event.target.value)'>
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="material-picker-validation" *ngIf="validationError">
+            <ion-col col-12>
+                <span ion-text><i class="fa fa-exclamation-triangle"></i> {{validationError}}</span>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid>
+        <ion-row class="material-picker-butttons">
+            <ion-col col-12>
+                <ion-buttons start>
+                    <button ion-button color="danger" (click)="cancel()">
+                        <span ion-text>Cancel</span>
+                    </button>
+                    <button ion-button color="success" (click)="confirm()" [disabled]="validationError">
+                        <span ion-text>Confirm</span>
+                    </button>
+                </ion-buttons>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+</ion-footer>

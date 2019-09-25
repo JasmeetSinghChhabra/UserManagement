@@ -1,0 +1,55 @@
+wo-con-list {
+    .work-order-item {
+        padding-left: 0 !important;
+        &:nth-child(2n+0) {
+            background-color: #eef8f8;
+        }
+        .item-inner {
+            padding-left: 15px;
+            .input-wrapper {
+                .label {
+                    color: #333 !important;
+                    .work-order-item-row1 {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+        .work-order-item-row1 {
+            line-height: 24px;
+        }
+        .work-order-item-sitenumber {
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .work-order-item-reportdate {
+            float: right;
+            font-size: 12px;
+            color: #777;
+        }
+        .work-order-item-row3 {
+            font-size: 13px;
+        }
+        .work-order-item-row2 {
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 90%;
+            span{
+                &.status-critical {
+                    color: rgba(map-get($accuvcolors, accuv-danger), 1);
+                }
+                &.status-high {
+                    color: rgba(map-get($accuvcolors, accuv-warning), 1);
+                }
+                &.status-low {
+                    color: rgba(map-get($accuvcolors, accuv-success), 1);
+                }
+                &.status-medium {
+                    color: rgba(map-get($accuvcolors, accuv-blue), 1);
+                }
+            }
+        }
+    }
+}

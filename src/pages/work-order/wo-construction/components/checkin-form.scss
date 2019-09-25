@@ -1,0 +1,59 @@
+checkIn-form {
+    ion-toolbar {
+        .toolbar-content {
+            ion-title {
+                .toolbar-title {
+                    color: map-get($colors, white) !important;
+                }
+            }
+        }
+        .toolbar-background {
+            background: map-get($accuvcolors, accuv-orange);
+        }
+    }
+    ion-item {
+        &.ng-valid {
+            border-color: map-get($accuvcolors, accuv-success);
+        }
+        &.image-uploader {
+            button {
+                padding: 15px 20px !important;
+                font-size: 1.4rem !important;
+                line-height: 1.6rem !important;
+
+                ion-icon {
+                    margin-right: 5px;
+                }
+            }
+            .screenshot-title {
+                margin-top: 15px;
+                font-size: 1.2rem;
+
+                .md & {
+                    color: #999;
+                }
+            }
+            .screenshot-image {
+                display: block;
+                background: rgba(map-get($accuvcolors, accuv-gray-bg), .4) ;
+                background: -webkit-linear-gradient(180deg, rgba(map-get($accuvcolors, accuv-gray-bg), .4), rgba(map-get($accuvcolors, accuv-gray-bg), .1));
+                background: linear-gradient(180deg, rgba(map-get($accuvcolors, accuv-gray-bg), .4), rgba(map-get($accuvcolors, accuv-gray-bg), .1));
+                height: 150px;
+
+                img {
+                    width: auto;
+                    height: auto;
+                    margin: 0 auto;
+                    object-fit: contain;
+                    max-height: 150px;
+                }
+            }
+        }
+    }
+    .required {
+        color: map-get($accuvcolors, accuv-danger);
+    }
+    .required-message {
+        font-size: 1.2rem;
+    }
+}

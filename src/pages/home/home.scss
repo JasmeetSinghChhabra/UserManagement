@@ -1,0 +1,64 @@
+home {
+    .title-icon {
+        img {
+            height: 35px;
+        }
+        position: absolute;
+        right: 0;
+        top: -10px;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    ion-content {
+        background-color: map-get($accuvcolors, accuv-new-gray) !important;
+
+        &.emptyHome {
+            .scroll-content {
+                background-image: url('../assets/images/home/mobile-home.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center;
+                padding: 15px;
+
+                .eh-card {
+                    width: auto;
+                    min-width: 300px;
+                    padding: 30px 20px 20px;
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+
+                    .eh-logo {
+                        text-align: center;
+                        margin-bottom: 15px;
+
+                        img {
+                            position: relative;
+                            display: inline-block;
+                            width: 100px;
+                            height: auto;
+                        }
+                    }
+                    .eh-copy {
+                        text-align: center;
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+        }
+    }
+
+    ion-avatar {
+        display: inline;
+        img{
+            display: inline;
+            width:18px;
+            height: 15px;
+        }
+    }
+}

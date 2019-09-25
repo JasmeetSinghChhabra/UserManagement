@@ -1,0 +1,64 @@
+<ion-menu id="menu-accuv-app" [content]="content">
+
+  <ion-content>
+    <ion-list>
+      <ion-item-group class="user-project-block">
+
+        <ion-item-divider class="useraccuv" color="primary">
+
+          <ion-icon class="usericonaccuv" name="contact" item-start color="primary"></ion-icon>
+          <ion-label>{{userName}}</ion-label>
+          <button class="basic-button-accuv" menuClose ion-button item-end outline color="white" (click)="doLogoff()">Log
+            Off</button>
+
+        </ion-item-divider>
+
+        <ion-item-divider class="projectaccuv">
+          <ion-icon name="apps" item-start color="primary"></ion-icon>
+          <ion-label>{{projectName}}</ion-label>
+          <button class="basic-button-accuv" menuClose ion-button item-end outline color="white" (click)="switchProgram()">Switch</button>
+        </ion-item-divider>
+
+      </ion-item-group>
+
+      <ion-item-group class="item-project-block">
+        <ion-item>
+          <ion-label>Modules</ion-label>
+        </ion-item>
+
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          <fa-icon *ngIf="p.icon.type=='fa'" name="{{p.icon.name}}" item-start icon-only></fa-icon>
+          <ion-avatar *ngIf="p.icon.type=='custom'">
+            <img src="assets/images/module-icons/{{p.icon.name}}">
+          </ion-avatar>
+
+          {{p.title}}
+        </button>
+
+        <ion-item>
+          <ion-label>Help & Settings</ion-label>
+        </ion-item>
+
+        <button menuClose ion-item (click)="openAbout()">
+          <fa-icon name="info-circle" item-start icon-only></fa-icon>
+          About
+        </button>
+
+        <button menuClose ion-item (click)="checkForUpdates(true)">
+          <fa-icon name="hashtag" item-start icon-only></fa-icon>
+          Check For Updates
+        </button>
+        <button *ngIf="this.isChangePasswordButtonVisible" menuClose ion-item (click)="changePassword()" >
+          <fa-icon name="lock" item-start icon-only></fa-icon>
+          Change Password
+        </button>
+      </ion-item-group>
+
+    </ion-list>
+
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

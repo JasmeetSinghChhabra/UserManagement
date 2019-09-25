@@ -1,0 +1,10 @@
+
+<ion-tabs id="nav-tabs-dvi" tabsPlacement="bottom" tabsHighlight="false" selectedIndex={{tab}}>
+  <ion-tab tabTitle="New" [root]="newDvis" [rootParams]="newDvisParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="Saved" [root]="savedDvis" [rootParams]="savedDvisParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="Submitted" [root]="subDvis" [rootParams]="subDvisParams" tabsHideOnSubPages="true"></ion-tab>
+</ion-tabs>
+
+<ion-fab right bottom>
+  <button ion-fab color="primary" (click)="newDvi()"><ion-icon name="add"></ion-icon></button>
+</ion-fab>

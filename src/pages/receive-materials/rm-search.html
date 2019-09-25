@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Customer Provided Materials [{{app.projectName}}]
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="form-list">
+    <form #siteSearchForm="ngForm">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label stacked>Search by</ion-label>
+              <ion-select [(ngModel)]="searchBy" name="searchBy" interface="popover">
+                <ion-option>{{SEARCHBY_CALLOUTNO}}</ion-option>
+                <ion-option>{{SEARCHBY_PTN}}</ion-option>
+                <ion-option>{{SEARCHBY_JOBNO}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="searchBy!=SEARCHBY_CALLOUTNO">
+              <ion-input type="text" [(ngModel)]="searchText" name="searchText" clearInput></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="searchBy==SEARCHBY_CALLOUTNO">
+          <ion-col col-sm-10>
+            <ion-item>
+              <ion-input type="text" [(ngModel)]="searchText" name="searchText" clearInput></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-auto><button float-right ion-button type="button" (click)="scanCallout()">
+              <i class="fa fa-barcode"></i> <span style="padding-left:5px">Scan </span>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </form>
+  </ion-list>
+
+  <div style="width: 100%; padding: 10px;">
+    <button id="searchButton" ion-button color="primary" full (click)="siteSearch()">Search</button>
+  </div>
+
+</ion-content>

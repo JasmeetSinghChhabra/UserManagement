@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <!-- Menu button  -->
+    <button *ngIf="!toggled" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!-- Title -->
+    <ion-title *ngIf="!toggled">
+      Daily Field Report [{{app.projectName}}]
+    </ion-title>
+    <!-- Search Bar -->
+    <ion-searchbar class="dfr-searchbar" #searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch()" (ionInput)="search($event)" placeholder="Id, Job#, Site Name or Date (mmddyyyy)"></ion-searchbar>
+    <!-- Search Icon -->
+    <ion-buttons end *ngIf="!toggled">
+      <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- shrink-header -->
+  <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content pullingText="Pull to refresh..."
+                           refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item class="dfr-item" *ngFor="let dfr of dfrs" (click)="itemTapped($event, dfr)">
+      <div class="dfr-item-row1">
+        <span class="dfr-item-sitenumber">Job #: {{dfr.Site.SiteNumber}}</span>
+        <span class="dfr-item-reportdate">
+          {{dfr.ReportDate | listDateTimeFormat}}
+        </span>
+      </div>
+      <div class="dfr-item-row2">
+        Site Name: {{dfr.Site.SiteName}}
+      </div>
+      <div class="dfr-item-row3">
+        DFR #: {{dfr.ReportId}}
+      </div>
+    </button>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!--<ion-fab right bottom edge>
+    <button ion-fab color="primary" (click)="newDfr()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>-->
+
+</ion-content>

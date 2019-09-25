@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      About
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-list-header color="light">
+      Application
+    </ion-list-header>
+
+    <ion-item>
+      <fa-icon name='dot-circle-o' item-start></fa-icon>
+      <h2>Name</h2>
+      <p>{{appName}}</p>
+    </ion-item>
+
+    <ion-item *ngIf="!appConfig.isProduction">
+      <fa-icon name='cube' item-start></fa-icon>
+      <h2>Package</h2>
+      <p>{{appPackage}}</p>
+    </ion-item>
+
+    <ion-item>
+      <fa-icon name='hashtag' item-start></fa-icon>
+      <h2>Version</h2>
+      <p>{{appVersionNumber}}</p>
+    </ion-item>
+
+    <ion-item *ngIf="!appConfig.isProduction">
+      <fa-icon name='plug' item-start></fa-icon>      
+      <h2>Backend endpoint</h2>
+      <p>{{appConfig.endpoint}}</p>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,76 @@
+﻿signature {
+    .header {
+        display: block;
+
+        .title-wrapper {
+            background-color: #f3f3f3;
+            padding: 23px 20px;
+
+            .icon {
+                color: map-get($accuvcolors, accuv-danger);
+
+                &:before {
+                    font-size: 22px;
+                }
+            }
+
+            h2 {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 15px;
+                display: inline;
+            }
+        }
+
+        .title-warning {
+            color: map-get($accuvcolors, accuv-danger);
+        }
+
+        .title-signature {
+            text-align: center;
+            h2 {
+              font-size: 20px;
+            }
+        }
+    }
+
+    .signature-content {
+        .scroll-content {
+            .signaturecontent {
+                margin: 15px 10px 10px 10px;
+                display: block;
+
+                img {
+                    border: 1px solid map-get($accuvcolors, accuv-blue);
+                    display: block;
+                    width: 100%;
+                }
+
+                signature-pad {
+                    height: 100%;
+                    display: block;
+                    overflow: hidden;
+                    text-align: center;
+                }
+
+                canvas {
+                    border: 1px solid map-get($accuvcolors, accuv-blue);
+                }
+            }
+
+            .buttons-content {
+                padding: 0 20px;
+                text-align: center;
+                .button {
+                    margin-bottom: 12px;
+
+                    .button-inner {
+                        .icon {
+                            padding-right: 7px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

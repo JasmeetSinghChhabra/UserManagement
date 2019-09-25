@@ -1,0 +1,63 @@
+{
+  "_from": "git+https://github.com/Taracque/cordova-plugin-voippush.git",
+  "_id": "cordova-plugin-voippush@0.0.2",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-voippush",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/Taracque/cordova-plugin-voippush.git",
+    "rawSpec": "git+https://github.com/Taracque/cordova-plugin-voippush.git",
+    "saveSpec": "git+https://github.com/Taracque/cordova-plugin-voippush.git",
+    "fetchSpec": "https://github.com/Taracque/cordova-plugin-voippush.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/Taracque/cordova-plugin-voippush.git#2b359e65051c7f61dcdb464935bdcea4de6dc422",
+  "_spec": "git+https://github.com/Taracque/cordova-plugin-voippush.git",
+  "_where": "C:\\Users\\User\\Documents\\REPOSITORIES\\nexius\\azzure\\accuv\\AccuV\\Source\\UI\\AccuVFoundation\\AccuV.UI.Mobile",
+  "author": {
+    "name": "Taracque",
+    "email": "taracque@taracque.hu"
+  },
+  "bugs": {
+    "url": "https://github.com/taracque/cordova-plugin-voippush/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-voippush",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "PushKit plugin for Cordova apps",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    },
+    {
+      "name": "cordova-ios",
+      "version": ">=4.0.0"
+    }
+  ],
+  "homepage": "https://github.com/taracque/cordova-plugin-voippush#readme",
+  "keywords": [
+    "cordova",
+    "ionic",
+    "pushkit"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-voippush",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taracque/cordova-plugin-voippush.git"
+  },
+  "version": "0.0.2"
+}

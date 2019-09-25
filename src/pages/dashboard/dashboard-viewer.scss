@@ -1,0 +1,33 @@
+dashboard-viewer {
+    .toolbar {
+        .toolbar-title {
+          .subtitle {
+            font-size: 66%;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+    }
+    .embedContainer {
+        height: 100%;
+        width: 100%;
+        border: none;
+    }
+    .embedContainer iframe {
+        border: none;
+    }
+    ion-spinner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        &.spinner-crescent crescent {
+          fill: #FFF!important;
+        }
+        * {
+          stroke: #FFF;
+        }
+      }
+}

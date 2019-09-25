@@ -1,0 +1,29 @@
+<ion-header>
+    <div class="title-wrapper title-warning" *ngIf="!canvasDisabled">
+        <ion-icon name="warning"></ion-icon>
+        <h2>Warning: Once saved, signature cannot be changed/deleted.</h2>
+    </div>
+    <div class="title-wrapper title-signature" *ngIf="canvasDisabled">
+      <h2>{{titleSignature}}</h2>
+    </div>
+</ion-header>
+
+<ion-content class="signature-content">
+    <div class="signaturecontent">
+        <img *ngIf="canvasDisabled && imgSrc" [src]="imgSrc ? imgSrc : ''" alt="signature">
+        <signature-pad [hidden]="canvasDisabled" [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+    </div>
+    <div class="buttons-content" [hidden]="canvasDisabled">
+        <button ion-button color="danger" (click)="closeModal()"><ion-icon name="close"></ion-icon>Cancel</button>
+        <button ion-button (click)="clearSignature()"><ion-icon name="refresh"></ion-icon>Clear</button>
+        <button ion-button color="success" (click)="saveSignature()"><ion-icon name="checkmark"></ion-icon>Save</button>
+    </div>
+    <div class="buttons-content" [hidden]="!canvasDisabled">
+        <button ion-button color="primary" block (click)="closeModal()">Close</button>
+    </div>
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>
+

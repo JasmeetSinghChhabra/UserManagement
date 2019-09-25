@@ -1,0 +1,13 @@
+
+<ion-tabs id="nav-tabs-work-order" tabsPlacement="bottom" tabsHighlight="false" selectedIndex={{tab}}>
+  <ion-tab tabTitle="Sites to Kit" [root]="pickUnassignedWorkOrders" [rootParams]="pickUnassignedWorkOrdersParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="Kits In Progress" [root]="pickAssignedWorkOrders" [rootParams]="pickAssignedWorkOrdersParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="QC Site Kits" [root]="qcWorkOrders" [rootParams]="qcWorkOrdersParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="Pending GC Pickup" [root]="gcPickupUnassignedWorkOrders" [rootParams]="gcPickupUnassignedWorkOrdersParams" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab tabTitle="GC Pickup In Progress" [root]="gcPickupAssignedWorkOrders" [rootParams]="gcPickupAssignedWorkOrdersParams" tabsHideOnSubPages="true"></ion-tab>
+ </ion-tabs>
+
+ 
+
+
+

@@ -1,0 +1,38 @@
+
+<ion-content class="outer-content" >
+    <div class="chat-engine-container">
+        <!-- TokBox OpenTok container -->
+        <div class="main-area-container">
+            <div class="App" id="acc-video-chat">
+                <div class="App-main">
+                    <div class="App-video-container" id="appVideoContainer">
+                        <div id="cameraSubscriberContainer" class="video-container-hidden"></div>
+                        <div id="screenSubscriberContainer" class="video-container-hidden"></div>
+                        <div id="cameraPublisherContainer" class="video-container hidden"></div>
+                        <div id="screenPublisherContainer" class="video-container hidden"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="App-chat-container-wrapper" [ngClass]="{'show-chat': showChatWindow}">
+                <div id="chat" class="App-chat-container"></div>
+                <div id="chatContainer" class="App-chat-container"></div>
+            </div>
+        </div>
+        
+        <div class="chat-call-buttons">
+            <button ion-fab [ngClass]="getButtonsClass()" [disabled]="!activeSession" (click)="toggleLocalAudio()">
+                <ion-icon [name]="audioOn ? 'mic' : 'mic-off'"></ion-icon>
+            </button>
+            <button ion-fab [ngClass]="getButtonsClass()" [disabled]="!activeSession" (click)="toggleLocalVideo()">
+                <span class="custom-icon" *ngIf="videoOn"><img class="icon-grey" src="assets/icon/videocam.svg"></span>
+                <span class="custom-icon" *ngIf="!videoOn"><img class="icon-grey" src="assets/icon/videocam-off.svg"></span>
+            </button>
+            <button ion-fab *ngIf="chatOn" class="toggle-chat-button" [ngClass]="{'chat-enabled': showChatWindow}" (click)="toggleChatWindow()">
+                <ion-icon name="chatboxes"></ion-icon>
+            </button>
+            <button ion-fab class="end-call-button" (click)="endCall()">
+                <span class="custom-icon"><img class="icon-grey" src="assets/icon/end-call.svg"></span>
+            </button>
+        </div>
+    </div>
+</ion-content>

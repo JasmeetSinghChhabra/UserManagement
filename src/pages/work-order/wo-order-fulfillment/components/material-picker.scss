@@ -1,0 +1,100 @@
+material-picker {
+    ion-header {
+        ion-toolbar{
+            .toolbar-background {
+                background-color: map-get($accuvcolors, accuv-blue);
+            }
+            .toolbar-content {
+                ion-title {
+                    .toolbar-title {
+                        color: map-get($colors, white);
+                        font-weight: normal;
+
+                        &.toolbar-title-ios {
+                            text-align: center;
+                        }
+                        &.toolbar-title-md {
+                            padding: 0 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ion-content {
+        ion-grid {
+            &.grid {
+                padding: 15px;
+
+                ion-row {
+                    ion-col {
+                        flex: 1 0.5 auto;
+                        ion-select{
+                            padding: 0px 4px 4px 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ion-footer {
+        ion-grid {
+            &.grid {
+                padding: 15px;
+            }
+        }
+    }
+    .material-picker-quantity,
+    .material-picker-info {
+        span.label {
+            display: block;
+            font-weight: 700;
+            color: map-get($accuvcolors, accuv-blue);
+            border-bottom: 2px solid map-get($accuvcolors, accuv-blue);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+        }
+    }
+    .material-picker-fields {
+        margin: 20px 0 0;
+
+        ion-item {
+            padding-left: 0;
+
+            ion-label {
+                color: black !important;
+                margin: 0 0 4px;
+            }
+        }
+    }
+
+    .material-picker-validation {
+        ion-col {
+            span {
+                display: block;
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid map-get($accuvcolors, accuv-danger);
+
+                i.fa {
+                    color: map-get($accuvcolors, accuv-danger);
+                }
+            }
+        }
+    }
+
+    .material-picker-butttons {
+        margin: 20px 0 0;
+
+        ion-buttons {
+            margin: 0;
+            text-align: right;
+
+            button {
+                margin: 0 5px 0 0;
+            }
+        }
+    }
+}

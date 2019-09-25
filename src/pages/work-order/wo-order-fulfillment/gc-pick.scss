@@ -1,0 +1,109 @@
+page-gc-pick {
+    .wod-item-check{
+        display: inline-block;
+        margin-left: 20px;
+    }
+
+    .grid{
+        background: map-get($accuvcolors, accuv-light-gray);
+        .grid-header{
+          font-weight: 700;
+          color: map-get($accuvcolors, accuv-blue);
+          border-bottom: 3px solid map-get($accuvcolors, accuv-blue);
+          text-transform: uppercase;
+          font-size: 1.1rem;
+        }
+      }
+    ion-fab {
+        display: -webkit-box;
+    }
+    .wod-item {
+        padding-left: 16px;;
+
+        .item-inner {
+
+            .input-wrapper {
+                .label {
+                    color: #333 !important;
+                    .wod-item-row1 {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+        .wod-item-check{
+            display: inline-block;
+        }
+        .wod-item-qty{
+            display: inline-block;
+        }
+        .wod-item-content{
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            padding: 10px;
+
+            .wod-item-subtitle {
+                font-size: 13px;
+                width: 100%;
+            }
+            .col-left {
+                flex: 1 1 auto;
+                max-width: 80%;
+                white-space: normal;
+            }
+            .col-right {
+                text-align: right;
+                flex: 1 0 auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-end;
+                white-space: normal;
+                justify-content: center !important;
+                align-items: center !important;
+                .qty-number{
+                    flex: 1 1 auto;
+                }
+                .qty-edit{
+                    flex: 1 0 auto;
+                }
+                .select-searchable {
+                    padding: 0;
+                    min-height: 0;
+            
+                    .item-cover{
+                        width: auto;
+                        height: auto;
+                    }
+            
+                    .select-searchable-icon-inner {
+                        border:none;
+                        left:0;
+                        top:0;
+                        margin-top: 1px;
+                        margin-left: 0px;
+            
+                        &::before {
+                            font-family: FontAwesome;
+                            content: '\f044';
+                            font-size: 14px;
+                            line-height: 14px;
+                            position: static;
+                            display: block;
+                            width: 14px;
+                            height: 14px;
+                            color: map-get($accuvcolors, accuv-black);
+                            overflow: auto;
+                        }
+                    }
+                }
+            }
+        }
+        .content {
+            font-size: 1.4rem;
+            padding: 5px;
+            background: rgba(map-get($accuvcolors, accuv-success), .15);
+        }
+    }
+}

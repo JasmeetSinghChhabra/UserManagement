@@ -1,0 +1,61 @@
+<!--
+  Generated template for the VideoQADetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title *ngIf="!toggled">
+            {{checkitem.Name}}</ion-title>
+    </ion-navbar>
+    <div class="vqa-item-name" padding>
+        <span>Item name</span>
+        {{checkitem.Name}} - {{checkitem.Description}}
+    </div>
+</ion-header>
+<ion-content>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content pullingText="Pull to refresh..."
+                                    refreshingText="Refreshing...">
+            </ion-refresher-content>
+        </ion-refresher>
+        <div class="vqa-items-wrapper">
+            <button *ngFor="let videoItem of videoList" ion-item detail-none class="vqa-item">
+                <div *ngIf="videoItem.Thumbnail" item-start class="media-thumb">
+                    <img [src]="videoItem.Thumbnail" width="60">
+                </div>
+                <div class="vqa-item-content">
+                    <div class="col-left">
+                        <div class="vqa-item-title">
+                            File Name: {{videoItem.FileName}}
+                        </div>
+                        <div class="vqa-item-subtitle">
+                            User: {{videoItem.LastModifiedUserId}}
+                        </div>
+                        <div class="vqa-item-subtitle">
+                            Status: {{videoItem.Status}}
+                        </div>
+                        <div *ngIf="videoItem.StatusComment" class="vqa-item-subtitle">
+                            Comment: {{videoItem.StatusComment}}
+                        </div>
+                    </div>
+                    <div class="col-right">
+                        <div class="vqa-item-created-date">
+                            {{(videoItem.LastModifiedDate | fullDateTimeFormat) || 'Created Date'}}
+                        </div>
+                    </div>
+                </div>
+                <progress *ngIf="videoItem.UploadProgress < 100" max="100" [value]="videoItem.UploadProgress"></progress>
+            </button>
+        </div>
+
+        <ion-fab right bottom>
+            <button ion-fab mini *ngIf="app.programFeatures.vqa_picture" (click)="getMedia(1, 0)"><ion-icon name="camera" class="capture-icon"></ion-icon></button>
+            <button ion-fab mini *ngIf="app.programFeatures.vqa_video" (click)="getMedia(2, 0)"><ion-icon name="videocam" class="capture-icon"></ion-icon></button>
+            <button ion-fab mini *ngIf="app.programFeatures.vqa_gallery" (click)="getMedia(0, 2)"><ion-icon name="photos" class="capture-icon"></ion-icon></button>
+        </ion-fab>
+</ion-content>
